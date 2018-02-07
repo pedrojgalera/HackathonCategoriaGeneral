@@ -1,0 +1,30 @@
+// ****************************************************************************
+//
+//	Scripting functions for MyApp domain
+//
+// ****************************************************************************
+//
+//	PROJECT	: HackTour
+// 	DOMAIN  : -
+//	MODULE  : Grammar
+//	PACKAGE	: -
+// 	FOLDER  : -
+// 	FILE	: MoneyGrammarScope.lkt
+//
+// ****************************************************************************
+
+(Money01 :
+	[ TaskDialogueAct -> MoneyScope ]
+	{
+		^ <- #1;
+	}
+)
+
+(Money02 :
+ 	[ MoneyScope -> lexMoney ]
+	{
+		string scope <- LiteralConcat('money', ShapeToString(#1));
+		^.Scope <- scope;
+	}
+)
+

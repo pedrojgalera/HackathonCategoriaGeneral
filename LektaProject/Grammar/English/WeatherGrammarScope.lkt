@@ -1,0 +1,37 @@
+// ****************************************************************************
+//
+//	Scripting functions for MyApp domain
+//
+// ****************************************************************************
+//
+//	PROJECT	: HackTour
+// 	DOMAIN  : -
+//	MODULE  : Grammar
+//	PACKAGE	: -
+// 	FOLDER  : -
+// 	FILE	: WeatherGrammarScope.lkt
+//
+// ****************************************************************************
+
+(Weather01 :
+	[ CoreDialogueAct -> lexWh lexBe3Sing ]
+	{
+		^.Dimension <- 'statement';
+		^.Function <- 'request';
+	}
+)
+
+(Weather02 :
+	[ TaskDialogueAct -> WeatherScope ]
+	{
+		^ <- #1;
+	}
+)
+
+(Weather03 :
+ 	[ WeatherScope -> lexDetThe? lexWeather? lexWeather ]
+	{
+		^.Scope <- 'weather';
+	}
+)
+

@@ -1,0 +1,111 @@
+// ****************************************************************************
+//
+//      Main setup file for fluency project: HackTour app
+//
+// ****************************************************************************
+//
+//	PROJECT	: HackTour
+// 	DOMAIN  : -
+//	MODULE  : -
+//	PACKAGE	: -
+// 	FOLDER  : -
+// 	FILE	: HackTour.lkt
+//
+// ****************************************************************************
+
+lektaProject
+    projectHead
+        projectDescriptor	: "HackTour"
+        projectLanguageScope	: [ English, Polish, Spanish ]
+        projectOperationScope	: [ Fluency ]
+        projectInterfaceScope   : [ Written, Spoken ]
+        projectCompileOutput 	: "Deployment/HackTour.olk"
+
+    projectSetup
+        setupParserRoots = ProferenceChunk, QuestionMark
+        setupTokenizerNormalizeSpecActivate
+        setupTokenizerNormalizeInputActivate
+        setupRuntimeSpyMessageOn
+        setupTokenizerSpellingChecker 
+        setupParserTokenNotFounds = lexSignChunk
+        ParlanceSensor:On
+
+	// TODO
+    //#Include "Kernel/Tools/Polyglot/ParlanceSensorCorpora.lkt"
+
+    #Include "Config/Config.lkt"
+
+    classModel
+        #Include < FLUINCLUDE "MainTypes.lkt" >
+        #Include "HackTourIndexTypes.lkt"
+
+    functionModel
+        #Include < FLUINCLUDE "MainFunctions.lkt" >
+        #Include "HackTourIndexFunctions.lkt"
+
+    lexicalModel forLanguage English
+        #Include < FLUINCLUDE "MainEnglishLexicon.lkt" >
+        #Include "Lexicon/HackTourIndexLexiconEnglish.lkt"
+
+    lexicalModel forLanguage Polish
+        #Include < FLUINCLUDE "MainPolishLexicon.lkt" >
+
+    lexicalModel forLanguage Spanish
+        #Include < FLUINCLUDE "MainSpanishLexicon.lkt" >
+
+    grammaticalModel forLanguage English
+        #Include < FLUINCLUDE "MainEnglishGrammar.lkt" >
+		#Include "Grammar/HackTourIndexGrammarEnglish.lkt"
+
+    grammaticalModel forLanguage Polish
+        #Include < FLUINCLUDE "MainPolishGrammar.lkt" >
+
+    grammaticalModel forLanguage Spanish
+        #Include < FLUINCLUDE "MainSpanishGrammar.lkt" >
+
+    conversationalModel
+        #Include < FLUBRAINDIALOGUEMANAGER "MindBoardStructure.lkt" >
+
+    LaunchConversation:
+    {
+        LaunchSendToMindBoard: (DialogueState = (DialoguePhase: 'booting_dialogue') )
+    }
+
+    ColligoSchemata
+        #Include < FLUBRAINDIALOGUEMANAGER "Phases/ColligoSchemata.lkt" >
+
+    SensoSchemata
+        #Include < FLUBRAINDIALOGUEMANAGER "Phases/SensoSchemata.lkt" >
+
+    CogitoSchemata
+        #Include < FLUBRAINDIALOGUEMANAGER "Phases/CogitoSchemata.lkt" >
+
+    RespondoSchemata
+        #Include < FLUBRAINDIALOGUEMANAGER "Phases/RespondoSchemata.lkt" >
+
+    LocutioSchemata
+        #Include < FLUBRAINDIALOGUEMANAGER "Phases/LocutioSchemata.lkt" >
+
+    functionModel
+        #Include < FLUBRAINDIALOGUEMANAGER "Heart/MainDialogueManagerFunctions.lkt" >
+        #Include < FLUBRAINDIALOGUEMANAGER "DialogueScriptsKernel.lkt" >
+        #Include "HackTourIndexScripts.lkt"
+        #Include "Functions/HackTourMindBoardFunctions.lkt"
+        #Include "Functions/HackTourUpdateAfterFunctions.lkt"
+
+  	scriboModel forLanguage English
+    	ScriboSchemata
+      		#Include "HackTourIndexGeneration.lkt"
+			#Include < FLUINCLUDE "MainGeneration.lkt" >
+
+  	scriboModel forLanguage Polish
+    	ScriboSchemata
+      		#Include "HackTourIndexGeneration.lkt"
+      		#Include < FLUINCLUDE "MainGeneration.lkt" >
+
+  	scriboModel forLanguage Spanish
+    	ScriboSchemata
+      		#Include "HackTourIndexGeneration.lkt"
+      		#Include < FLUINCLUDE "MainGeneration.lkt" >
+
+

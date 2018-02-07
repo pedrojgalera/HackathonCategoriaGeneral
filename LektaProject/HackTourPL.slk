@@ -1,0 +1,44 @@
+// ****************************************************************************
+//
+//	Scripting for testing purposes: English MyApp app
+//
+// ****************************************************************************
+//
+//	PROJECT	: HackTour
+// 	DOMAIN  : -
+//	MODULE  : -
+//	PACKAGE	: -
+// 	FOLDER  : -
+// 	FILE	: HackTourPL.slk
+//
+// ****************************************************************************
+
+LaunchLektaKernel
+(
+    ExecStrategy = KernelSynchronous
+)
+
+UseProject
+(
+    ProjectCompile : "Deployment/HackTour.olk"
+	TemporalFolder : ".tmp/"
+)
+
+setupRuntimeSpyMessageOn
+// MainAnswer:On
+// DisplayProcessLocutioOn
+DisplayProcessUnderstandingOn
+// DisplayProcessScriboOn
+// DisplayProcessSensoOn
+// DisplayProcessRespondoOn
+// DisplayProcessCogitoOn
+// DisplayProcessColligoOn
+
+CreateDialogue
+(
+    InstanceOperation:Fluency
+    InstanceLanguage:Polish
+    InstanceInterface:Written
+)
+
+połącz mnie z konsultantem

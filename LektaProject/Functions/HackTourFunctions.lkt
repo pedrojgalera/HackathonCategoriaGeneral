@@ -1,0 +1,497 @@
+// ****************************************************************************
+//
+//	Functions for MyApp domain
+//
+// ****************************************************************************
+//
+//	PROJECT	: Fluency/Indices
+// 	DOMAIN  : MyApp
+//	MODULE  : Functions
+//	PACKAGE	: -
+// 	FOLDER  : -
+// 	FILE	: MyAppFunctions
+//
+// ****************************************************************************
+
+bool executeBackOfficeBooleanFunctionDomainSpecific(string backOfficeFunctionName, Parameters parameters)
+{
+    bool b <- False;
+
+	if(StartsWith(backOfficeFunctionName, 'lastScript'))
+    {
+    	ScriptDescriptor scriptDescriptor <- RemovePrefix(backOfficeFunctionName, 'lastScript');
+
+        b <- lastLaunchedScriptDescriptor(scriptDescriptor);
+    }
+    else if(StartsWith(backOfficeFunctionName, 'isRandom'))
+    {
+    	string number <- RemovePrefix(backOfficeFunctionName, 'isRandom');
+
+    	b <- getMemCounter('random') == ShapeToInt(number);
+    }
+    else if(backOfficeFunctionName == 'isDetailsSuccess')
+	{
+		CustomData cdata <- getCustomData();
+
+		b <- !!cdata.HackTourProfiling.NoDetails;
+	}
+	else if( backOfficeFunctionName == 'campaignTriggering' )
+	{
+	   b <- campaignTriggering();
+	}
+	else if( backOfficeFunctionName == 'notCampaignTriggering' )
+	{
+	   b <- !! campaignTriggering();
+	}
+	else if( backOfficeFunctionName == 'noLastScript' )
+	{
+	   b <- noLastScript();
+	}
+
+    return b;
+}
+
+ParameterFormats getFormatsFromParameterDomainSpecific (ParameterType parameterType)
+{
+    ParameterFormats formats;
+
+    /* In what follows the specific logics to get formats for parameters
+     * specific from your domain should be written as follows:
+     *
+     * //My domain
+     * if(!! formats)
+     * {
+     * 	formats <- getFormatsFromParameterTypeMyParameter(parameterType);
+     * }
+     *
+     * */
+
+    return formats;
+}
+
+Parameter normalizeParameterDomainSpecific(Parameter parameter)
+{
+    Parameter ret;
+
+    /* In what follows the specific logics to normalize parameters
+     * specific from your domain should be written as follows:
+     *
+     * if(!!ret)
+     * {
+     * 	ret <-normalizeParameterMyParameter(parameter)
+     * }
+     *
+     * */
+
+    return ret;
+}
+
+ScriptNodeStateName checkParameterDomainSpecific(Parameter parameter)
+{
+    ScriptNodeStateName state;
+
+    if(!! state && (parameter.ParameterType == 'venuecategory' || parameter.ParameterType == 'venuesubcategory' || parameter.ParameterType == 'venue' ))
+    {
+        state <- 'correct';
+    }
+
+    return state;
+}
+
+ScriptNodeStateName checkParameterIntersententialDomainSpecific(InfoItemHistory history, Parameter parameter)
+{
+    ScriptNodeStateName state;
+
+    /* Add domain-dependent logics. */
+
+    /*
+     * For example:
+    // Domain: BankingManagement
+    if(!! state)
+    {
+        state <- checkParameterIntersententialBankingManagement(history, parameter );
+    }
+    */
+
+    return state;
+}
+
+bool compatibleExpectationTypesDomainSpecific(ParameterType expected, ParameterType detected)
+{
+    bool ret;
+    /*
+     do something
+    */
+    return ret;
+}
+
+ProferenceChunk convertProferenceToExpectationDomainSpecific(ParameterType typeTarget, ProferenceChunk originalProference)
+{
+    ProferenceChunk ret;
+    /* Following the conversion for each specific domain involved
+     * should be conducted:
+     * if(!! ret)
+     * {
+     * 	ret <- convertProferenceToExpectationMyType(typeTarget, originalProference);
+     * }
+     */
+
+    return ret;
+}
+
+Parameter executeBackOfficeFunctionDomainSpecific(string backOfficeFunctionName, Parameters parameters)
+{
+    Parameter p;
+
+    if( backOfficeFunctionName == 'get_forecast' )
+    {
+        return getForecast(parameters);
+    }
+    else if ( backOfficeFunctionName == 'get_venue_details' )
+    {
+    	return getVenueDetails(parameters);
+    }
+    else if ( backOfficeFunctionName == 'get_suggestions' )
+    {
+        return getSuggestions(parameters);
+    }
+    else if ( backOfficeFunctionName == 'get_next_venues' )
+    {
+        return getSuggestions(parameters);
+    }
+    else if ( backOfficeFunctionName == 'get_near_restaurants' )
+    {
+        return getRestaurantsNear(parameters);
+    }
+    else if ( backOfficeFunctionName == 'get_next_venue' )
+    {
+    	return getNextVenue(parameters);
+    }
+	else if ( backOfficeFunctionName == 'get_campaign')
+	{
+    	return getCampaign(parameters);
+	}
+    else if(StartsWith(backOfficeFunctionName, 'launch'))
+    {
+        ScriptDescriptor scriptDescriptor <- RemovePrefix(backOfficeFunctionName, 'launch');
+
+        if(scriptDescriptor == 'WeatherAdvisor')
+        {
+          launchWeatherAdvisor();
+        }
+        else if(scriptDescriptor == 'VenueSuggestion')
+        {
+        	launchVenueSuggestion();
+        }
+        else if(scriptDescriptor == 'DetailsSearcher')
+        {
+        	launchDetailsSearcher();
+        }
+        else if(scriptDescriptor == 'CampaignSuggestion')
+        {
+        	launchCampaignSuggestion();
+        }
+        else if(scriptDescriptor == 'NextVenue')
+        {
+        	launchNextVenue();
+        }
+    }
+    else if(StartsWith(backOfficeFunctionName, 'updateAfter'))
+    {
+    	ScriptDescriptor scriptDescriptor <- RemovePrefix(backOfficeFunctionName, 'updateAfter');
+
+    	if(scriptDescriptor == 'WeatherAdvisor')
+        {
+        	updateAfterWeatherAdvisor();
+        }
+        else if(scriptDescriptor == 'VenueSuggestion')
+    	{
+    		updateAfterVenueSuggestion();
+    	}
+    	else if(scriptDescriptor == 'DetailsSearcher')
+        {
+        	updateAfterDetailsSearcher();
+        }
+        else if(scriptDescriptor == 'CampaignSuggestion')
+        {
+        	updateAfterCampaignSuggestion();
+        }
+        else if(scriptDescriptor == 'NextVenue')
+		{
+			updateAfterNextVenue();
+		}
+    }
+    else if(backOfficeFunctionName == 'create_random')
+    {
+    	int r <- Random(1,4);
+
+    	// TODO REMOVE
+    	//r <- 4;
+
+    	setMemCounter('random', r);
+    }
+	else if(backOfficeFunctionName == 'removeSubcategory')
+    {
+     	setParameterCurrentScript('subcategory', p);
+    }
+
+    return p;
+}
+
+BackOfficeReturn executeBackOfficeNegotiateFunctionDomainSpecific(string backOfficeFunctionName, InfoItemHistory history, Parameters parameters)
+{
+    BackOfficeReturn bor;
+
+    /*
+     * Include domain-specific processing, similar to:
+     *
+     * // Domain: MedicalAppointment
+     * if( backOfficeFunctionName == 'negotiate_datetime_medical_appointment' )
+     * {
+     * 	bor <- negotiateDateTimeMedicalAppointment(history, parameters);
+     * }
+     */
+
+    return bor;
+}
+
+bool coherentActionScopeDomainSpecific(string action, string scope)
+{
+    bool ret;
+    ret <- False;
+
+    /*
+     * //Define the processing for each specific domain.
+     * For example:
+     *
+     * // Domain: MedicalAppointment
+     * ret <- ret || coherentActionScopeMedicalAppointment(action, scope);
+     *
+     */
+
+    return ret;
+}
+
+string getActionDomainFromLemmaDomainSpecific(string lemma)
+{
+    string action <- 'unknown';
+
+    /*
+     * //Domain-specific processing:
+     *
+     * //For example:
+     * // Domain: MedicalAppointment
+     * action <- getActionDomainFromLemmaMedicalAppointment(lemma);
+     * if( action != 'unknown' )
+     * {
+     * 	return action;
+     * }
+     * else
+     * {
+     * 	// Domain: BankingManagement
+     * 	action <- getActionDomainFromLemmaBankingManagement(lemma);
+     * 	if( action != 'unknown' )
+     * 	{
+     * 		return action;
+     * 	}
+     * }
+     *
+     * */
+
+    return action;
+}
+
+bool canMergeWithSequentialDomainSpecific (Parameter parameter1, Parameter parameter2)
+{
+    bool ret;
+    switch (parameter1.ParameterType)
+    {
+
+        /*
+         * //Domain-specific process (default must be True)
+         *
+         * case 'peselnumber'
+         * {
+         * 	ret <- canMergeWithSequentialPeselNumber(parameter1, parameter2);
+         * }
+         *
+         * */
+
+        default
+        {
+            ret <- True;
+        }
+    }
+    return ret;
+}
+
+bool canMergeWithOrDomainSpecific(Parameter parameter1, Parameter parameter2)
+{
+    bool ret;
+
+    switch (parameter1.ParameterType)
+    {
+        /*
+        case 'medicalspeciality'
+        {
+            ret <- canMergeWithOrSpeciality(parameter1, parameter2);
+        }*/
+        default
+        {
+            ret <- True;
+        }
+    }
+    return ret;
+}
+
+bool canMergeWithAndDomainSpecific(Parameter parameter1, Parameter parameter2)
+{
+    bool ret;
+
+    switch (parameter1.ParameterType)
+    {
+        /*
+        case 'medicalspeciality'
+        {
+            ret <- canMergeWithAndSpeciality(parameter1, parameter2);
+        }
+        */
+        default
+        {
+            ret <- True;
+        }
+    }
+    return ret;
+}
+
+ParameterValue concatenateHistoryDomainSpecific (InfoItemHistory history, Parameter lastParameter)
+{
+    ParameterValue ret;
+
+    /*
+     * //Include domain-specific logics. For example:
+     * if(!! ret)
+     * {
+     * 	ret <- concatenateHistoryKernel(history, lastParameter);
+     * }
+    */
+
+    return ret;
+}
+
+bool dialogueActPassFilterDomainSpecific(string scriptDescriptor, DialogueAct dialogueAct)
+{
+    bool ret <- True;
+
+    /*
+     * //Define domain-dependent logics
+     *
+     * //For example:
+     *
+     * // Domain: MedicalAppointment
+     * ret <- ret && dialogueActPassFilterMedicalAppointment(scriptDescriptor, dialogueAct);
+     * // Domain: BankingManagement
+     * ret <- ret && dialogueActPassFilterBankingManagement(scriptDescriptor, dialogueAct);
+     *
+     * */
+
+    return ret;
+}
+
+
+
+ProferenceChunk preprocessParamDetailsDomainSpecific(ParameterDetails details, ProferenceChunk originalProference)
+{
+    ProferenceChunk ret <- originalProference;
+
+    /*if (ret.Parameter.ParameterType == 'datetime' && details == 'duration'){
+        ret.Parameter.ParameterValue.DateTime.DateTimeRole = 'duration';
+    }*/
+
+    return ret;
+}
+
+
+bool excludeSensoElement (ProferenceChunk sensoElement) {
+    return False;
+}
+
+
+ProferenceChunk processSensoElement (ProferenceChunk sensoElement) 
+{
+    ProferenceChunk p <- sensoElement;
+
+	if(StartsWith(p.TaskDialogueAct.Scope, 'money'))
+	{
+		string scope <- p.TaskDialogueAct.Scope;
+		string lastCharacter <- SubLiteral(scope, LiteralSize(scope), LiteralSize(scope));
+	
+		CustomData cdata;
+		cdata <- getCustomData();
+		cdata.HackTourProfiling.MoneyStatus <- ShapeToInt(lastCharacter);
+		setCustomData(cdata);
+	}
+
+    return p;
+}
+
+
+procedure resetUserMemCountersArray () {
+ }
+
+procedure resetUserMemFlagsArray () {
+}
+
+procedure resetUserMemLightsArray () {
+}
+
+procedure settleLights (){
+}
+
+CustomData initializeCustomData()
+{
+    CustomData cdata;
+    Dict propFiles;
+    cdata.DomainPropFiles <- propFiles;
+
+	bool end <- False;
+	int i <- 1;
+	while (!!end)
+	{
+		string p1 <- LiteralConcat('campaign', ShapeToLiteral(i), '-name');
+		if(StaticTableExistFeature(CAMPAIGNPROPPATH, p1))
+		{
+			string v1 <- ShapeToString(StaticTableRecoverValue(CAMPAIGNPROPPATH, p1));			
+			string p2 <- LiteralConcat('campaign', ShapeToLiteral(i), '-trigger-money');
+			string v2 <- ShapeToString(StaticTableRecoverValue(CAMPAIGNPROPPATH, p2));			
+			string p3 <- LiteralConcat('campaign', ShapeToLiteral(i), '-trigger-city');
+			string v3 <- ShapeToString(StaticTableRecoverValue(CAMPAIGNPROPPATH, p3));			
+
+			Campaign c;
+			c.CampaignName <- v1;
+			c.CampaignTriggerMoney <- v2;
+			c.CampaignTriggerCity <- v3;
+
+			BatchInsertEnd(cdata.HackTourProfiling.Campaigns, c);
+		}
+		else
+		{
+			end <- True;
+		}
+		i++;
+	}
+	
+    return cdata;
+}
+
+ProferenceChunk preprocessProferenceForPolarQuestionDomainSpecific(ProferenceChunk proference) {
+    ProferenceChunk ret <- proference;
+
+    return ret;
+}
+
+ProferenceChunk preprocessActionDomainDomainSpecific(ProferenceChunk proference, Action actionExpectations, PolarQuestion isPolarQuestion) {
+    ProferenceChunk ret <- proference;
+
+    return ret;
+}

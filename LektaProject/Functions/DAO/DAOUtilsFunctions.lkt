@@ -1,0 +1,31 @@
+// ****************************************************************************
+//
+//	Functions for MyApp domain
+//
+// ****************************************************************************
+//
+//	PROJECT	: HackTour
+// 	DOMAIN  : -
+//	MODULE  : Functions
+//	PACKAGE	: DAO
+// 	FOLDER  : -
+// 	FILE	: DAOUtilsFunctions.lkt
+//
+// ****************************************************************************
+
+string encodeArgs (CallAPI call) 
+{
+	string query <- LiteralConcat('?function=',call.FunctionName);
+
+  	int size <- BatchSize(call.Args);
+  	for (int i<-1; i<=size; i++)
+	{
+    	Arg arg;
+    	BatchRecoverPosition(call.Args,i,arg);
+    	string param <- LiteralConcat('&',arg.ArgName,'=',arg.ArgValue);
+    	query <- LiteralConcat(query,param);
+  	}
+	
+    SpyMessage("QUERY: ", query);
+  	return query;
+}

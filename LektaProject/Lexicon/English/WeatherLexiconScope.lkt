@@ -1,0 +1,26 @@
+// ****************************************************************************
+//
+//	Scripting functions for MyApp domain
+//
+// ****************************************************************************
+//
+//	PROJECT	: Fluency/Indices
+// 	DOMAIN  : MyApp
+//	MODULE  : Scripts
+//	PACKAGE	: -
+// 	FOLDER  : -
+// 	FILE	: WeatherLexiconScope.lkt
+//
+// ****************************************************************************
+
+setupTokenizerBlanks (" !")
+
+("what", lexWh)
+("how", lexWh)
+
+("'s", lexBe3Sing)
+("will be", lexBe3Sing)
+
+("weather", lexWeather)
+("forecast", lexWeather)
+

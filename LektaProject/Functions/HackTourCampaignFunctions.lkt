@@ -1,0 +1,116 @@
+// ****************************************************************************
+//
+//	Functions for campaigns
+//
+// ****************************************************************************
+//
+//	PROJECT	: HackTour
+// 	DOMAIN  : -
+//	MODULE  : Functions
+//	PACKAGE	: -
+// 	FOLDER  : -
+// 	FILE	: HackTourCampaignFunctions.lkt
+//
+// ****************************************************************************
+
+Parameter getCampaign(Parameters parameters)
+{
+	Parameter ret;
+	Parameter paramCountryPlace;
+	paramCountryPlace <- getParByType(parameters, 'countryplace');
+	Campaign campaign;	
+	CustomData cdata <- getCustomData();
+
+	int n <- whichCampaignTriggered();
+	BatchRecoverPosition(cdata.HackTourProfiling.Campaigns, n, campaign);
+
+	ret.ParameterValue.Campaign <- campaign;
+	ret.ParameterValue.Campaign.CampaignNumber <- n;
+	ret.ParameterType <- 'campaign';
+	ret.ParameterCategory <- 'terminal';
+
+	return ret;
+}
+
+
+bool campaignTriggering()
+{
+	CustomData cdata <- getCustomData(); 
+	Campaigns campaigns <- cdata.HackTourProfiling.Campaigns;
+	
+	bool ret <- False;
+	for(int i <- 1; i <= BatchSize(campaigns); i++)
+	{
+		Campaign campaign;
+		BatchRecoverPosition(campaigns, i, campaign);
+
+		if(triggeredCampaign(campaign, cdata, i))
+		{
+			i <- BatchSize(campaigns);
+			ret <- True;
+		}
+	}
+
+	return ret;
+}
+
+int whichCampaignTriggered()
+{
+	CustomData cdata <- getCustomData(); 
+	Campaigns campaigns <- cdata.HackTourProfiling.Campaigns;
+
+	int ret;	
+	for(int i <- 1; i <= BatchSize(campaigns); i++)
+	{
+		Campaign campaign;
+		BatchRecoverPosition(campaigns, i, campaign);
+
+		if(triggeredCampaign(campaign, cdata, i))
+		{
+			ret <- i;
+			i <- BatchSize(campaigns);
+		}
+	}
+
+	return ret;
+}
+
+bool triggeredCampaign(Campaign c, CustomData cdata, int i)
+{
+	string moneyStatus <- ShapeToString(cdata.HackTourProfiling.MoneyStatus);
+	Parameter param <- getParameterCurrentScript('countryplace'); 
+	string city <- mostConcretePlace(param.ParameterValue.CountryPlace);
+
+	bool ret <- False;
+	if(city == LiteralConvertLower(c.CampaignTriggerCity))
+	{
+		if(LiteralIncluded(c.CampaignTriggerMoney, moneyStatus))
+		{
+			if(!! included(cdata.HackTourProfiling.ProposedCampaigns, i))
+			{
+				ret <- True;
+			}
+		}
+	}
+
+	return ret;	
+}
+
+bool included(intBatch b, int x)
+{
+	bool ret <- False;
+
+	for(int i <- 1; i <= BatchSize(b); i++)
+	{
+		int j;
+		BatchRecoverPosition(b, i, j);
+		if(j == x)
+		{
+			ret <- True;
+			i <- BatchSize(b);
+		}
+	}
+	
+	return ret;	
+}
+

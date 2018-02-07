@@ -1,0 +1,208 @@
+// ****************************************************************************
+//
+//	Functions for MyApp domain
+//
+// ****************************************************************************
+//
+//	PROJECT	: Fluency/Indices
+// 	DOMAIN  : MyApp
+//	MODULE  : Functions
+//	PACKAGE	: -
+// 	FOLDER  : -
+// 	FILE	: MyAppFunctions
+//
+// ****************************************************************************
+
+Venue getVenueDetailsInfoSimulated(string langString, string venueId)
+{
+	Venue ret;
+
+	ret.VenueDescription <- 'La escuela de informatica is considered as the eighth world wonder, due mostly for its beautiful girls.';
+
+	OpeningFrames opfrs;
+	OpeningFrame opfr;
+
+	opfr.OpeningStart <- '1000';
+	opfr.OpeningEnd <- '1200';
+	BatchInsertEnd(opfrs, opfr);
+
+	opfr.OpeningStart <- '1300';
+	opfr.OpeningEnd <- '1400';
+	BatchInsertEnd(opfrs, opfr);
+
+	opfr.OpeningStart <- '1700';
+	opfr.OpeningEnd <- '1800';
+	BatchInsertEnd(opfrs, opfr);
+
+	OpeningDays opdas;
+	OpeningDay opda <- 3;
+	BatchInsertEnd(opdas, opda);
+	opda <- 4;
+	BatchInsertEnd(opdas, opda);
+	opda <- 5;
+	BatchInsertEnd(opdas, opda);
+
+	OpeningHours opho;
+	opho.OpeningDays <- opdas;
+	opho.OpeningFrames <- opfrs;
+
+ 	BatchInsertEnd(ret.OpeningHoursList, opho);
+
+	Tip tip;
+	tip.TipText <- 'It\'s not funny if we have some exams.';
+
+	Tips tips;
+	BatchInsertEnd(tips, tip);
+
+	ret.VenueTips.Tips <- tips;
+
+	return ret;
+}
+
+
+Forecast getWeatherInfoSimulated(string langString, string cityString, DateTimeBatch dateTimeBatch)
+{
+	ForecastList list;
+
+	for(int i <- 1; i <= BatchSize(dateTimeBatch) && i <= 2; i++)
+	{
+		DateTime dt;
+		BatchRecoverPosition(dateTimeBatch, i, dt);
+
+		for(int j <- 0; j < 24; j <- j + 3)
+		{
+			ForecastElement element;
+			DateTime dtElement <- dt;
+			dtElement.GeneralTime.BaseTime.Hour <- j;
+			dtElement.GeneralTime.BaseTime.Minute <- 0;
+
+			element.ForecastDateTime <- dtElement;
+			element <- getRandomForecastDescriptor(element);
+			element.ForecastTemperature <- getRandomForecastTemperature();
+
+			BatchInsertEnd(list, element);
+		}
+	}
+
+	Forecast ret;
+	ret.BOBusinessStatus <- 'OK';
+	ret.ForecastList <- list;
+
+	return ret;
+}
+
+Suggestions getSuggestionsListSimulated(string cityString, string categoryId)
+{
+	RecommendedVenues list;
+	RecommendedVenue venue;
+
+	if(Devoid(categoryId) || categoryId != '4d4b7105d754a06374d81259')
+	{
+  		venue.VenueId <- 'se87t329ieugh23ieu6t2e';
+	    venue.VenueName <- 'La Escuela de Informática';
+		venue.Location.LocationAddress <- 'Escuela Técnica Superior de Ingeniería Informática, Universidad de Sevilla, 41012 Sevilla';
+		venue.Contact.ContactPhone <- '954556817';
+    	venue.Location.Geocoordinates.Lon = 3.0;
+ 		venue.Location.Geocoordinates.Lat = -2.0;
+  		BatchInsertEnd(list,venue);
+	
+  		venue.VenueId <- 'sdfge87t329ieugh23ieu6t2e';
+  		venue.VenueName <- 'El campus de Reina Mercedes';
+  		venue.Location.LocationAddress <- 'Escuela Informática';
+  		venue.Contact.ContactPhone <- '954556817';
+    	venue.Location.Geocoordinates.Lon = 3.5;
+ 		venue.Location.Geocoordinates.Lat = -2.3;
+		BatchInsertEnd(list,venue);
+	
+  		venue.VenueId <- 'tsdcknsdcnn28ecno38nx';
+    	venue.VenueName <- 'Alternative venue';
+		venue.Location.LocationAddress <- 'Escuela Técnica Superior de Ingeniería Informática, Universidad de Sevilla, 41012 Sevilla';
+		venue.Contact.ContactPhone <- '954556817';
+    	venue.Location.Geocoordinates.Lon = 3.0;
+ 		venue.Location.Geocoordinates.Lat = -2.0;
+  		BatchInsertEnd(list,venue);
+	
+  		venue.VenueId <- 'tdfge87t329ieugh23ieu6t2e';
+  		venue.VenueName <- 'Alternative venue 2';
+  		venue.Location.LocationAddress <- 'Escuela Informática';
+  		venue.Contact.ContactPhone <- '954556817';
+    	venue.Location.Geocoordinates.Lon = 3.5;
+ 		venue.Location.Geocoordinates.Lat = -2.3;
+		BatchInsertEnd(list,venue);
+	}
+	else
+	{
+  		venue.VenueId <- 'se87t329ieugh23ieu6t2eaa';
+	    venue.VenueName <- 'Casa Félix';
+		venue.Location.LocationAddress <- 'Escuela Técnica Superior de Ingeniería Informática, Universidad de Sevilla, 41012 Sevilla';
+		venue.Contact.ContactPhone <- '954556817';
+    	venue.Location.Geocoordinates.Lon = 3.0;
+ 		venue.Location.Geocoordinates.Lat = -2.0;
+  		BatchInsertEnd(list,venue);
+	
+  		venue.VenueId <- 'sdfge87t329ieugh23ieu6t2eaa';
+  		venue.VenueName <- 'Sloppy Joe\'s';
+  		venue.Location.LocationAddress <- 'Escuela Informática';
+  		venue.Contact.ContactPhone <- '954556817';
+    	venue.Location.Geocoordinates.Lon = 3.5;
+ 		venue.Location.Geocoordinates.Lat = -2.3;
+		BatchInsertEnd(list,venue);	
+	}
+
+	Suggestions ret;
+	ret.BOBusinessStatus <- 'OK';
+	ret.RecommendedVenues <- list;
+
+	return ret;
+}
+
+Suggestions getNextVenueListSimulated(string cityString)
+{
+	RecommendedVenues list;
+	RecommendedVenue venue;
+
+  	venue.VenueId <- 'ue87t329ieugh23ieu6t2e';
+    venue.VenueName <- 'Museo de farmacia antigua';
+	venue.Location.LocationAddress <- 'En frente de la escuela';
+	venue.Contact.ContactPhone <- '954556817';
+    venue.Location.Geocoordinates.Lon = 3.0;
+ 	venue.Location.Geocoordinates.Lat = -2.1;
+ 	venue.VenueDistance.VenueDistanceValue <- '50';
+    venue.VenueDuration.VenueDurationValue <- '5';
+  	BatchInsertEnd(list,venue);
+
+	Suggestions ret;
+	ret.BOBusinessStatus <- 'OK';
+	ret.RecommendedVenues <- list;
+
+	return ret;
+}
+
+Suggestions getRestaurantsNearListSimulated(string place)
+{
+	RecommendedVenues list;
+
+  RecommendedVenue venue;
+
+  venue.VenueId <- 'ge87t329ieugh23ieu6t2e';
+  venue.VenueName <- 'Bar de Fali';
+  venue.Location.LocationAddress <- 'Escuela Técnica Superior de Ingeniería Informática, Universidad de Sevilla, 41012 Sevilla';
+  venue.Contact.ContactPhone <- '954556817';
+
+  BatchInsertEnd(list,venue);
+
+  venue.VenueId <- 'sdfge87t329ieugh23ieu6t2e';
+  venue.VenueName <- 'Casa Félix';
+  venue.Location.LocationAddress <- 'Escuela Informática';
+  venue.Contact.ContactFormattedPhone <- '+954 55 68 17';
+  venue.Location.Geocoordinates.Lon = 3.5;
+  venue.Location.Geocoordinates.Lat = -2.3;
+
+  BatchInsertEnd(list,venue);
+
+	Suggestions ret;
+	ret.BOBusinessStatus <- 'OK';
+	ret.RecommendedVenues <- list;
+
+	return ret;
+}

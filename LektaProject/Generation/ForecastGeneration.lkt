@@ -1,0 +1,60 @@
+// ****************************************************************************
+//
+//	Forecast paramater generation
+//
+// ****************************************************************************
+//
+//	PROJECT	: HackTour
+// 	DOMAIN  : -
+//	MODULE  : Generation
+//	PACKAGE	: -
+// 	FOLDER  : -
+// 	FILE	: ForecastGeneration.lkt
+//
+// ****************************************************************************
+
+(ScriboScheme GenerateForecast: [ DialogueAct ]
+	ScriboCapture 
+	{
+		#OBJLOCUTIO-1.CoreDialogueAct.Dimension == 'statement' &&
+        #OBJLOCUTIO-1.CoreDialogueAct.Function == 'inform' &&
+		containsActionDomainRoot( #OBJLOCUTIO-1.TaskDialogueAct.Action, 'explicit') &&
+		#OBJLOCUTIO-1.TaskDialogueAct.Scope == 'parameter'  &&
+		parametersContainsParameterType ( #OBJLOCUTIO-1.Parameters, 'forecast' )
+	}
+	ScriboAction 
+	{
+		Parameter parameter <- parametersRecoverParameterType ( #OBJLOCUTIO-1.Parameters, 'forecast' );	
+		Forecast forecast <- parameter.ParameterValue.Forecast;
+
+		if(forecast.BOBusinessStatus == 'OK')
+		{
+			if(Filled(forecast.DateTime.BaseDate))
+			{
+				// Wheather forecast and temperature
+                GenerateMainAnswer('msg-forecast1');
+                SetMainAnswer(FirstUpper(mostConcretePlace(forecast.CountryPlace)));
+                SetMainAnswer(" ");
+                SetMainAnswer( dateTimeToString(normalizeDateTime(forecast.DateTime,False)));
+                SetMainAnswer(" is ");
+
+				SetMainAnswer( forecastToStringSingleDay(forecast.ForecastList));
+            }
+            else
+            {
+          		// Wheather forecast and temperature
+                GenerateMainAnswer('msg-forecast1');
+                SetMainAnswer(FirstUpper(mostConcretePlace(forecast.CountryPlace)));
+                SetMainAnswer(" ");
+                SetMainAnswer(" is ");
+
+            	SetMainAnswer( forecastToStringMultipleDays(forecast.ForecastList));
+            }
+		}
+		else if(forecast.BOBusinessStatus == 'EMPTY')
+		{
+			// TODO
+		}
+  }
+)
+

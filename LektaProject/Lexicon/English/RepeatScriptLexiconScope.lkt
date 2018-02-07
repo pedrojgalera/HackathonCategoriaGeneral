@@ -1,0 +1,20 @@
+// ****************************************************************************
+//
+//	Lexicon for repeat script lexicon
+//
+// ****************************************************************************
+//
+//	PROJECT	: HackTour
+// 	DOMAIN  : -
+//	MODULE  : Scripts
+//	PACKAGE	: -
+// 	FOLDER  : -
+// 	FILE	: RepeatScriptLexiconScope.lkt
+//
+// ****************************************************************************
+
+("something else", lexRepeatScript)
+("what else", lexRepeatScript)
+("tell me more", lexRepeatScript)
+
+

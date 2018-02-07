@@ -1,0 +1,112 @@
+// ****************************************************************************
+//
+//	Functions for generating suggestions
+//
+// ****************************************************************************
+//
+//	PROJECT	: HackTour
+// 	DOMAIN  : -
+//	MODULE  : Functions
+//	PACKAGE	: -
+// 	FOLDER  : -
+// 	FILE	: HackTourSuggestionFunctions.lkt
+//
+// ****************************************************************************
+
+bool notShownVenue(Venue venue)
+{
+	bool ret <- True;
+
+	CustomData cdata <- getCustomData();
+	ShownVenues shown <- cdata.HackTourProfiling.ShownVenues;
+	for(int i <- 1; i <= BatchSize(shown); i++)
+	{
+		Venue recovered;
+		BatchRecoverPosition(shown ,i , recovered);
+
+		if(recovered.VenueId == venue.VenueId)
+		{
+			ret <- False;
+		}
+	}
+
+	return ret;
+}
+
+procedure GenerateDistance(Venue venue)
+{
+	if(Random(1,2) == 1)
+	{
+		int value <- ShapeToInt(venue.VenueDistance.VenueDistanceValue);
+		SetMainAnswer(value);
+		SetMainAnswer(" ");
+		GenerateMainAnswer('msg-nextvenue-meters');
+	}
+	else
+	{
+		int value <- ShapeToInt(venue.VenueDuration.VenueDurationValue);
+    	SetMainAnswer(value);
+    	SetMainAnswer(" ");
+    	GenerateMainAnswer('msg-nextvenue-minutes');
+	}
+}
+
+procedure GenerateRecommendedVenue(Venue venue)
+{
+	SetMainAnswer(trim(venue.VenueName));
+}
+
+procedure GenerateHours(OpeningHours hours)
+{
+	// 1: Monday - 7: Sunday
+	OpeningDays opdas <- hours.OpeningDays;
+	for(int i <- 1; i <= BatchSize(opdas); i++)
+	{
+		OpeningDay opda;
+		BatchRecoverPosition(opdas, i, opda);
+
+		SetMainAnswer(dayInWeekName(opda));
+		if(i < BatchSize(opdas) - 1)
+		{
+			SetMainAnswer(", ");
+		}
+		else if(i < BatchSize(opdas))
+        {
+        	SetMainAnswer(" ");
+        	GenerateMainAnswer('msg-hacktour-and');
+        }
+        else
+        {
+        	SetMainAnswer(" ");
+        }
+	}
+
+	OpeningFrames opfrs <- hours.OpeningFrames;
+	for(int i <- 1; i <= BatchSize(opfrs); i++)
+    {
+		OpeningFrame opfr;
+		BatchRecoverPosition(opfrs, i, opfr);
+
+		GenerateOpeningFrame(opfr);
+		if(i < BatchSize(opfrs) - 1)
+		{
+			SetMainAnswer(", ");
+		}
+		else if(i < BatchSize(opfrs))
+		{
+			SetMainAnswer(" ");
+			GenerateMainAnswer('msg-hacktour-and');
+		}
+	}
+}
+
+procedure GenerateOpeningFrame(OpeningFrame opfr)
+{
+	GenerateMainAnswer('msg-forecast-from');
+	OpeningStart os <- opfr.OpeningStart;
+	SetMainAnswer(SubLiteral(os, 1, 2));
+	SetMainAnswer(" ");
+	GenerateMainAnswer('msg-forecast-to');
+	OpeningEnd oe <- opfr.OpeningEnd;
+	SetMainAnswer(SubLiteral(oe, 1, 2));
+}

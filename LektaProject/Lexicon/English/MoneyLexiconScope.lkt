@@ -1,0 +1,31 @@
+// ****************************************************************************
+//
+//	
+//
+// ****************************************************************************
+//
+//	PROJECT	: HackTour
+// 	DOMAIN  : -
+//	MODULE  : Scripts
+//	PACKAGE	: -
+// 	FOLDER  : -
+// 	FILE	: MoneyLexiconScope.lkt
+//
+// ****************************************************************************
+
+("cheap", lexMoney, 1)
+("cheaper", lexMoney, 1)
+("cheapest", lexMoney, 1)
+
+("expensive", lexMoney, 3)
+("more expensive", lexMoney, 3)
+("most expensive", lexMoney, 3)
+
+("medium prize", lexMoney, 2)
+("not expensive", lexMoney, 2)
+("not so expensive", lexMoney, 2)
+("not cheap", lexMoney, 2)
+("not so cheap", lexMoney, 2)
+
+
+

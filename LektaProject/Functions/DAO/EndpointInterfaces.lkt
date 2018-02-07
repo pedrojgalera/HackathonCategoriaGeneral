@@ -1,0 +1,150 @@
+// ****************************************************************************
+//
+//	Interfaces for all BackOffice callings
+//
+// ****************************************************************************
+//
+//	PROJECT	: HackTour
+// 	DOMAIN  : -
+//	MODULE  : Functions
+//	PACKAGE	: DAO
+// 	FOLDER  : -
+// 	FILE	: DAOFunctions.lkt
+//
+// ****************************************************************************
+
+Arg Argument(ArgName name, ArgValue value)
+{
+    Arg res;
+    res.ArgName <- name;
+    res.ArgValue <- value;
+
+    return res;
+}
+
+CallAPI Call(FunctionName function, Args listOfArgs)
+{
+    CallAPI res;
+    res.FunctionName <- function;
+    res.Args <- listOfArgs;
+
+    return res;
+}
+
+CallAPI CallBO(FunctionName function)
+{
+    CallAPI res;
+    res.FunctionName <- function;
+
+    return res;
+}
+
+/* Call always by reference */
+procedure CallUpdate(CallAPI call, ArgName name, ArgValue val)
+{
+  Arg newArg;
+  newArg.ArgName <- name;
+  newArg.ArgValue <- val;
+  BatchInsertEnd(call.Args,newArg);
+}
+
+CallAPI CallAdd(CallAPI call, ArgName name, ArgValue val)
+{
+  CallAPI updatedCall <- call;
+  Arg newArg;
+  newArg.ArgName <- name;
+  newArg.ArgValue <- val;
+  BatchInsertEnd(updatedCall.Args,newArg);
+  return updatedCall;
+}
+
+string getCallResponse(CallAPI call) {
+  string query <- encodeArgs(call);
+  stringBatch tokens;
+  BatchInsertEnd(tokens,query);
+  string response <- LiteralConcat(getBOCallTokens('GENERAL',tokens),'');
+  return response;
+}
+
+message getCallResult (CallAPI call) {
+
+  string response <- getCallResponse(call);
+
+  BOResponse resp;
+  resp <- getBOResponse(response);
+
+  message ret;
+
+  if (resp.BOStatus == LEKTA_BACKOFFICE_SUCCESS)
+  {
+    ret <- getBOResult(resp);
+  }
+	else
+	{
+    ret <- "ERROR"; //resp.BOStatus
+  }
+
+  return ret;
+
+}
+
+CallAPI getWeatherCall (string city, string date) 
+{
+  Arg cityArg <- Argument('city', city);
+  Arg dateArg <- Argument('date', date);
+
+  Args arguments;
+  BatchInsertEnd(arguments, cityArg);
+  BatchInsertEnd(arguments, dateArg);
+  CallAPI call <- Call('getTemperature', arguments);
+
+  return call;
+}
+
+string getLang2(string lektaLanguage)
+{
+  return getProp(LiteralConcat('lang2-',lektaLanguage));
+}
+
+CallAPI getForecastCall (string city, string day, string mode, string lang)
+{
+  Arg cityArg <- Argument('city', city);
+  Arg dateArg <- Argument('day', day);
+  Arg modeArg <- Argument('mode', mode);
+  Arg langArg <- Argument('lang', getLang2(lang));
+
+  Args arguments;
+  BatchInsertEnd(arguments, cityArg);
+  BatchInsertEnd(arguments, dateArg);
+  BatchInsertEnd(arguments, modeArg);
+  BatchInsertEnd(arguments, langArg);
+  CallAPI call <- Call('forecast', arguments);
+
+  SpyMessage("Call:", call);
+  return call;
+}
+
+CallAPI getSuggestionsCall (string place)
+{
+  Arg placeArg <- Argument('near', place);
+
+  Args arguments;
+  BatchInsertEnd(arguments, placeArg);
+  CallAPI call <- Call('suggestions', arguments); // function name in server
+
+  SpyMessage("Suggestions Call:", call);
+  return call;
+}
+
+CallAPI getRestaurantsCall (string place)
+{
+  Arg cityArg <- Argument('near', place);
+
+  Args arguments;
+  BatchInsertEnd(arguments, cityArg);
+  CallAPI call <- Call('restaurants', arguments); // function name in server
+
+  SpyMessage("Restaurants Call:", call);
+  return call;
+}
+

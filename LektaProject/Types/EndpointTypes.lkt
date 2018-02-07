@@ -1,0 +1,45 @@
+// ****************************************************************************
+//
+//	Types for BackOffice callings
+//
+// ****************************************************************************
+//
+//	PROJECT	: HackTour
+// 	DOMAIN  : -
+//	MODULE  : Types
+//	PACKAGE	: -
+// 	FOLDER  : -
+// 	FILE	: EndpointTypes.lkt
+//
+// ****************************************************************************
+
+classDef:StructureComplex
+(
+    CallAPI :
+    (
+        FunctionName,
+        Args
+    )
+)
+
+classDef:StructureBatch
+( 
+	Args: 
+	( 
+		Arg 
+	) 
+)
+    
+classDef:StructureComplex
+(
+    Arg :
+    (
+        ArgName,
+        ArgValue
+    )
+)
+   
+classDef:Synonym
+(
+    FunctionName, ArgName, ArgValue = string
+)

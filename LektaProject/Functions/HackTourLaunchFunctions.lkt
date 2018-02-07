@@ -1,0 +1,130 @@
+// ****************************************************************************
+//
+//	Functions for launching scripts
+//
+// ****************************************************************************
+//
+//	PROJECT	: HackTour
+// 	DOMAIN  : -
+//	MODULE  : Functions
+//	PACKAGE	: -
+// 	FOLDER  : -
+// 	FILE	: HackTourLaunchFunctions.lkt
+//
+// ****************************************************************************
+
+procedure launchNextVenue()
+{
+	DialogueScript script <- getCurrentScript();
+
+	CustomData cdata <- getCustomData();
+    Venue venue <- cdata.HackTourProfiling.CurrentVenue;
+	Parameter parameter;
+	parameter.ParameterValue.Venue <- venue;
+	parameter.ParameterCategory <- 'terminal';
+	parameter.ParameterType <- 'venue';
+	setMemoryCell('current_venue', parameter );
+
+	pushScript('NextVenue');
+}
+
+procedure launchCampaignSuggestion()
+{
+	DialogueScript script <- getCurrentScript();
+
+	int argumentNumber <- LookForInfoItemParameterType( script, 'countryplace' );
+	ScriptInfoItem scriptInfoItem;
+	BatchRecoverPosition( script.ScriptInfoItems, argumentNumber, scriptInfoItem );
+	setMemoryCell('campaign_countryplace', scriptInfoItem.InfoItemValue.Parameter );
+
+	pushScript('CampaignSuggestion');
+}
+
+procedure launchWeatherAdvisor()
+{
+	DialogueScript script <- getCurrentScript();
+
+	int argumentNumber <- LookForInfoItemParameterType( script, 'countryplace' );
+	ScriptInfoItem scriptInfoItem;
+	BatchRecoverPosition( script.ScriptInfoItems, argumentNumber, scriptInfoItem );
+	setMemoryCell('weather_countryplace', scriptInfoItem.InfoItemValue.Parameter );
+
+	argumentNumber <- LookForInfoItemParameterType( script, 'datetime' );
+	BatchRecoverPosition( script.ScriptInfoItems, argumentNumber, scriptInfoItem );
+	setMemoryCell('weather_datetime', scriptInfoItem.InfoItemValue.Parameter );
+
+	argumentNumber <- LookForInfoItemParameterType( script, 'weatherinfotype' );
+	BatchRecoverPosition( script.ScriptInfoItems, argumentNumber, scriptInfoItem );
+	setMemoryCell('weather_weatherinfotype', scriptInfoItem.InfoItemValue.Parameter );
+
+	pushScript('WeatherAdvisor');
+}
+
+procedure launchVenueSuggestion()
+{
+	DialogueScript script <- getCurrentScript();
+
+	int argumentNumber <- LookForInfoItemParameterType( script, 'countryplace' );
+	ScriptInfoItem scriptInfoItem;
+	BatchRecoverPosition( script.ScriptInfoItems, argumentNumber, scriptInfoItem );
+	setMemoryCell('trip_countryplace', scriptInfoItem.InfoItemValue.Parameter );
+
+	argumentNumber <- LookForInfoItemParameterType( script, 'venuecategory' );
+	BatchRecoverPosition( script.ScriptInfoItems, argumentNumber, scriptInfoItem );
+	setMemoryCell('trip_venuecategory', scriptInfoItem.InfoItemValue.Parameter );
+
+	argumentNumber <- LookForInfoItemParameterType( script, 'venuesubcategory' );
+	BatchRecoverPosition( script.ScriptInfoItems, argumentNumber, scriptInfoItem );
+	setMemoryCell('trip_venuesubcategory', scriptInfoItem.InfoItemValue.Parameter );
+
+	pushScript('VenueSuggestion');
+}
+
+procedure launchDetailsSearcher()
+{
+	string userString <- GetUserInput(DialogueInteractionCounter());
+	string dummy;
+	LiteralBreak(userString, ' about ', dummy, userString);
+	userString <- RemovePrefix(userString, ' about ');
+	userString <- RemoveSuffix(userString, '.');
+	userString <- RemoveSuffix(userString, ',');
+	userString <- LiteralConvertLower(userString);
+
+	CustomData cdata <- getCustomData();
+	ShownVenues shown <- cdata.HackTourProfiling.ShownVenues;
+
+	for(int i <- BatchSize(shown); i >= 1; i--)
+	{
+		Venue venue;
+		BatchRecoverPosition(shown, i, venue);
+		string venueString <- venue.VenueName;
+
+		venueString <- LiteralConvertLower(venueString);
+		if(checkStringCompatibility(userString, venueString))
+		{
+			Parameter parameter;
+			parameter.ParameterValue.Venue <- venue;
+			parameter.ParameterCategory <- 'terminal';
+			parameter.ParameterType <- 'venue';
+
+			setMemoryCell('current_venue', parameter );
+			i <- 1;
+		}
+	}
+
+	pushScript('DetailsSearcher');
+}
+
+bool checkStringCompatibility(string userString, string venueString)
+{
+	bool ret <- False;
+
+	// 1. First case: venueString includes userString
+	if(!! ret)
+	{
+		ret <- IncludesString(venueString, userString);
+	}
+
+	return ret;
+}
+

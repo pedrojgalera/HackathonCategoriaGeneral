@@ -1,0 +1,136 @@
+// ****************************************************************************
+//
+//	Functions for MyApp domain
+//
+// ****************************************************************************
+//
+//	PROJECT	: Fluency/Indices
+// 	DOMAIN  : MyApp
+//	MODULE  : Functions
+//	PACKAGE	: -
+// 	FOLDER  : -
+// 	FILE	: MyAppFunctions
+//
+// ****************************************************************************
+
+bool noLastScript()
+{
+	CustomData cdata;
+	cdata <- getCustomData();
+
+	return BatchSize(cdata.HackTourProfiling.LastLaunchedScripts) == 0;
+}
+
+bool lastLaunchedScriptDescriptor(ScriptDescriptor scriptDescriptor)
+{
+	CustomData cdata;
+	cdata <- getCustomData();
+
+	ScriptDescriptor recoveredScriptDescriptor;
+	BatchExtractEnd(cdata.HackTourProfiling.LastLaunchedScripts, recoveredScriptDescriptor);
+
+	return recoveredScriptDescriptor == scriptDescriptor;
+}
+
+DialogueScript proposeInfoItem3(DialogueScript dialogueScript, int priorityLevel, ParameterType targetParameterType, string backOfficeFunctionName, ParameterType arg1ParameterType, ParameterType arg2ParameterType, ParameterType arg3ParameterType)
+{
+	ScriptNode nodePropose, nodeIncorrect;
+
+	string suffix = '_';
+	suffix <- LiteralConcat( suffix, ShapeToString(targetParameterType) );
+	suffix <- LiteralConcat( suffix, '_' );
+	suffix <- LiteralConcat( suffix, backOfficeFunctionName );
+	suffix <- LiteralConcat( suffix, '_' );
+	suffix <- LiteralConcat( suffix, ShapeToString(arg1ParameterType) );
+	suffix <- LiteralConcat( suffix, '_' );
+	suffix <- LiteralConcat( suffix, ShapeToString(arg2ParameterType) );
+	suffix <- LiteralConcat( suffix, '_' );
+	suffix <- LiteralConcat( suffix, ShapeToString(arg3ParameterType) );
+	suffix <- LiteralConcat( suffix, '_' );
+	suffix <- LiteralConcat( suffix, ShapeToString(priorityLevel) );
+	string nodeName1, nodeName2;
+	string targetParameterPosition <- recoverParameterPosition(dialogueScript, targetParameterType);
+	string arg1ParameterPosition <- recoverParameterPosition(dialogueScript, arg1ParameterType);
+	string arg2ParameterPosition <- recoverParameterPosition(dialogueScript, arg2ParameterType);
+	string arg3ParameterPosition <- recoverParameterPosition(dialogueScript, arg3ParameterType);
+
+	// Node - ProposeInfoItem3
+	nodeName1 <- LiteralConcat( 'proposeinfoitem3', suffix );
+	nodePropose <- createScriptNode(nodeName1 , 'execute', priorityLevel );
+	nodePropose.ScriptNodeState.ScriptNodeResetStateName <- 'notfinalized';
+	BatchInsertEnd( nodePropose.ScriptNodePreconditions, createNegatedPrecondition2Arguments( 'is_node_state', nodeName1, 'correct' ));
+	BatchInsertEnd( nodePropose.ScriptNodePreconditions, createNegatedPrecondition2Arguments( 'is_node_state', nodeName1, 'incorrect' ));
+	BatchInsertEnd( nodePropose.ScriptNodePostconditions, createDialogueAction5Arguments( 'propose_info_item3', targetParameterPosition, backOfficeFunctionName, arg1ParameterPosition, arg2ParameterPosition, arg3ParameterPosition));
+	BatchInsertEnd( nodePropose.ScriptNodePostconditions, createDialogueAction0Arguments( 'reset_next_level' ));
+
+	BatchInsertEnd( dialogueScript.ScriptNodes, nodePropose );
+	
+	// Node - Incorrect
+	nodeName2 <- LiteralConcat( 'proposeinfoitem3_incorrect', suffix );
+	nodeIncorrect <- createScriptNode(nodeName2 , 'execute', priorityLevel );
+	nodeIncorrect.ScriptNodeContent <- setNodeContent( 'statement', 'inform', 'incorrect', 'backoffice' );
+	BatchInsertEnd( nodeIncorrect.ScriptNodePreconditions, createPrecondition2Arguments( 'is_node_state', nodeName1, 'incorrect' ));
+	BatchInsertEnd( nodeIncorrect.ScriptNodePostconditions, createDialogueAction0Arguments( 'generate' ));
+	BatchInsertEnd( nodeIncorrect.ScriptNodePostconditions, createDialogueAction0Arguments( 'pull_script' ));
+
+	BatchInsertEnd( dialogueScript.ScriptNodes, nodeIncorrect );
+
+	return dialogueScript;
+}
+
+DialogueScript proposeInfoItem5(DialogueScript dialogueScript, int priorityLevel, ParameterType targetParameterType, string backOfficeFunctionName, ParameterType arg1ParameterType, ParameterType arg2ParameterType, ParameterType arg3ParameterType, ParameterType arg4ParameterType, ParameterType arg5ParameterType)
+{
+	ScriptNode nodePropose, nodeIncorrect;
+
+	string suffix = '_';
+	suffix <- LiteralConcat( suffix, ShapeToString(targetParameterType) );
+	suffix <- LiteralConcat( suffix, '_' );
+	suffix <- LiteralConcat( suffix, backOfficeFunctionName );
+	suffix <- LiteralConcat( suffix, '_' );
+	suffix <- LiteralConcat( suffix, ShapeToString(arg1ParameterType) );
+	suffix <- LiteralConcat( suffix, '_' );
+	suffix <- LiteralConcat( suffix, ShapeToString(arg2ParameterType) );
+	suffix <- LiteralConcat( suffix, '_' );
+	suffix <- LiteralConcat( suffix, ShapeToString(arg3ParameterType) );
+	suffix <- LiteralConcat( suffix, '_' );
+	suffix <- LiteralConcat( suffix, ShapeToString(arg4ParameterType) );
+	suffix <- LiteralConcat( suffix, '_' );
+	suffix <- LiteralConcat( suffix, ShapeToString(arg5ParameterType) );
+	suffix <- LiteralConcat( suffix, '_' );
+	suffix <- LiteralConcat( suffix, ShapeToString(priorityLevel) );
+	string nodeName1, nodeName2;
+	string targetParameterPosition <- recoverParameterPosition(dialogueScript, targetParameterType);
+	string arg1ParameterPosition <- recoverParameterPosition(dialogueScript, arg1ParameterType);
+	string arg2ParameterPosition <- recoverParameterPosition(dialogueScript, arg2ParameterType);
+	string arg3ParameterPosition <- recoverParameterPosition(dialogueScript, arg3ParameterType);
+	string arg4ParameterPosition <- recoverParameterPosition(dialogueScript, arg4ParameterType);
+	string arg5ParameterPosition <- recoverParameterPosition(dialogueScript, arg5ParameterType);
+
+	// Node - ProposeInfoItem5
+	nodeName1 <- LiteralConcat( 'proposeinfoitem5', suffix );
+	nodePropose <- createScriptNode(nodeName1 , 'execute', priorityLevel );
+	nodePropose.ScriptNodeState.ScriptNodeResetStateName <- 'notfinalized';
+	BatchInsertEnd( nodePropose.ScriptNodePreconditions, createNegatedPrecondition2Arguments( 'is_node_state', nodeName1, 'correct' ));
+	BatchInsertEnd( nodePropose.ScriptNodePreconditions, createNegatedPrecondition2Arguments( 'is_node_state', nodeName1, 'incorrect' ));
+	BatchInsertEnd( nodePropose.ScriptNodePostconditions, createDialogueAction7Arguments( 'propose_info_item5', targetParameterPosition, backOfficeFunctionName, arg1ParameterPosition, arg2ParameterPosition, arg3ParameterPosition, arg4ParameterPosition, arg5ParameterPosition));
+	BatchInsertEnd( nodePropose.ScriptNodePostconditions, createDialogueAction0Arguments( 'reset_next_level' ));
+
+	BatchInsertEnd( dialogueScript.ScriptNodes, nodePropose );
+
+	// Node - Incorrect
+	nodeName2 <- LiteralConcat( 'proposeinfoitem5_incorrect', suffix );
+	nodeIncorrect <- createScriptNode(nodeName2 , 'execute', priorityLevel );
+	nodeIncorrect.ScriptNodeContent <- setNodeContent( 'statement', 'inform', 'incorrect', 'backoffice' );
+	BatchInsertEnd( nodeIncorrect.ScriptNodePreconditions, createPrecondition2Arguments( 'is_node_state', nodeName1, 'incorrect' ));
+	BatchInsertEnd( nodeIncorrect.ScriptNodePostconditions, createDialogueAction0Arguments( 'generate' ));
+	BatchInsertEnd( nodeIncorrect.ScriptNodePostconditions, createDialogueAction0Arguments( 'pull_script' ));
+
+	BatchInsertEnd( dialogueScript.ScriptNodes, nodeIncorrect );
+
+	return dialogueScript;
+}
+
+procedure setCustomData(CustomData cdata)
+{
+	$MINDBOARD@CustomData <- cdata;
+}

@@ -1,0 +1,98 @@
+// ****************************************************************************
+//
+//	Scripting functions for HackTour
+//
+// ****************************************************************************
+//
+//	PROJECT	: HackTour
+// 	DOMAIN  : -
+//	MODULE  : Scripts
+//	PACKAGE	: -
+// 	FOLDER  : -
+// 	FILE	: WeatherScript
+//
+// ****************************************************************************
+
+DialogueScript createWeatherAdvisorScript()
+{
+	// Script Descriptor
+	DialogueScript script;
+	script.ScriptDescriptor <- 'WeatherAdvisor';
+	script.ScriptDomain <- 'WEATHER';
+
+	// Trigger
+	BatchInsertEnd( script.ScriptTrigger.ParameterTypes , 'datetime' );
+	BatchInsertEnd( script.ScriptTrigger.ParameterTypes , 'countryplace' );
+	BatchInsertEnd( script.ScriptTrigger.ParameterTypes , 'weatherinfotype' );
+
+	// Info
+	ScriptInfoItem scriptInfoItem, emptyScriptInfoItem;
+
+	scriptInfoItem <- emptyScriptInfoItem;
+	scriptInfoItem.InfoItemType  <- 'core';
+	scriptInfoItem.InfoItemState <- 'empty';
+	scriptInfoItem.InfoItemValue.CoreDialogueAct.Dimension <- 'statement';
+	scriptInfoItem.InfoItemValue.CoreDialogueAct.Function  <- 'request';
+	BatchInsertEnd( script.ScriptInfoItems, scriptInfoItem );
+
+	scriptInfoItem <- emptyScriptInfoItem;
+	scriptInfoItem.InfoItemType <- 'action';
+	scriptInfoItem.InfoItemState <- 'empty';
+	scriptInfoItem.InfoItemValue.ActionDomain.ActionRoot <- 'consult';
+	BatchInsertEnd( script.ScriptInfoItems, scriptInfoItem );
+
+	scriptInfoItem <- emptyScriptInfoItem;
+	scriptInfoItem.InfoItemType <- 'scope';
+	scriptInfoItem.InfoItemState <- 'empty';
+	scriptInfoItem.InfoItemValue.Scope <- 'weather';
+	BatchInsertEnd( script.ScriptInfoItems, scriptInfoItem );
+
+	scriptInfoItem <- emptyScriptInfoItem;
+	scriptInfoItem.InfoItemType <- 'parameter';
+	scriptInfoItem.InfoItemParameterType <- 'datetime';
+	scriptInfoItem.InfoItemState <- 'empty';
+	scriptInfoItem.MemoryCellName <- 'weather_datetime';
+	BatchInsertEnd( script.ScriptInfoItems, scriptInfoItem );
+
+	scriptInfoItem <- emptyScriptInfoItem;
+	scriptInfoItem.InfoItemType <- 'parameter';
+	scriptInfoItem.InfoItemParameterType <- 'countryplace';
+	scriptInfoItem.InfoItemState <- 'empty';
+	scriptInfoItem.MemoryCellName <- 'weather_countryplace';
+	BatchInsertEnd( script.ScriptInfoItems, scriptInfoItem );
+
+	scriptInfoItem <- emptyScriptInfoItem;
+	scriptInfoItem.InfoItemType <- 'parameter';
+	scriptInfoItem.InfoItemParameterType <- 'weatherinfotype';
+	scriptInfoItem.InfoItemState <- 'empty';
+	scriptInfoItem.MemoryCellName <- 'weather_weatherinfotype';
+	BatchInsertEnd( script.ScriptInfoItems, scriptInfoItem );
+
+	scriptInfoItem <- emptyScriptInfoItem;
+	scriptInfoItem.InfoItemType <- 'parameter';
+	scriptInfoItem.InfoItemParameterType <- 'forecast';
+	scriptInfoItem.InfoItemState <- 'empty';
+	BatchInsertEnd( script.ScriptInfoItems, scriptInfoItem );
+
+	// Phases
+
+	// Phase 0
+	script <- defaultNode(script, 0);
+
+	// Phase 1
+	script <- captureOptionalParameter(script, 1, 'datetime');
+	script <- captureOptionalParameter(script, 1, 'weatherinfotype');
+	script <- captureCompulsoryParameter(script, 1, 'countryplace');
+
+	// Phase 2
+	script <- proposeInfoItem3(script, 2, 'forecast', 'get_forecast', 'datetime', 'countryplace', 'weatherinfotype');
+
+	// Phase 3
+	script <- informExplicitParameter(script, 3, 'forecast');
+
+	// Phase 4
+	script <- endScript(script,4);
+
+	return script;
+}
+

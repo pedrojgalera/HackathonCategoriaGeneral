@@ -1,0 +1,24 @@
+// ****************************************************************************
+//
+//	Lexical Types for HackTour domain
+//
+// ****************************************************************************
+//
+//	PROJECT	: HackTour
+// 	DOMAIN  : -
+//	MODULE  : Scripts
+//	PACKAGE	: -
+// 	FOLDER  : -
+// 	FILE	: LexicalTypes.lkt
+//
+// ****************************************************************************
+
+classDef:Void
+(
+    lexWeather, lexWh, lexVenue, lexRepeatScript, lexAbout
+)
+
+classDef:ElementInt
+(
+	lexMoney
+)

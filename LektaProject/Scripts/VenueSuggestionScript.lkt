@@ -1,0 +1,114 @@
+// ****************************************************************************
+//
+//	VenueSuggestion script functions for HackTour domain
+//
+// ****************************************************************************
+//
+//	PROJECT	: HackTour
+// 	DOMAIN  : -
+//	MODULE  : Scripts
+//	PACKAGE	: -
+// 	FOLDER  : -
+// 	FILE	: VenueSuggestionScript
+//
+// ****************************************************************************
+
+DialogueScript createVenueSuggestionScript()
+{
+	// Script Descriptor
+	DialogueScript script;
+	script.ScriptDescriptor <- 'VenueSuggestion';
+	script.ScriptDomain <- 'VENUESUGGESTION';
+
+	// Trigger
+	BatchInsertEnd( script.ScriptTrigger.ParameterTypes , 'countryplace' );
+	BatchInsertEnd( script.ScriptTrigger.ParameterTypes , 'cityplace' );
+	BatchInsertEnd( script.ScriptTrigger.ParameterTypes , 'venuecategory' );
+	BatchInsertEnd( script.ScriptTrigger.ParameterTypes , 'venuesubcategory' );
+
+	// Info
+	ScriptInfoItem scriptInfoItem, emptyScriptInfoItem;
+
+	scriptInfoItem <- emptyScriptInfoItem;
+	scriptInfoItem.InfoItemType  <- 'core';
+	scriptInfoItem.InfoItemState <- 'empty';
+	scriptInfoItem.InfoItemValue.CoreDialogueAct.Dimension <- 'statement';
+	scriptInfoItem.InfoItemValue.CoreDialogueAct.Function  <- 'request';
+	BatchInsertEnd( script.ScriptInfoItems, scriptInfoItem );
+
+	scriptInfoItem <- emptyScriptInfoItem;
+	scriptInfoItem.InfoItemType <- 'action';
+	scriptInfoItem.InfoItemState <- 'empty';
+	scriptInfoItem.InfoItemValue.ActionDomain.ActionRoot <- 'suggest';
+	BatchInsertEnd( script.ScriptInfoItems, scriptInfoItem );
+
+	scriptInfoItem <- emptyScriptInfoItem;
+	scriptInfoItem.InfoItemType <- 'scope';
+	scriptInfoItem.InfoItemState <- 'empty';
+	scriptInfoItem.InfoItemValue.Scope <- 'venue';
+	BatchInsertEnd( script.ScriptInfoItems, scriptInfoItem );
+
+	scriptInfoItem <- emptyScriptInfoItem;
+	scriptInfoItem.InfoItemType <- 'parameter';
+	scriptInfoItem.InfoItemParameterType <- 'countryplace';
+	scriptInfoItem.InfoItemState <- 'empty';
+	scriptInfoItem.MemoryCellName <- 'trip_countryplace';
+	BatchInsertEnd( script.ScriptInfoItems, scriptInfoItem );
+
+	scriptInfoItem <- emptyScriptInfoItem;
+	scriptInfoItem.InfoItemType <- 'parameter';
+	scriptInfoItem.InfoItemParameterType <- 'cityplace';
+	scriptInfoItem.InfoItemState <- 'empty';
+	scriptInfoItem.MemoryCellName <- 'trip_cityplace';
+	BatchInsertEnd( script.ScriptInfoItems, scriptInfoItem );
+
+	scriptInfoItem <- emptyScriptInfoItem;
+	scriptInfoItem.InfoItemType <- 'parameter';
+	scriptInfoItem.InfoItemParameterType <- 'venuecategory';
+	scriptInfoItem.InfoItemState <- 'empty';
+	scriptInfoItem.MemoryCellName <- 'trip_venuecategory';
+	BatchInsertEnd( script.ScriptInfoItems, scriptInfoItem );
+
+	scriptInfoItem <- emptyScriptInfoItem;
+	scriptInfoItem.InfoItemType <- 'parameter';
+	scriptInfoItem.InfoItemParameterType <- 'venuesubcategory';
+	scriptInfoItem.InfoItemState <- 'empty';
+	scriptInfoItem.MemoryCellName <- 'trip_venuesubcategory';
+	BatchInsertEnd( script.ScriptInfoItems, scriptInfoItem );
+
+	scriptInfoItem <- emptyScriptInfoItem;
+	scriptInfoItem.InfoItemType <- 'parameter';
+	scriptInfoItem.InfoItemParameterType <- 'venue';
+	scriptInfoItem.InfoItemState <- 'empty';
+	scriptInfoItem.MemoryCellName <- 'trip_lastrecommendedvenue';
+	BatchInsertEnd( script.ScriptInfoItems, scriptInfoItem );
+
+	scriptInfoItem <- emptyScriptInfoItem;
+	scriptInfoItem.InfoItemType <- 'parameter';
+	scriptInfoItem.InfoItemParameterType <- 'suggestions';
+	scriptInfoItem.InfoItemState <- 'empty';
+	BatchInsertEnd( script.ScriptInfoItems, scriptInfoItem );
+
+	// Phases
+
+	// Phase 0
+	script <- defaultNode(script, 0);
+
+	// Phase 1
+	script <- captureCompulsoryParameter(script, 1, 'countryplace');
+	script <- captureOptionalParameter(script, 1, 'cityplace');
+	script <- captureOptionalParameter(script, 1, 'venuecategory');
+    script <- captureOptionalParameter(script, 1, 'venuesubcategory');
+
+	// Phase 2
+	script <- proposeInfoItem5(script, 2, 'suggestions', 'get_suggestions', 'countryplace', 'cityplace', 'venue', 'venuecategory', 'venuesubcategory');
+
+	// Phase 3
+	script <- informExplicitParameter(script, 3, 'suggestions');
+
+	// Phase 4
+	script <- endScript(script,4);
+
+	return script;
+}
+

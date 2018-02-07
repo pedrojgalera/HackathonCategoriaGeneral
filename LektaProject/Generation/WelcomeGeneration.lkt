@@ -1,0 +1,29 @@
+// ****************************************************************************
+//
+//	MyApp English welcome
+//
+// ****************************************************************************
+//
+//	PROJECT	: Fluency/Apps
+// 	DOMAIN  : MyApp
+//	MODULE  : Generation
+//	PACKAGE	: Generic
+// 	FOLDER  : -
+// 	FILE	: MyAppWelcome
+//
+// ****************************************************************************
+
+(ScriboScheme GenerateWelcome: [ DialogueAct ]
+	ScriboCapture
+	{
+		&ON('show-welcome') && IsWelcome
+	}
+	ScriboAction
+	{
+		SetMainAnswerStringRandom(getGreet(), getHello());
+    	SetMainAnswerString(getWelcome());
+    	SetMainAnswerString(getAnswerOps('msg-instructions', '', '. ', True,False));
+  }
+)
+
+

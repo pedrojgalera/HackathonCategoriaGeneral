@@ -1,0 +1,308 @@
+// ****************************************************************************
+//
+//	Semantic Types for HackTour domain
+//
+// ****************************************************************************
+//
+//	PROJECT	: HackTour
+// 	DOMAIN  : -
+//	MODULE  : Types
+//	PACKAGE	: -
+// 	FOLDER  : -
+// 	FILE	: SemanticTypes.lkt
+//
+// ****************************************************************************
+
+classDef:Synonym
+(
+	WeatherScope, VenuesScope, RepeatScriptScope, DetailsScope, MoneyScope = TaskDialogueAct
+)
+
+classDef:StructureComplex
+(
+	Forecast :
+	(
+		BOBusinessStatus,
+		ForecastList,
+		DateTime,
+		CountryPlace
+	)
+)
+
+classDef:StructureBatch
+(
+	ForecastList :
+	(
+		ForecastElement
+	)
+)
+
+classDef:StructureComplex
+(
+	ForecastElement :
+	(
+		ForecastTemperature,
+		ForecastDescriptorId,
+		ForecastDescriptor,
+		ForecastDateTime,
+		ForecastDt
+	)
+)
+
+classDef:ElementLiteral
+(
+	BOBusinessStatus,
+	ForecastTemperature,
+	ForecastDescriptor,
+	ForecastDescriptorId,
+	ForecastDt
+)
+
+classDef:Synonym
+(
+	ForecastDateTime = DateTime
+)
+
+classDef:StructureBatch
+(
+	DateTimeBatch :
+	(
+		DateTime
+	)
+)
+
+classDef:StructureComplex
+(
+	Suggestions :
+	(
+		BOBusinessStatus,
+		RecommendedVenues
+	)
+)
+
+classDef:StructureBatch
+(
+	RecommendedVenues :
+	(
+		RecommendedVenue
+	)
+)
+
+classDef:StructureComplex
+(
+	Venue :
+	(
+		VenueId,
+		VenueName,
+		Location,
+		Contact,
+    	VenueDistance,
+    	VenueDuration,
+    	VenueDescription,
+    	OpeningHoursList,
+    	VenueTips
+	)
+)
+
+classDef:Synonym
+(
+  RecommendedVenue = Venue
+)
+
+classDef:StructureComplex
+(
+	Location :
+	(
+		LocationAddress,
+		Geocoordinates
+	)
+)
+
+classDef:StructureComplex
+(
+	Contact :
+	(
+		ContactPhone,
+		ContactFormattedPhone
+	)
+)
+
+classDef:ElementLiteral
+(
+  VenueId,
+  VenueName,
+  LocationAddress,
+	ContactPhone,
+	ContactFormattedPhone,
+	VenueDescription
+)
+
+classDef:ElementReal
+(
+	Lat,
+	Lon
+)
+
+classDef:StructureComplex
+(
+  Geocoordinates :
+  (
+    Lat,
+    Lon
+  )
+)
+
+classDef:StructureComplex
+(
+    VenueCategory :
+    (
+        VenueCategoryId,
+        VenueCategoryName
+    )
+)
+
+classDef:StructureComplex
+(
+    VenueSubcategory :
+    (
+        VenueCategoryId,
+        VenueCategoryName
+    )
+)
+
+classDef:ElementLiteral
+(
+    VenueCategoryId,
+    VenueCategoryName
+)
+
+classDef:StructureComplex
+(
+  CityPlace :
+  (
+    CityPlaceName
+  )
+)
+
+classDef:ElementLiteral
+(
+  CityPlaceName
+)
+
+classDef:StructureComplex
+(
+    VenueDistance :
+    (
+        VenueDistanceText,
+        VenueDistanceValue
+    )
+)
+
+classDef:ElementLiteral
+(
+  VenueDistanceText,
+  VenueDistanceValue
+)
+
+classDef:StructureComplex
+(
+    VenueDuration :
+    (
+        VenueDurationText,
+        VenueDurationValue
+    )
+)
+
+classDef:ElementLiteral
+(
+  VenueDurationText,
+  VenueDurationValue
+)
+
+classDef:StructureComplex
+(
+	VenueTips :
+	(
+		BOBusinessStatus,
+		Tips
+	)
+)
+
+classDef:StructureBatch
+(
+	Tips :
+	(
+		Tip
+	)
+)
+
+classDef:StructureComplex
+(
+  Tip :
+  (
+    TipText,
+    TipDate,
+    TipLang
+  )
+)
+
+
+classDef:ElementLiteral
+(
+  TipText,
+  TipDate,
+  TipLang
+)
+
+classDef:StructureBatch
+(
+	OpeningHoursList :
+	(
+		OpeningHours
+	)
+)
+
+classDef:StructureComplex
+(
+  OpeningHours :
+  (
+    OpeningDays,
+    OpeningFrames
+  )
+)
+
+classDef:StructureBatch
+(
+	OpeningDays :
+	(
+		OpeningDay
+	)
+)
+
+classDef:ElementInt
+(
+  OpeningDay
+)
+
+classDef:StructureBatch
+(
+	OpeningFrames :
+	(
+		OpeningFrame
+	)
+)
+
+classDef:StructureComplex
+(
+  OpeningFrame :
+  (
+    OpeningStart,
+    OpeningEnd
+  )
+)
+
+classDef:ElementLiteral
+(
+  OpeningStart,
+  OpeningEnd
+)

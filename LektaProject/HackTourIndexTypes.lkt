@@ -1,0 +1,21 @@
+// ****************************************************************************
+//
+//	Scripting functions for MyApp domain
+//
+// ****************************************************************************
+//
+//	PROJECT	: Fluency/Indices
+// 	DOMAIN  : MyApp
+//	MODULE  : Scripts
+//	PACKAGE	: -
+// 	FOLDER  : -
+// 	FILE	: MyAppScript
+//
+// ****************************************************************************
+
+#Include "Types/MainTypes.lkt"
+#Include "Types/SemanticTypes.lkt"
+#Include "Types/LexicalTypes.lkt"
+#Include "Types/EndpointTypes.lkt"
+#Include "Types/HackTourProfilingTypes.lkt"
+

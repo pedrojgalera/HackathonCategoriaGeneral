@@ -1,0 +1,86 @@
+// ****************************************************************************
+//
+//	Scripting for testing purposes: English HackTour app
+//
+// ****************************************************************************
+//
+//	PROJECT	: HackTour
+// 	DOMAIN  : -
+//	MODULE  : -
+//	PACKAGE	: -
+// 	FOLDER  : -
+// 	FILE	: HackTourEN.slk
+//
+// ****************************************************************************
+
+LaunchLektaKernel
+(
+	ExecStrategy = KernelSynchronous
+)
+
+UseProject
+(
+	ProjectCompile : "Deployment/HackTour.olk"
+	TemporalFolder : ".tmp/"
+)
+
+setupRuntimeSpyMessageOn
+// MainAnswer:On
+// DisplayProcessLocutioOn
+//DisplayProcessUnderstandingOn
+// DisplayProcessScriboOn
+// DisplayProcessSensoOn
+// DisplayProcessRespondoOn
+// DisplayProcessCogitoOn
+// DisplayProcessColligoOn
+
+CreateDialogue
+(
+    InstanceOperation:Fluency
+    InstanceLanguage:English
+    InstanceInterface:Written
+)
+
+// WEATHER SCRIPT
+
+// Script triggering for weather script
+//Hello! What's the weather?
+//I want to consult the weather.
+//What's the forecast for the next week?
+//What is the weather forecast? 
+//What's the forecast like?
+//How is the weather today?
+//How will be the weather today in Barcelona?
+
+// Parameter 'weatherinfotype'
+//What's the temperature?
+//Will it rain next week in Barcelona.
+//What temperature do you think it is?
+//Will we have snow? 
+
+// Script logic for weather info
+//How will be the weather tomorrow in Barcelona?
+//And the day after tomorrow?
+//Tell me now the forecast for Sevilla from 24th January to 28th January
+//Tell me now the forecast for Sevilla for the next week
+
+// Script triggering for recommendation system
+//What monuments should I visit in Barcelona?
+//Something else?
+//What about something related with art?
+//And what about famous museums?
+
+// Script triggering for Venue Searcher
+//What monuments should I visit in Sevilla?
+//Tell me more about la Escuela.
+
+// Recovering other scripts
+What monuments should I visit in Sevilla?
+Tell me more about la Escuela.
+//Is there any cheap restaurant near la Escuela?
+
+//I will go to Sevilla next week.
+
+
+
+

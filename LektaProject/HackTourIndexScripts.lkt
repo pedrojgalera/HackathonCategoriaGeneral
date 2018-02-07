@@ -1,0 +1,22 @@
+// ****************************************************************************
+//
+//	Scripting functions for MyApp domain
+//
+// ****************************************************************************
+//
+//	PROJECT	: Fluency/Indices
+// 	DOMAIN  : MyApp
+//	MODULE  : Scripts
+//	PACKAGE	: -
+// 	FOLDER  : -
+// 	FILE	: MyAppScript
+//
+// ****************************************************************************
+
+#Include "Scripts/MainScript.lkt"
+#Include "Scripts/VenueSuggestionScript.lkt"
+#Include "Scripts/WeatherScript.lkt"
+#Include "Scripts/DetailsSearcherScript.lkt"
+#Include "Scripts/CampaignSuggestionScript.lkt"
+#Include "Scripts/NextVenueScript.lkt"
+

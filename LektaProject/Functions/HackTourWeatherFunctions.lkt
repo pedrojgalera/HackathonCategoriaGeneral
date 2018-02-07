@@ -1,0 +1,285 @@
+// ****************************************************************************
+//
+//	Functions for generating forecast
+//
+// ****************************************************************************
+//
+//	PROJECT	: HackTour
+// 	DOMAIN  : -
+//	MODULE  : Functions
+//	PACKAGE	: -
+// 	FOLDER  : -
+// 	FILE	: HackTourWeatherFunctions.lkt
+//
+// ****************************************************************************
+
+string forecastToStringMultipleDays(ForecastList originalList)
+{
+	// TODO REMOVE
+	//SpyMessage(originalList);
+
+	// 1. Asignar puntos de ruptura entre distintos días
+	intBatch breakpoints;
+	DateTime lastDay;
+	lastDay.BaseDate <- subtractDay(getCurrentBaseDate());
+
+	for(int i <- 1; i <= BatchSize(originalList); i++)
+	{
+		ForecastElement element;
+		BatchRecoverPosition(originalList, i, element);
+		DateTime currentDay <- element.ForecastDateTime;
+		if(currentDay.BaseDate != lastDay.BaseDate)
+		{
+			BatchInsertEnd(breakpoints, i);
+		}
+		lastDay.BaseDate <- currentDay.BaseDate;
+	}
+
+	// TODO REMOVE
+	//SpyMessage(breakpoints);
+
+	// 2. Calcular moda en cada zona
+   	stringBatch modas;
+   	for(int i <- 1; i <= BatchSize(breakpoints); i++)
+   	{
+   		int start, end;
+   		BatchRecoverPosition(breakpoints, i, start);
+   		BatchRecoverPosition(breakpoints, i + 1, end);
+   		if(!!Filled(end))
+   		{
+   			end <- BatchSize(originalList) + 1;
+   		}
+
+      	// Start included, end not included
+    	BatchInsertEnd(modas, getModaFromZone(originalList, start, end));
+    }
+
+    // TODO REMOVE
+    //SpyMessage(modas);
+
+	// 3. Calcular temperatura media en cada zona
+    intBatch temperatures;
+    for(int i <- 1; i <= BatchSize(breakpoints); i++)
+   	{
+   		int start, end;
+   		BatchRecoverPosition(breakpoints, i, start);
+   		BatchRecoverPosition(breakpoints, i + 1, end);
+   		if(!!Filled(end))
+   		{
+   			end <- BatchSize(originalList) + 1;
+   		}
+
+   		// Start included, end not included
+   		BatchInsertEnd(temperatures, getTemperatureFromZone(originalList, start, end));
+   	}
+
+   	// TODO REMOVE
+    //SpyMessage(temperatures);
+
+	// 4. Generar para cada zona
+	string ret;
+	for(int i <- 1; i <= BatchSize(breakpoints); i++)
+    {
+     	int start;
+   		BatchRecoverPosition(breakpoints, i, start);
+   		ForecastElement element;
+   		BatchRecoverPosition(originalList, start, element);
+   		int day <- element.ForecastDateTime.BaseDate.DayInWeek;
+   		string forecastDescriptor;
+   		BatchRecoverPosition(modas, i, forecastDescriptor);
+        int temp;
+        BatchRecoverPosition(temperatures, i, temp);
+
+   		ret <- LiteralConcat(ret, forecastDescriptor, ' ');
+   		ret <- LiteralConcat(ret, getPropLang('msg-forecast-with'), ' ', ShapeToLiteral(temp), ' ', getPropLang('msg-forecast-degree'), ' ');
+   		ret <- LiteralConcat(ret, getPropLang('msg-forecast-fornext'), ' ', dayInWeekName(day));
+
+   		if(i == BatchSize(breakpoints) - 1)
+   		{
+   			ret <- LiteralConcat(ret, ' and ');
+   		}
+   		else if(i < BatchSize(breakpoints) - 1)
+   		{
+   			ret <- LiteralConcat(ret, ', ');
+   		}
+   	}
+   	ret <- LiteralConcat(ret, '. ');
+
+   	return ret;
+}
+
+int getTemperatureFromZone(ForecastList list, int start, int end)
+{
+	int ret;
+
+	float numberTemperatures <- 0;
+	float accumulatedTemperatures <- 0;
+	for(int i <- start; i < end; i++)
+	{
+		ForecastElement element;
+		BatchRecoverPosition(list, i, element);
+		numberTemperatures++;
+		accumulatedTemperatures <- accumulatedTemperatures + ShapeToReal(element.ForecastTemperature);
+	}
+	float averageTemperature;
+	averageTemperature <- accumulatedTemperatures / numberTemperatures;
+	averageTemperature <- Round(averageTemperature);
+	ret <- ShapeToInt(averageTemperature);
+
+	return ret;
+}
+
+
+string forecastToStringSingleDay(ForecastList originalList)
+{
+	// 1. Filter Forecast (from 9 to 21)
+	float numberTemperatures <- 0;
+	float accumulatedTemperatures <- 0;
+	ForecastList filteredList;
+	for(int i <- 1; i <= BatchSize(originalList); i++)
+	{
+		ForecastElement element;
+		BatchRecoverPosition(originalList, i, element);
+		int hour <- element.ForecastDateTime.GeneralTime.BaseTime.Hour;
+		if(hour >= 9 && hour <= 21)
+		{
+			BatchInsertEnd(filteredList, element);
+			numberTemperatures++;
+			accumulatedTemperatures <- accumulatedTemperatures + ShapeToReal(element.ForecastTemperature);
+		}
+	}
+	float averageTemperature;
+	averageTemperature <- accumulatedTemperatures / numberTemperatures;
+	averageTemperature <- Round(averageTemperature);
+
+	// TODO REMOVE
+	//SpyMessage(filteredList);
+
+	// 2. Asignar puntos de ruptura entre distintas categorias de predicción de tiempo
+	intBatch breakpoints;
+	int lastCategory <- -1;
+	for(int i <- 1; i <= BatchSize(filteredList); i++)
+	{
+		ForecastElement element;
+		BatchRecoverPosition(filteredList, i, element);
+		int currentCategory <- getForecastDescriptorCategory(element.ForecastDescriptorId);
+		if(currentCategory != lastCategory)
+		{
+			BatchInsertEnd(breakpoints, i);
+		}
+		lastCategory <- currentCategory;
+	}
+
+	// TODO REMOVE
+	//SpyMessage(breakpoints);
+
+	// 3. Calcular moda en cada zona
+	stringBatch modas;
+	for(int i <- 1; i <= BatchSize(breakpoints); i++)
+	{
+		int start, end;
+		BatchRecoverPosition(breakpoints, i, start);
+		BatchRecoverPosition(breakpoints, i + 1, end);
+		if(!!Filled(end))
+		{
+			end <- BatchSize(filteredList) + 1;
+		}
+
+		// Start included, end not included
+		BatchInsertEnd(modas, getModaFromZone(filteredList, start, end));
+	}
+
+	// TODO REMOVE
+	//SpyMessage(modas);
+
+	// 4. Generar para cada zona
+	string ret;
+	for(int i <- 1; i <= BatchSize(breakpoints); i++)
+    {
+     	int start, end;
+   		BatchRecoverPosition(breakpoints, i, start);
+   		BatchRecoverPosition(breakpoints, i + 1, end);
+   		if(!!Filled(end))
+   		{
+    		end <- BatchSize(filteredList) + 1;
+    	}
+
+   		// Start included, end not included
+   		string forecastDescriptor;
+   		ForecastElement e0, e1;
+   		BatchRecoverPosition(filteredList, start, e0);
+   		BatchRecoverPosition(filteredList, end, e1);
+
+   		DateTime time;
+   		time.GeneralTime.MinTime <- e0.ForecastDateTime.GeneralTime;
+   		if(Filled(e1))
+   		{
+			time.GeneralTime.MaxTime <- e1.ForecastDateTime.GeneralTime;
+		}
+		else
+		{
+			time.GeneralTime.MaxTime.BaseTime.Hour <- 24;
+		}
+		BatchRecoverPosition(modas, i, forecastDescriptor);
+
+   		ret <- LiteralConcat(ret, forecastDescriptor, ' ');
+   		if(BatchSize(breakpoints) > 1)
+   		{
+   			ret <- LiteralConcat(ret, generalTimeToStringHackTour(time), ', ');
+   		}
+   	}
+
+   	ret <- LiteralConcat(ret, getPropLang('msg-forecast-temperature'), ' ', ShapeToLiteral(ShapeToInt(averageTemperature)), ' ', getPropLang('msg-forecast-degree'), '. ');
+
+	return ret;
+}
+
+string generalTimeToStringHackTour(DateTime time)
+{
+	string ret;
+
+	ret <- LiteralConcat(ret, getPropLang('msg-forecast-from'), ' ', ShapeToLiteral(time.GeneralTime.MinTime.BaseTime.Hour));
+
+	return ret;
+}
+
+int getForecastDescriptorCategory(string category)
+{
+	return ShapeToInt(SubLiteral(category,1,1));
+}
+
+string getModaFromZone(ForecastList filteredList, int start, int end)
+{
+	string ret;
+
+	for(int i <- start; i < end; i++)
+	{
+		ForecastElement element;
+		BatchRecoverPosition(filteredList, i, element);
+
+		resetMemCounter(element.ForecastDescriptor);
+	}
+
+	for(int i <- start; i < end; i++)
+    {
+    	ForecastElement element;
+    	BatchRecoverPosition(filteredList, i, element);
+
+    	incMemCounter(element.ForecastDescriptor);
+    }
+
+	int max <- 0;
+	for(int i <- start; i < end; i++)
+    {
+        ForecastElement element;
+        BatchRecoverPosition(filteredList, i, element);
+
+		if(getMemCounter(element.ForecastDescriptor) > max)
+		{
+			max <- getMemCounter(element.ForecastDescriptor);
+			ret <- element.ForecastDescriptor;
+		}
+    }
+
+	return ret;
+}

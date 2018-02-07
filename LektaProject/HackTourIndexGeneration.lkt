@@ -1,0 +1,5 @@
+#Include "Generation/WelcomeGeneration.lkt"
+#Include "Generation/ForecastGeneration.lkt"
+#Include "Generation/FoursquareGeneration.lkt"
+#Include "Generation/ParamGeneration.lkt"
+#Include "Generation/CampaignGeneration.lkt"

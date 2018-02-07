@@ -1,0 +1,29 @@
+// ****************************************************************************
+//
+//	Grammar for venues
+//
+// ****************************************************************************
+//
+//	PROJECT	: HackTour
+// 	DOMAIN  : -
+//	MODULE  : Grammar
+//	PACKAGE	: -
+// 	FOLDER  : -
+// 	FILE	: VenuesGrammarScope.lkt
+//
+// ****************************************************************************
+
+(Venues01 :
+	[ TaskDialogueAct -> VenuesScope ]
+	{
+		^ <- #1;
+	}
+)
+
+(Weather03 :
+ 	[ VenuesScope -> lexWh lexVenue ]
+	{
+		^.Scope <- 'venue';
+	}
+)
+

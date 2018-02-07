@@ -1,0 +1,31 @@
+// ****************************************************************************
+//
+//	Indexfile for functions in MyApp domain
+//
+// ****************************************************************************
+//
+//	PROJECT	: HackTour
+// 	DOMAIN  : -
+//	MODULE  : Indices
+//	PACKAGE	: -
+// 	FOLDER  : -
+// 	FILE	: AppIndexFunctions
+//
+// ****************************************************************************
+
+// App-level functions:
+#Include "Functions/HackTourFunctions.lkt"
+#Include "Functions/HackTourBackOfficeFunctions.lkt"
+#Include "Functions/HackTourBackOfficeSimulatedFunctions.lkt"
+#Include "Functions/HackTourLaunchFunctions.lkt"
+#Include "Functions/HackTourWeatherFunctions.lkt"
+#Include "Functions/HackTourSuggestionFunctions.lkt"
+#Include "Functions/HackTourCampaignFunctions.lkt"
+#Include "Functions/DAO/EndpointInterfaces.lkt"
+#Include "Functions/DAO/DAOUtilsFunctions.lkt"
+#Include "Functions/DAO/DAOFunctions.lkt"
+
+
+
+
+

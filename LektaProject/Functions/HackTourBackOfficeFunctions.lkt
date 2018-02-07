@@ -1,0 +1,515 @@
+// ****************************************************************************
+//
+//	Functions for MyApp domain
+//
+// ****************************************************************************
+//
+//	PROJECT	: Fluency/Indices
+// 	DOMAIN  : MyApp
+//	MODULE  : Functions
+//	PACKAGE	: -
+// 	FOLDER  : -
+// 	FILE	: MyAppFunctions
+//
+// ****************************************************************************
+
+Parameter getNextVenue(Parameters parameters)
+{
+	// TODO REMOVE
+	//SpyMessage("");
+  	//SpyMessage("getNextVenues");
+  	//SpyMessage("");
+
+	Parameter ret;
+	Parameter paramVenue;
+
+	paramVenue <- getParByType(parameters, 'venue');
+
+  	string id <- '';
+  	string ll <- '';
+  	if (Filled(paramVenue.ParameterValue))
+  	{
+    	id <- paramVenue.ParameterValue.Venue.VenueId;
+    	Geocoordinates coords <- paramVenue.ParameterValue.Venue.Location.Geocoordinates;
+    	ll <- LiteralConcat(ShapeToString(coords.Lat),', ',ShapeToString(coords.Lon));
+  	}
+
+	Suggestions suggestions;
+	if(&ON('simulation-mode'))
+	{
+		suggestions <- getNextVenueListSimulated('');
+	}
+	else
+	{
+    	CallAPI call;
+    	call <- CallBO('nextvenues');
+    	if (Filled(id) && LiteralSize(trim(id))>0)
+    	{
+      		CallUpdate(&call,'id',id);
+      	}
+    	if (Filled(ll) && LiteralSize(trim(ll))>0)
+    	{
+      		CallUpdate(&call,'ll',ll);
+      	}
+
+    	CallUpdate(&call,'lang',getLang2(GetDialogueLanguageId()));
+	  	//TODO change for getCallResponse for specific transport errors handling
+    	message result <- getCallResult(call);
+
+    	if (result != "ERROR")
+    	{
+      		RecommendedVenues venues;
+      		venues <- ImportJSON(result);
+      		suggestions.RecommendedVenues <- venues;
+      		suggestions.BOBusinessStatus <- 'OK';
+    	}
+    	else
+    	{
+      		suggestions.BOBusinessStatus <- 'NO OK';
+    	}
+	}
+
+	ret.ParameterValue.Suggestions <- suggestions;
+	ret.ParameterType <- 'next_venue';
+	ret.ParameterCategory <- 'terminal';
+
+	// TODO REMOVE
+	//SpyMessage(suggestions);
+
+	return ret;
+}
+
+Parameter getVenueDetails(Parameters parameters)
+{
+
+	Parameter ret;
+	Parameter paramVenue;
+	Venue updatedVenue;
+
+	paramVenue <- getParByType(parameters, 'venue');
+
+  	string id <- '';
+  	if (Filled(paramVenue.ParameterValue))
+  	{
+    	id <- paramVenue.ParameterValue.Venue.VenueId;
+    	updatedVenue <- paramVenue.ParameterValue.Venue;
+  	}
+
+  	string langString <- GetDialogueLanguageId();
+
+	if(&ON('simulation-mode'))
+	{
+	    updatedVenue <- getVenueDetailsInfoSimulated(langString, id);
+	}
+	else
+	{
+    	CallAPI call;
+    	call <- CallBO('details');
+    	if (Filled(id) && LiteralSize(trim(id))>0)
+    	{
+      		CallUpdate(&call,'id',id);
+
+    		CallUpdate(&call,'lang',getLang2(langString));
+	  		//TODO change for getCallResponse for specific transport errors handling
+    		message result <- getCallResult(call);
+
+			if (result != "ERROR")
+			{
+				Venue newVenue;
+			  	newVenue <- ImportJSON(result);
+				if (Filled(updatedVenue))
+				{
+					if (Filled(newVenue))
+					{
+						updatedVenue <| newVenue;
+					}
+					else
+					{
+					}
+				}
+			}
+			else
+			{
+				// TODO REMOVE
+			}
+		}
+	}
+
+	CustomData cdata <- getCustomData();
+	cdata.HackTourProfiling.CurrentVenue <- updatedVenue;
+	setCustomData(cdata);
+
+	ret.ParameterValue.Venue <- updatedVenue;
+	ret.ParameterType <- 'venue';
+	ret.ParameterCategory <- 'terminal';
+
+	return ret;
+}
+
+Parameter getForecast(Parameters parameters)
+{
+	Parameter ret;
+
+	Parameter param1, param2, param3;
+	BatchRecoverPosition(parameters, 1, param1);
+	BatchRecoverPosition(parameters, 2, param2);
+	BatchRecoverPosition(parameters, 3, param3);
+
+	// Language
+	string langString <- GetDialogueLanguageId();
+
+	// DateTime
+	DateTime current;
+	current.BaseDate <- getCurrentBaseDate();
+
+	DateTime dt <- param1.ParameterValue.DateTime;
+	if(!! Filled(dt))
+	{
+		dt.BaseDate <- getCurrentBaseDate();
+	}
+	dt <- normalizeDateTime(dt, False);
+	
+	DateTimeBatch dateTimeBatch;
+
+	if(Filled(dt.BaseDate))
+	{	
+		BatchInsertEnd(dateTimeBatch, dt);
+	}
+	else
+	{
+		DateTime dt0 <- dt.MinDate;
+		DateTime dt1 <- dt.MaxDate;
+		while(greaterDateTime(dt1, dt0))
+		{
+			BatchInsertEnd(dateTimeBatch, dt0);
+			dt0.BaseDate <- addDay(dt0.BaseDate);
+		}
+		BatchInsertEnd(dateTimeBatch, dt0);
+	}
+
+	CountryPlace cp <- param2.ParameterValue.CountryPlace;
+	string cityString <- mostConcretePlace(cp);
+
+	Forecast forecast;
+	if(&ON('simulation-mode'))
+	{
+		forecast <- getWeatherInfoSimulated(langString, cityString, dateTimeBatch);
+	}
+	else
+	{
+		forecast <- getWeatherInfo(langString, cityString, dateTimeBatch);
+	}
+	forecast.DateTime <- dt;
+	forecast.CountryPlace <- cp	;
+
+	ret.ParameterValue.Forecast <- forecast;
+	ret.ParameterType <- 'forecast';
+	ret.ParameterCategory <- 'terminal';
+
+	return ret;
+}
+
+ForecastElement getRandomForecastDescriptor(ForecastElement element)
+{
+	int i <- Random(1,3);
+
+	string ret;
+	if(i == 1)
+	{
+		element.ForecastDescriptor <- 'scattered clouds';
+        element.ForecastDescriptorId <- '802';
+	}
+	else if(i == 2)
+	{
+		element.ForecastDescriptor <- 'clear sky';
+        element.ForecastDescriptorId <- '800';
+	}
+	else
+	{
+		element.ForecastDescriptor <- 'light rain';
+		element.ForecastDescriptorId <- '500';
+	}
+	return element;
+}
+
+string getRandomForecastTemperature()
+{
+	return ShapeToLiteral(Random(10,20));
+}
+
+procedure resetParameter(string parameterType)
+{
+	ScriptInfoItem scriptInfoItem;
+	DialogueScript script <- getCurrentScript();
+	int argumentNumber <- LookForInfoItemParameterType( script, parameterType );
+	BatchRecoverPosition( script.ScriptInfoItems, argumentNumber, scriptInfoItem );
+
+	scriptInfoItem.InfoItemState <- 'proposed';
+	scriptInfoItem.InfoItemMoveState <- 'marked';
+
+	BatchAssignPosition( script.ScriptInfoItems, argumentNumber, scriptInfoItem );
+    setScript( script );
+}
+
+procedure resetBranchNode(string nodeName)
+{
+	ScriptNode branchNode;
+	DialogueScript script;
+
+	script <- getCurrentScript();	
+	branchNode <- getNodeFromScript(script, nodeName );	
+	branchNode.ScriptNodeState.ScriptNodeBranchState <- 'active';
+
+	ScriptNode recScriptNode;
+	int scriptSize <- BatchSize( script.ScriptNodes );
+	for (int position <- 1; position <= scriptSize; position++) 
+	{
+		BatchRecoverPosition(script.ScriptNodes, position, recScriptNode);
+
+		if (nodeName == recScriptNode.ScriptNodeDescriptor)
+		{
+			BatchAssignPosition(script.ScriptNodes, position, branchNode);
+			position <- scriptSize;
+		}
+	}
+    setScript( script );
+}
+
+string showTempAnswer(Forecast forecast, int n) {
+  string res <- 'unknown';
+  if (Filled(res) && Filled(forecast.ForecastList)){
+    int size <- BatchSize(forecast.ForecastList);
+    if (n<=size){
+      ForecastElement element;
+      BatchRecoverPosition(forecast.ForecastList,n,element);
+      res <- LiteralConcat(element.ForecastDt, ' ', element.ForecastTemperature,' ',element.ForecastDescriptor);
+    }
+  }
+  return res;
+}
+
+Parameter getSuggestions(Parameters parameters)
+{
+	// TODO REMOVE
+	//SpyMessage("");
+  	//SpyMessage("getSuggestions");
+  	//SpyMessage("");
+
+	Parameter ret;
+
+	Parameter paramCountryPlace, paramCityPlace, paramVenue, paramCategoryId, paramSubcategoryId;
+
+	paramCountryPlace <- getParByType(parameters, 'countryplace');
+	paramCityPlace <- getParByType(parameters, 'cityplace');
+	paramVenue <- getParByType(parameters, 'venue');
+	paramCategoryId <- getParByType(parameters, 'venuecategory');
+	paramSubcategoryId <- getParByType(parameters, 'venuesubcategory');
+
+  	string near <- '';
+  	string cityPlace;
+  if (Filled(paramCityPlace.ParameterValue)){
+    cityPlace <- paramCityPlace.ParameterValue.CityPlace.CityPlaceName;
+    near <- LiteralConcat(near, cityPlace);
+  }
+
+  string cityString;
+  if (Filled(paramCountryPlace.ParameterValue)){
+    CountryPlace cp <- paramCountryPlace.ParameterValue.CountryPlace;
+    cityString <- mostConcretePlace(cp);
+    near <- LiteralConcat(near, cityString);
+  }
+
+  string ll <- '';
+  if (Filled(paramVenue.ParameterValue)){
+    Geocoordinates coords <- paramVenue.ParameterValue.Venue.Location.Geocoordinates;
+    ll <- LiteralConcat(ShapeToString(coords.Lat),', ',ShapeToString(coords.Lon));
+  }
+
+  string categoryId;
+  if (Filled(paramSubcategoryId.ParameterValue)){
+    categoryId <- paramSubcategoryId.ParameterValue.VenueSubcategory.VenueCategoryId;
+  } else if (Filled(paramCategoryId.ParameterValue)){
+    categoryId <- paramCategoryId.ParameterValue.VenueCategory.VenueCategoryId;
+  }
+
+	Suggestions suggestions;
+	if(&ON('simulation-mode'))
+	{
+	  suggestions <- getSuggestionsListSimulated(cityString, categoryId);
+	}
+	else
+	{
+    CallAPI call;
+    call <- CallBO('historicSites');
+    // Call by specific location (latitude + longitude) or by [place+]city name
+
+    if (Filled(ll) && LiteralSize(trim(ll))>0)
+      CallUpdate(&call,'ll',ll);
+    else if (Filled(near))
+      CallUpdate(&call,'near',near);
+
+    if (Filled(categoryId))
+      CallUpdate(&call,'categoryId',categoryId);
+
+    CallUpdate(&call,'lang',getLang2(GetDialogueLanguageId()));
+
+	  //TODO change for getCallResponse for specific transport errors handling
+    message result <- getCallResult(call);
+
+    if (result != "ERROR"){
+      RecommendedVenues venues;
+      venues <- ImportJSON(result);
+      suggestions.RecommendedVenues <- venues;
+      suggestions.BOBusinessStatus <- 'OK';
+    } else {
+      suggestions.BOBusinessStatus <- 'NO OK';
+    }
+	}
+
+	ret.ParameterValue.Suggestions <- suggestions;
+	ret.ParameterType <- 'suggestions';
+	ret.ParameterCategory <- 'terminal';
+
+	return ret;
+}
+
+Parameter getSimilarVenues(Parameters parameters)
+{
+	SpyMessage("");
+  SpyMessage("getSimilarVenues");
+  SpyMessage("");
+
+	Parameter ret;
+	Parameter paramVenue;
+
+	paramVenue <- getParByType(parameters, 'venue');
+
+  string id <- '';
+  string ll <- '';
+  if (Filled(paramVenue.ParameterValue)){
+    id <- paramVenue.ParameterValue.Venue.VenueId;
+    Geocoordinates coords <- paramVenue.ParameterValue.Venue.Location.Geocoordinates;
+    ll <- LiteralConcat(ShapeToString(coords.Lat),', ',ShapeToString(coords.Lon));
+  }
+
+	Suggestions suggestions;
+	if(&ON('simulation-mode'))
+	{
+	  //TODO
+	}
+	else
+	{
+    CallAPI call;
+    call <- CallBO('similar');
+    if (Filled(id) && LiteralSize(trim(id))>0)
+      CallUpdate(&call,'id',id);
+    if (Filled(ll) && LiteralSize(trim(ll))>0)
+      CallUpdate(&call,'ll',ll);
+
+    CallUpdate(&call,'lang',getLang2(GetDialogueLanguageId()));
+	  //TODO change for getCallResponse for specific transport errors handling
+    message result <- getCallResult(call);
+
+    if (result != "ERROR"){
+      RecommendedVenues venues;
+      venues <- ImportJSON(result);
+      suggestions.RecommendedVenues <- venues;
+      suggestions.BOBusinessStatus <- 'OK';
+    } else {
+      suggestions.BOBusinessStatus <- 'NO OK';
+    }
+	}
+
+	ret.ParameterValue.Suggestions <- suggestions;
+	ret.ParameterType <- 'nextvenues';
+	ret.ParameterCategory <- 'terminal';
+
+	return ret;
+}
+
+Parameter getTips(Parameters parameters)
+{
+	SpyMessage("");
+  SpyMessage("getTips");
+  SpyMessage("");
+
+	Parameter ret;
+	Parameter paramVenue;
+
+	paramVenue <- getParByType(parameters, 'venue');
+
+  string id <- '';
+  if (Filled(paramVenue.ParameterValue)){
+    id <- paramVenue.ParameterValue.Venue.VenueId;
+  }
+
+  VenueTips venueTips;
+	if(&ON('simulation-mode'))
+	{
+	  //TODO
+	}
+	else
+	{
+    CallAPI call;
+    call <- CallBO('nextvenues');
+    if (Filled(id) && LiteralSize(trim(id))>0)
+      CallUpdate(&call,'id',id);
+
+    CallUpdate(&call,'lang',getLang2(GetDialogueLanguageId()));
+	  //TODO change for getCallResponse for specific transport errors handling
+    message result <- getCallResult(call);
+
+    if (result != "ERROR"){
+      Tips tips;
+      tips <- ImportJSON(result);
+      venueTips.Tips <- tips;
+      venueTips.BOBusinessStatus <- 'OK';
+    } else {
+      venueTips.BOBusinessStatus <- 'NO OK';
+    }
+	}
+
+	ret.ParameterValue.VenueTips <- venueTips;
+	ret.ParameterType <- 'tips';
+	ret.ParameterCategory <- 'terminal';
+
+	return ret;
+}
+
+Parameter getRestaurantsNear(Parameters parameters)
+{
+	Parameter ret;
+
+	Parameter param1;
+	BatchRecoverPosition(parameters, 1, param1);
+
+	// CountryPlace
+	CountryPlace cp <- param1.ParameterValue.CountryPlace;
+	string place <- mostConcretePlace(cp);
+
+	// Language
+	string langString <- GetDialogueLanguageId();
+
+  Suggestions restaurants;
+
+	if(&ON('simulation-mode'))
+	{
+		restaurants <- getRestaurantsNearListSimulated(place);
+	}
+	else
+	{
+		restaurants <- getRestaurantsNearList(place);
+		SpyMessage("Back in getRestaurantsNear after getRestaurantsNearList");
+	}
+
+	ret.ParameterValue.Suggestions <- restaurants;
+	ret.ParameterType <- 'suggestions';
+	ret.ParameterCategory <- 'terminal';
+
+	// TODO REMOVE
+	SpyMessage("getRestaurantsNear returns: ", ret);
+
+
+	return ret;
+}
+

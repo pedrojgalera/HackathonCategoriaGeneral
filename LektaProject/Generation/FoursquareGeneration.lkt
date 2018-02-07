@@ -1,0 +1,214 @@
+// ****************************************************************************
+//
+//	Forecast paramater generation
+//
+// ****************************************************************************
+//
+//	PROJECT	: HackTour
+// 	DOMAIN  : -
+//	MODULE  : Generation
+//	PACKAGE	: -
+// 	FOLDER  : -
+// 	FILE	: ForecastGeneration.lkt
+//
+// ****************************************************************************
+
+(ScriboScheme GenerateSuggestions: [ DialogueAct ]
+	ScriboCapture
+	{
+		&IsExplicit('parameter') && hasParType (&LOCPars(1), 'next_venue' )
+	}
+	ScriboAction
+	{
+		Parameter parameter <- getParByType ( &LOCPars(1), 'next_venue' );
+		Suggestions suggestions <- parameter.ParameterValue.Suggestions;
+		CustomData cdata <- getCustomData();
+
+		if(suggestions.BOBusinessStatus == 'OK')
+		{
+			Venue venue;
+			BatchRecoverPosition(suggestions.RecommendedVenues, 1, venue);
+
+			GenerateMainAnswer('msg-nextvenue-beginning');
+			GenerateRecommendedVenue(venue);
+			GenerateMainAnswer('msg-nextvenue-middle');
+			GenerateDistance(venue);
+			GenerateMainAnswer('msg-nextvenue-end');
+
+			BatchInsertEnd(cdata.HackTourProfiling.ShownVenues, venue);
+			$MINDBOARD@CustomData.HackTourProfiling.ShownVenues <- cdata.HackTourProfiling.ShownVenues;
+    	}
+    	else if(suggestions.BOBusinessStatus == 'EMPTY')
+        {
+        	// TODO
+        }
+  	}
+)
+
+(ScriboScheme GenerateSuggestions: [ DialogueAct ]
+	ScriboCapture 
+	{
+		&IsExplicit('parameter') && hasParType (&LOCPars(1), 'suggestions' )
+	}
+	ScriboAction 
+	{
+		Parameter parameter <- getParByType ( &LOCPars(1), 'suggestions' );
+		Suggestions suggestions <- parameter.ParameterValue.Suggestions;
+		CustomData cdata <- getCustomData();
+
+		if(suggestions.BOBusinessStatus == 'OK')
+		{
+			RecommendedVenues selected;
+			for(int i <- 1; i <= BatchSize(suggestions.RecommendedVenues); i++)
+			{
+				Venue venue;
+				BatchRecoverPosition(suggestions.RecommendedVenues, i, venue);
+
+				if(notShownVenue(venue))
+				{
+					 BatchInsertEnd(selected, venue);
+				}
+			}
+
+			if(BatchSize(selected) > 0)
+			{
+				GenerateMainAnswer('msg-recommender-beginning');
+
+				Venue venue;
+				BatchRecoverPosition(selected, 1, venue);
+				GenerateRecommendedVenue(venue);
+				BatchInsertEnd(cdata.HackTourProfiling.ShownVenues, venue);
+				$MINDBOARD@CustomData.HackTourProfiling.ShownVenues <- cdata.HackTourProfiling.ShownVenues;
+
+				if(BatchSize(selected) > 1)
+				{
+					SetMainAnswer(' ');
+					GenerateMainAnswer('msg-hacktour-and');
+					BatchRecoverPosition(selected, 2, venue);
+                    GenerateRecommendedVenue(venue);
+                    BatchInsertEnd(cdata.HackTourProfiling.ShownVenues, venue);
+       				$MINDBOARD@CustomData.HackTourProfiling.ShownVenues <- cdata.HackTourProfiling.ShownVenues;
+				}
+				SetMainAnswer('. ');
+			}
+			else
+			{
+				GenerateMainAnswer('msg-recommender-all-shown');
+			}
+    	}
+    	else if(suggestions.BOBusinessStatus == 'EMPTY')
+        {
+        	// TODO
+        }
+  	}
+)
+
+(ScriboScheme GenerateVenue: [ DialogueAct ]
+	ScriboCapture
+	{
+		&IsExplicit('parameter') && hasParType (&LOCPars(1), 'venue' )
+	}
+	ScriboAction
+	{
+		Parameter parameter <- getParByType ( &LOCPars(1), 'venue' );
+		Venue venue <- parameter.ParameterValue.Venue;
+		CustomData cdata <- getCustomData();
+
+		string description <- venue.VenueDescription;
+
+		if(Filled(description))
+		{
+			cdata.HackTourProfiling.NoDetails <- False;
+
+			SetMainAnswer(description);
+		}
+		else
+		{
+			cdata.HackTourProfiling.NoDetails <- True;
+            setCustomData(cdata);
+
+			Tips tips <- venue.VenueTips.Tips;
+			if(Filled(tips))
+			{
+				Tip tip;
+				BatchRecoverPosition(tips, 1, tip);
+				GenerateMainAnswer('msg-venues-tip-introduction');
+				SetMainAnswer(tip.TipText);
+			}
+			else
+			{
+				setCustomData(cdata);
+
+				GenerateMainAnswer('msg-venues-details-error');
+			}
+		}
+   	}
+)
+
+(ScriboScheme GenerateTimetable: [ DialogueAct ]
+	ScriboCapture
+	{
+		#OBJLOCUTIO-1.CoreDialogueAct.Dimension == 'statement' &&
+        #OBJLOCUTIO-1.CoreDialogueAct.Function == 'inform' &&
+       	containsActionDomainRoot( #OBJLOCUTIO-1.TaskDialogueAct.Action, 'explicit') &&
+  		#OBJLOCUTIO-1.TaskDialogueAct.Scope == 'timetable'
+	}
+	ScriboAction
+	{
+		CustomData cdata <- getCustomData();
+		Venue venue <- cdata.HackTourProfiling.CurrentVenue;
+
+		if(Filled(venue.OpeningHoursList))
+		{
+			GenerateMainAnswer('msg-venues-timetables');
+
+			OpeningHoursList openinghours <- venue.OpeningHoursList;
+			for(int i <- 1; i <= BatchSize(openinghours); i++)
+			{
+				OpeningHours hours;
+				BatchRecoverPosition(openinghours, i, hours);
+
+				GenerateHours(hours);
+
+				if(i < BatchSize(openinghours) - 1)
+                {
+                	SetMainAnswer(', ');
+                }
+                else if(i < BatchSize(openinghours))
+                {
+                	SetMainAnswer(' ');
+                    GenerateMainAnswer('msg-hacktour-and');
+                }
+                else
+                {
+                	SetMainAnswer('. ');
+                }
+			}
+		}
+   	}
+)
+
+(ScriboScheme GenerateTips: [ DialogueAct ]
+	ScriboCapture
+	{
+		#OBJLOCUTIO-1.CoreDialogueAct.Dimension == 'statement' &&
+		#OBJLOCUTIO-1.CoreDialogueAct.Function == 'inform' &&
+		containsActionDomainRoot( #OBJLOCUTIO-1.TaskDialogueAct.Action, 'explicit') &&
+		#OBJLOCUTIO-1.TaskDialogueAct.Scope == 'tips'
+	}
+	ScriboAction
+	{
+		CustomData cdata <- getCustomData();
+   		Venue venue <- cdata.HackTourProfiling.CurrentVenue;
+		Tips tips <- venue.VenueTips.Tips;
+
+		if(Filled(tips))
+		{
+			Tip tip;
+			BatchRecoverPosition(tips, 1, tip);
+			SetMainAnswer(" ");
+			GenerateMainAnswer('msg-venues-tip-introduction');
+			SetMainAnswer(tip.TipText);
+		}
+   	}
+)

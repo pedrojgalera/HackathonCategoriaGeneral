@@ -1,0 +1,180 @@
+// ****************************************************************************
+//
+//	DAO Functions
+//
+// ****************************************************************************
+//
+//	PROJECT	: HackTour
+// 	DOMAIN  : -
+//	MODULE  : Functions
+//	PACKAGE	: DAO
+// 	FOLDER  : -
+// 	FILE	: DAOFunctions.lkt
+//
+// ****************************************************************************
+
+
+Venue getVenueDetailsInfo(string langString, string venueId)
+{
+	Venue ret;
+
+	// TODO
+
+	return ret;
+}
+
+/* Day coming in the form: 2018-01-13 */
+Forecast getForecastForDay (string place, DateTime date, string mode, string lang)
+{
+  string response <- getCallResponse(getForecastCall(place,BaseDateToString(date.BaseDate),mode,lang));
+
+  BOResponse resp;
+  resp <- getBOResponse(response);
+
+  Forecast forecast;
+  ForecastList predictions;
+
+  if (resp.BOStatus == LEKTA_BACKOFFICE_SUCCESS)
+  {
+    ForecastList forecastList;
+    forecastList <- ImportJSON(getBOResult(resp));
+
+    int size <- BatchSize(forecastList);
+    for (int i<-1; i<=size; i++) {
+      ForecastElement element;
+      BatchRecoverPosition(forecastList,i,element);
+      element.ForecastDateTime <- date;
+      element.ForecastDateTime.GeneralTime.BaseTime.Hour <- getHourFromDt(element.ForecastDt);
+      element.ForecastDateTime.GeneralTime.BaseTime.Minute <- 0;
+      BatchInsertEnd(predictions,element);
+    }
+    forecast.ForecastList <- predictions;
+    forecast.BOBusinessStatus <- 'OK';
+  }
+	else
+	{
+    // TODO Decide what to do in case of failure
+    forecast.BOBusinessStatus <- 'NO OK';
+  }
+
+  return forecast;
+}
+
+
+Forecast getWeatherInfo(string lang, string city, DateTimeBatch dates)
+{
+	SpyMessage("getWeatherInfo   ", city);
+	Forecast ret;
+
+  int size <- BatchSize(dates);
+  DateTime dt;
+
+  ret.BOBusinessStatus <- '[';
+  ForecastList predictions;
+
+  for (int i<-1; i<=size; i++) {
+    BatchRecoverPosition(dates,i,dt);
+    Forecast forecastDay <- getForecastForDay(city,dt,'both',lang);
+    ret.BOBusinessStatus <- LiteralConcat(ret.BOBusinessStatus,forecastDay.BOBusinessStatus,',');
+    predictions <- BatchJoin(predictions,forecastDay.ForecastList);
+  }
+
+  ret.BOBusinessStatus <- 'OK';//LiteralConcat(RemoveSuffix(ret.BOBusinessStatus,','),']');
+  ret.ForecastList <- predictions;
+
+	return ret;
+}
+
+Suggestions getSuggestionsList(string place)
+{
+  Suggestions ret;
+  message result <- getCallResult(getSuggestionsCall(place));
+  if (result != "ERROR"){
+    RecommendedVenues venues;
+    venues <- ImportJSON(result);
+    ret.RecommendedVenues <- venues;
+    ret.BOBusinessStatus <- 'OK';
+  } else {
+    ret.BOBusinessStatus <- 'NO OK';
+  }
+	return ret;
+}
+
+Suggestions getRestaurantsNearList(string place)
+{
+  SpyMessage("getRestaurantsNearList   ", place);
+  CallAPI call;
+  call <- CallBO('restaurants');
+  CallUpdate(&call,'near',place);
+
+  CallUpdate(&call,'lang',getLang2(GetDialogueLanguageId()));
+  Suggestions ret;
+
+  message result <- getCallResult(call);
+  if (result != "ERROR"){
+    RecommendedVenues venues;
+    venues <- ImportJSON(result);
+    ret.RecommendedVenues <- venues;
+    ret.BOBusinessStatus <- 'OK';
+  } else {
+    ret.BOBusinessStatus <- 'NO OK';
+  }
+  return ret;
+
+}
+
+
+string fillDateString(string data, int num)
+{
+  string str <- data;
+  while (LiteralSize(str) < num) {
+    str <- LiteralConcat('0',str);
+  }
+  return str;
+}
+
+string BaseDateToString(BaseDate base)
+{
+	string ret;
+
+	string year <- ShapeToLiteral(base.Year);
+	string month <- fillDateString(ShapeToLiteral(base.Month),2);
+	string day <- fillDateString(ShapeToLiteral(base.Day),2);
+
+	ret <- LiteralConcat(ret, year, '-');
+	ret <- LiteralConcat(ret, month, '-');
+	ret <- LiteralConcat(ret, day);
+
+	return ret;
+}
+
+//"2018-01-14 09:00:00"
+int getHourFromDt (string dt) {
+  return ShapeToInt(SubLiteral(dt,12,13));
+}
+
+//"2018-01-14 09:00:00"
+int getMinuteFromDt (string dt) {
+  return ShapeToInt(SubLiteral(dt,15,16));
+}
+
+//"2018-01-14 09:00:00"
+int getSecondFromDt (string dt) {
+  return ShapeToInt(SubLiteral(dt,18,19));
+}
+
+//"2018-01-14 09:00:00"
+int getYearFromDt (string dt) {
+  return ShapeToInt(SubLiteral(dt,1,4));
+}
+
+//"2018-01-14 09:00:00"
+int getMonthFromDt (string dt) {
+  return ShapeToInt(SubLiteral(dt,6,7));
+}
+
+//"2018-01-14 09:00:00"
+int getDayFromDt (string dt) {
+  return ShapeToInt(SubLiteral(dt,9,10));
+}
+

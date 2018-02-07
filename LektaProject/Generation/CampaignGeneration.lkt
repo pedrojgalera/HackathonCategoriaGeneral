@@ -1,0 +1,40 @@
+// ****************************************************************************
+//
+//	HackTour parameters generation
+//
+// ****************************************************************************
+//
+//	PROJECT	: HackTour
+// 	DOMAIN  : -
+//	MODULE  : Generation
+//	PACKAGE	: -
+// 	FOLDER  : -
+// 	FILE	: CampaignGeneration.lkt
+//
+// ****************************************************************************
+
+(ScriboScheme GenerateCampaign: [ DialogueAct ]
+	ScriboCapture
+	{
+		&IsExplicit('parameter') && hasParType (&LOCPars(1), 'campaign' )
+	}
+	ScriboAction
+	{
+		Parameter parameter <- getParByType ( &LOCPars(1), 'campaign' );
+		Campaign campaign <- parameter.ParameterValue.Campaign;
+
+		string pname <- LiteralConcat('campaign', ShapeToLiteral(campaign.CampaignNumber), '-message-');
+		if(GetDialogueLanguageId() == 'English')
+		{
+			pname <- LiteralConcat(pname, '1');			
+		}
+		else
+		{
+			pname <- LiteralConcat(pname, '2');
+		}
+		message pvalue <- StaticTableRecoverValue(CAMPAIGNPROPPATH, pname);
+
+		SetMainAnswer(pvalue);		
+  	}
+)
+

@@ -1,0 +1,96 @@
+// ****************************************************************************
+//
+//	Functions for updating custom data after a script has finished
+//
+// ****************************************************************************
+//
+//	PROJECT	: HackTour
+// 	DOMAIN  : -
+//	MODULE  : Functions
+//	PACKAGE	: -
+// 	FOLDER  : -
+// 	FILE	: HackTourUpdateAfterFunctions.lkt
+//
+// ****************************************************************************
+
+procedure updateAfterNextVenue()
+{
+	CustomData cdata <- getCustomData();
+
+	ScriptDescriptor descriptor <- 'NextVenue';
+	BatchInsertEnd(cdata.HackTourProfiling.LastLaunchedScripts, descriptor);
+	$MINDBOARD@CustomData <- cdata;
+
+	// TODO REMOVE
+	//SpyMessage("");
+	//SpyMessage("Updating custom data just after finishing next venue script:");
+    //SpyMessage(cdata.HackTourProfiling.LastLaunchedScripts);
+    //SpyMessage("");
+}
+
+procedure updateAfterCampaignSuggestion()
+{
+	CustomData cdata <- getCustomData();
+
+	ScriptDescriptor descriptor <- 'CampaignSuggestion';
+	BatchInsertEnd(cdata.HackTourProfiling.LastLaunchedScripts, descriptor);
+	BatchInsertEnd(cdata.HackTourProfiling.ProposedCampaigns, whichCampaignTriggered());
+	$MINDBOARD@CustomData <- cdata;
+
+	// TODO REMOVE
+	//SpyMessage("");
+	//SpyMessage("Updating custom data just after finishing campaign suggestion script:");
+    //SpyMessage(cdata.HackTourProfiling.LastLaunchedScripts);
+    //SpyMessage("");
+}
+
+procedure updateAfterWeatherAdvisor()
+{
+	CustomData cdata <- getCustomData();
+
+	ScriptDescriptor descriptor <- 'WeatherAdvisor';
+	BatchInsertEnd(cdata.HackTourProfiling.LastLaunchedScripts, descriptor);
+	$MINDBOARD@CustomData <- cdata;
+
+	// TODO REMOVE
+	/*
+	SpyMessage("");
+	SpyMessage("Updating custom data just after finishing weather advisor script:");
+    SpyMessage(cdata.HackTourProfiling.LastLaunchedScripts);
+    SpyMessage("");
+    */
+}
+
+procedure updateAfterVenueSuggestion()
+{
+	CustomData cdata <- getCustomData();
+
+	ScriptDescriptor descriptor <- 'VenueSuggestion';
+	BatchInsertEnd(cdata.HackTourProfiling.LastLaunchedScripts, descriptor);
+	$MINDBOARD@CustomData <- cdata;
+
+	// TODO REMOVE
+	/*
+	SpyMessage("");
+	SpyMessage("Updating custom data just after finishing venue suggestion script:");
+    SpyMessage(cdata.HackTourProfiling.LastLaunchedScripts);
+    SpyMessage("");
+    */
+}
+
+procedure updateAfterDetailsSearcher()
+{
+	CustomData cdata <- getCustomData();
+
+	ScriptDescriptor descriptor <- 'DetailsSearcher';
+	BatchInsertEnd(cdata.HackTourProfiling.LastLaunchedScripts, descriptor);
+	$MINDBOARD@CustomData <- cdata;
+
+	// TODO REMOVE
+	/*
+	SpyMessage("");
+	SpyMessage("Updating custom data just after finishing venue suggestion script:");
+    SpyMessage(cdata.HackTourProfiling.LastLaunchedScripts);
+    SpyMessage("");
+    */
+}

@@ -1,0 +1,27 @@
+// ****************************************************************************
+//
+//	HackTour parameters generation
+//
+// ****************************************************************************
+//
+//	PROJECT	: HackTour
+// 	DOMAIN  : -
+//	MODULE  : Generation
+//	PACKAGE	: -
+// 	FOLDER  : -
+// 	FILE	: ParamGeneration.lkt
+//
+// ****************************************************************************
+
+#Define IsRecoveredPlace &AppStType(IsRecoveredPar,PLACE)
+
+(ScriboScheme RecoveredPlaceParameterRefined: [ DialogueAct ]
+	ScriboCapture
+	{
+		IsRecoveredPlace
+	}
+	ScriboAction
+	{
+    }
+)
+

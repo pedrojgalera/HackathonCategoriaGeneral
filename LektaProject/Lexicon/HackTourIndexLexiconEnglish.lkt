@@ -1,0 +1,23 @@
+// ****************************************************************************
+//
+//	Scripting functions for MyApp domain
+//
+// ****************************************************************************
+//
+//	PROJECT	: Fluency/Indices
+// 	DOMAIN  : MyApp
+//	MODULE  : Scripts
+//	PACKAGE	: -
+// 	FOLDER  : -
+// 	FILE	: HackTourIndexLexiconEnglish.lkt
+//
+// ****************************************************************************
+
+#Include "English/WeatherLexiconScope.lkt"
+#Include "English/VerbsLexicon.lkt"
+#Include "English/VenuesLexiconScope.lkt"
+#Include "English/RepeatScriptLexiconScope.lkt"
+#Include "English/Categories/VenueCategoriesLexicon.lkt"
+#Include "English/Categories/VenueSubcategoriesLexicon.lkt"
+#Include "English/DetailsLexiconScope.lkt"
+#Include "English/MoneyLexiconScope.lkt"

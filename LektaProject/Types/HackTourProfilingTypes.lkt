@@ -1,0 +1,89 @@
+// ****************************************************************************
+//
+//	Types for profiling in HackTour domain
+//
+// ****************************************************************************
+//
+//	PROJECT	: HackTour
+// 	DOMAIN  : -
+//	MODULE  : Types
+//	PACKAGE	: -
+// 	FOLDER  : -
+// 	FILE	: HackTourProfilingTypes.lkt
+//
+// ****************************************************************************
+
+classDef:StructureComplex
+(
+	HackTourProfiling :
+	(
+		LastLaunchedScripts,
+		ShownVenues,
+		CurrentVenue,
+		NoDetails,
+		MoneyStatus,
+		ProposedCampaigns,
+		Campaigns
+	)
+)
+
+classDef:StructureBatch
+(
+	Campaigns :
+	(
+		Campaign
+	)
+)
+
+classDef:StructureComplex
+(
+	Campaign :
+	(
+		CampaignNumber,
+		CampaignName,
+		CampaignTriggerMoney,
+		CampaignTriggerCity
+	)
+)
+
+classDef:StructureBatch
+(
+	LastLaunchedScripts :
+	(
+		ScriptDescriptor
+	)
+)
+
+classDef:StructureBatch
+(
+	ShownVenues :
+	(
+		Venue
+	)
+)
+
+classDef:Synonym
+(
+	CurrentVenue = Venue
+)
+
+classDef:ElementBool
+(
+	NoDetails
+)
+
+classDef:ElementInt
+(
+	MoneyStatus, CampaignNumber
+)
+
+classDef:ElementLiteral
+(
+	CampaignTriggerCity, CampaignName, CampaignTriggerMoney
+)
+
+classDef:Synonym
+(
+	ProposedCampaigns = intBatch
+)
+

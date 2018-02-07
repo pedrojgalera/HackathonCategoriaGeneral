@@ -1,0 +1,42 @@
+// ****************************************************************************
+//
+//	Scripting for testing purposes: Spanish HackTour app
+//
+// ****************************************************************************
+//
+//	PROJECT	: HackTour
+// 	DOMAIN  : -
+//	MODULE  : -
+//	PACKAGE	: -
+// 	FOLDER  : -
+// 	FILE	: HackTourESP.slk
+//
+// ****************************************************************************
+
+LaunchLektaKernel
+(
+	ExecStrategy = KernelSynchronous
+)
+
+UseProject
+(
+	ProjectCompile : "Deployment/HackTour.olk"
+	TemporalFolder : ".tmp/"
+)
+
+setupRuntimeSpyMessageOn
+// MainAnswer:On
+// DisplayProcessLocutioOn
+// DisplayProcessUnderstandingOn
+// DisplayProcessScriboOn
+// DisplayProcessSensoOn
+// DisplayProcessRespondoOn
+// DisplayProcessCogitoOn
+// DisplayProcessColligoOn
+
+CreateDialogue
+(
+    InstanceOperation:Fluency
+    InstanceLanguage:Spanish
+    InstanceInterface:Written
+)

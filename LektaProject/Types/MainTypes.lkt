@@ -1,0 +1,83 @@
+// ****************************************************************************
+//
+//	Main types
+//
+// ****************************************************************************
+//
+//	PROJECT	: HackTour
+// 	DOMAIN  : -
+//	MODULE  : Types
+//	PACKAGE	: -
+// 	FOLDER  : -
+// 	FILE	: MainTypes.lkt
+//
+// ****************************************************************************
+
+classDef:StructureComplex
+(
+    ParameterValue :
+    (
+        Number,
+        Ordinal,
+        Letter,
+        DateTime,
+        CountryPlace,
+        PhoneNumber,
+        MoneyAmount,
+        SignChunk,
+        Address,
+        PeselNumber,
+        RegonNumber,
+        Forecast,
+        Suggestions,
+        VenueCategory,
+        VenueSubcategory,
+        Venue,
+        CityPlace,
+        VenueTips,
+        Tip,
+		Campaign
+    )
+)
+
+classDef:StructureComplex
+(
+    CustomData :
+    (
+        CustomDataType,
+        DictKernel,
+        DictKernelKeys,
+        StrArrayKernelKeys,
+        DictApp,
+        DictAppKeys,
+        StrArrayAppKeys,
+        DomainPropFiles,
+
+        HackTourProfiling
+    )
+)
+
+classDef:Synonym
+(
+    DictKernel, DictApp = Dict
+)
+
+classDef:Synonym
+(
+    DictKernelKeys, DictAppKeys = stringBatch
+)
+
+classDef:Synonym
+(
+    StrArrayKernelKeys, StrArrayAppKeys = stringArray
+)
+
+classDef:Synonym
+(
+    DomainPropFiles = Dict
+)
+
+classDef:ElementLiteral
+(
+    CustomDataType
+)
