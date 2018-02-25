@@ -1,0 +1,77 @@
+ktunitTarget 
+{
+    targetTrace 
+    (
+        TargetTraceFile:        "Traces/English/foodSuggestion.trace"
+        TargetTraceFilter: 
+        {
+            EVAL_EQUAL
+            EVAL_HEAD
+            EVAL_INSIDE
+            EVAL_DEVOID
+            EVAL_PARTIAL
+            EVAL_DIFFERENT
+        }
+        TargetStats:            "Statistics/English/foodSuggestion.stats"
+    )
+    targetDialogue 
+    (
+        InstanceOperation:      "Fluency"
+        InstanceLanguage:       "English"
+        InstanceInterface:      "Written"
+    )
+    targetScheme 
+    (
+        SchemeGroup:            "hacktour"
+        SchemeUnit:             "NLU"
+        SchemeLabel:            "foodSuggestion"
+        SchemeDialogueContext:  { }
+        SchemeDialogueActivity: "NLU:parameter-venuecategory-food"
+        SchemeFilterPrefix:     "NLU"
+    )
+    targetCorpus 
+    (
+		I was looking some nice place to have meal.
+		Where do you recommend to have lunch?
+		I would like to eat something.
+		Where could i have some dinner? 
+		I'm terribly hungry.
+    )
+}
+
+ktunitTarget 
+{
+    targetTrace 
+    (
+        TargetTraceFile:        "Traces/English/artSuggestion.trace"
+        TargetTraceFilter: 
+        {
+            EVAL_EQUAL
+            EVAL_HEAD
+            EVAL_INSIDE
+            EVAL_DEVOID
+            EVAL_PARTIAL
+            EVAL_DIFFERENT
+        }
+        TargetStats:            "Statistics/English/artSuggestion.stats"
+    )
+    targetDialogue 
+    (
+        InstanceOperation:      "Fluency"
+        InstanceLanguage:       "English"
+        InstanceInterface:      "Written"
+    )
+    targetScheme 
+    (
+        SchemeGroup:            "hacktour"
+        SchemeUnit:             "NLU"
+        SchemeLabel:            "artSuggestion"
+        SchemeDialogueContext:  { }
+        SchemeDialogueActivity: "NLU:parameter-venuecategory-arts&entertainment"
+        SchemeFilterPrefix:     "NLU"
+    )
+    targetCorpus 
+    (
+		I'm interested in some art exhibition
+    )
+}

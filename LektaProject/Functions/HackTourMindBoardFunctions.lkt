@@ -13,6 +13,112 @@
 //
 // ****************************************************************************
 
+procedure getConceptualScheme(string category, string city)
+{
+	if(GetDialogueInterId() == 'Written' && GetDialogeLangIdentifier() == 'Spanish')
+	{
+		int foundItems;
+		int maxItems;
+		string key, header;
+		string matter1, matter3, matter4, subject;
+		int score;
+		int item;
+
+		string search;
+		if(city != 'ávila')
+		{
+			search <- LiteralConcat(city, ' ', category);
+		}
+		else
+		{
+			search <- LiteralConcat('castilla y león ', category);
+		}
+
+		ConceptualSchemeSetIndexingArea('HacktourEFE', 3,'General');
+		ConceptualSchemeExploreString('HacktourEFE', 3, search);
+
+		foundItems <- ConceptualSchemeGetUnifiedFoundItems('HacktourEFE', 3);
+
+		maxItems <- Min(2,foundItems);
+
+		CustomData cdata <- getCustomData();
+		Erase(cdata.VenueNews);
+		for (item <- 1; item <= maxItems; item ++)
+		{
+			key <- ConceptualSchemeAccessUnifiedKey('HacktourEFE', 3, item);
+			header <- ConceptualSchemeAccessUnifiedHeader('HacktourEFE', 3, item);
+			matter1 <- ConceptualSchemeAccessUnifiedMatter1('HacktourEFE', 3, item);
+			matter3 <- ConceptualSchemeAccessUnifiedMatter3('HacktourEFE', 3, item);
+			matter4 <- ConceptualSchemeAccessUnifiedMatter4('HacktourEFE', 3, item);
+			score <- ConceptualSchemeAccessUnifiedScore('HacktourEFE', 3, item);
+			subject <- ConceptualSchemeAccessUnifiedSubject('HacktourEFE', 3, item);
+
+			VenueNew new;
+			new.NewKey <- key;
+			new.NewHeader <- header;
+			new.NewMatter1 <- matter1;
+			new.NewMatter3 <- matter3;
+			new.NewMatter4 <- matter4;
+			new.NewScore <- score;
+            new.NewSubject <- subject;
+
+            BatchInsertEnd(cdata.VenueNews, new);
+		}
+
+		setCustomData(cdata);
+
+		DialogueAct dialogueAct;
+
+        dialogueAct.CoreDialogueAct.Dimension <- 'statement';
+        dialogueAct.CoreDialogueAct.Function <- 'inform';
+        ActionDomain actionDomain;
+        actionDomain.ActionRoot <- 'hack';
+        BatchInsertEnd( dialogueAct.TaskDialogueAct.Action, actionDomain);
+        dialogueAct.TaskDialogueAct.Scope <- 'news';
+
+        BatchInsertEnd( $MINDBOARD@DialogueOutput.DialogueActs, dialogueAct );
+	}
+}
+
+procedure checkCatalan()
+{
+	if(GetDialogeLangIdentifier() == 'Catalan')
+	{
+		DialogueAct dialogueAct;
+
+		dialogueAct.CoreDialogueAct.Dimension <- 'social';
+		dialogueAct.CoreDialogueAct.Function <- 'apology';
+		ActionDomain actionDomain;
+        actionDomain.ActionRoot <- 'not';
+		BatchInsertEnd( dialogueAct.TaskDialogueAct.Action, actionDomain);
+		dialogueAct.TaskDialogueAct.Scope <- 'catalan';
+
+		Erase($MINDBOARD@DialogueOutput.DialogueActs);
+		BatchInsertEnd( $MINDBOARD@DialogueOutput.DialogueActs, dialogueAct );
+	}
+	else
+	{
+		resetMemCounter('cat-counter');
+	}
+}
+
+// TODO REMOVE
+procedure test()
+{
+	SpyMessage("");
+	SpyMessage("test BEFORE");
+	SpyMessage( $MINDBOARD@DialogueState.NotDigestedProferenceChunks );
+	SpyMessage("");
+
+	deleteAgreement();	
+	deleteDisagreement();
+
+	SpyMessage("");
+	SpyMessage("test AFTER");
+	SpyMessage( $MINDBOARD@DialogueState.NotDigestedProferenceChunks );
+	SpyMessage("");
+}
+
 bool noLastScript()
 {
 	CustomData cdata;

@@ -1,0 +1,39 @@
+ktunitTarget 
+{
+    targetTrace 
+    (
+        TargetTraceFile:        "Traces/English/weatherscope.trace"
+        TargetTraceFilter: 
+        {
+            EVAL_EQUAL
+            EVAL_HEAD
+            EVAL_INSIDE
+            EVAL_DEVOID
+            EVAL_PARTIAL
+            EVAL_DIFFERENT
+        }
+        TargetStats:            "Statistics/English/weatherscope.stats"
+    )
+    targetDialogue 
+    (
+        InstanceOperation:      "Fluency"
+        InstanceLanguage:       "English"
+        InstanceInterface:      "Written"
+    )
+    targetScheme 
+    (
+        SchemeGroup:            "hacktour"
+        SchemeUnit:             "NLU"
+        SchemeLabel:            "weatherscope"
+        SchemeDialogueContext:  {NLU:scope-weather}
+        SchemeDialogueActivity: ""
+        SchemeFilterPrefix:     "NLU"
+    )
+    targetCorpus 
+    (
+		How will be the weather tomorrow?
+		What's the weather like in Madrid?
+		Could you please tell me the weather forecast in Barcelona next week?
+    )
+}
+

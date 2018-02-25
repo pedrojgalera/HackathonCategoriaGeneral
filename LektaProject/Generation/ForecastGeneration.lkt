@@ -31,22 +31,25 @@
 		{
 			if(Filled(forecast.DateTime.BaseDate))
 			{
-				// Wheather forecast and temperature
+				// Weather forecast and temperature
                 GenerateMainAnswer('msg-forecast1');
                 SetMainAnswer(FirstUpper(mostConcretePlace(forecast.CountryPlace)));
                 SetMainAnswer(" ");
-                SetMainAnswer( dateTimeToString(normalizeDateTime(forecast.DateTime,False)));
-                SetMainAnswer(" is ");
+                SetMainAnswer( dateTimeToString2(normalizeDateTime(forecast.DateTime,False)));
+                SetMainAnswer(" ");                
+                GenerateMainAnswer('msg-forecast-is');
+				SetMainAnswer(" ");
 
 				SetMainAnswer( forecastToStringSingleDay(forecast.ForecastList));
             }
             else
             {
-          		// Wheather forecast and temperature
+          		// Weather forecast and temperature
                 GenerateMainAnswer('msg-forecast1');
                 SetMainAnswer(FirstUpper(mostConcretePlace(forecast.CountryPlace)));
                 SetMainAnswer(" ");
-                SetMainAnswer(" is ");
+                GenerateMainAnswer('msg-forecast-is');
+                SetMainAnswer(" ");
 
             	SetMainAnswer( forecastToStringMultipleDays(forecast.ForecastList));
             }

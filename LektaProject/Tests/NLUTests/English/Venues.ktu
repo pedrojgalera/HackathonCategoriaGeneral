@@ -1,0 +1,37 @@
+ktunitTarget 
+{
+    targetTrace 
+    (
+        TargetTraceFile:        "Traces/English/venues.trace"
+        TargetTraceFilter: 
+        {
+            EVAL_EQUAL
+            EVAL_HEAD
+            EVAL_INSIDE
+            EVAL_DEVOID
+            EVAL_PARTIAL
+            EVAL_DIFFERENT
+        }
+        TargetStats:            "Statistics/English/venues.stats"
+    )
+    targetDialogue 
+    (
+        InstanceOperation:      "Fluency"
+        InstanceLanguage:       "English"
+        InstanceInterface:      "Written"
+    )
+    targetScheme 
+    (
+        SchemeGroup:            "hacktour"
+        SchemeUnit:             "NLU"
+        SchemeLabel:            "venueprado"
+        SchemeDialogueContext:  { }
+        SchemeDialogueActivity: "NLU:parameter-venue-pradoid"
+        SchemeFilterPrefix:     "NLU"
+    )
+    targetCorpus 
+    (
+		Museo del Prado
+    )
+}
+

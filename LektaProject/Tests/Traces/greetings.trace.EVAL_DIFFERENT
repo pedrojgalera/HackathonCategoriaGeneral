@@ -1,0 +1,53 @@
+$=======================================================
+$     ApplyLktUnitTarget =>
+$   ******************************
+$        Code .......: hacktour
+$        Block ......: NLU
+$        Descriptor .: greetings
+$   ******************************
+$        Operation ..: Fluency
+$        Language ...: Spanish
+$        Interface ..: Written
+$=======================================================
+$=======================================================
+$        Setup
+$            CorpusFormat:Text
+$=======================================================
+$ =======================================================================
+$        Scheme Filter Prefix Init Model .........: [NLU]
+$        Scheme Filter Prefixes Split Model ......: [[NLU]]
+$        Scheme Dialogue Activity Init Model .....: [NLU:core-social-greeting]
+$        Scheme Dialogue Activity Filtered Model .: [NLU:core-social-greeting]
+$ =======================================================================
+$        Corpus
+$ =======================================================================
+$
+$ ***********************************************************************
+$   Input Sentence:[Vale, de acuerdo, muy bien, vamos a ver]
+$
+$        Text Dialogue_Activity .........: [NLU:core-basicanswer-agreement|NLU:core-basicanswer-agreement|NLU:core-basicanswer-agreement|NLU:parameter-letter-A]
+$                Evaluation ........: Different
+$
+$ ***********************************************************************
+$   Input Sentence:[Mira eso. Sí, yo lo que quería]
+$
+$        Text Dialogue_Activity .........: [NLU:core-basicanswer-agreement|NLU:core-statement-request]
+$                Evaluation ........: Different
+$
+$ ***********************************************************************
+$   Input Sentence:[Sí si si. De acuerdo. Pero estás ahí?]
+$
+$        Text Dialogue_Activity .........: [NLU:core-basicanswer-agreement|NLU:core-basicanswer-agreement|NLU:parameter-signchunk-]
+$                Evaluation ........: Different
+$
+$ ***********************************************************************
+$   Input Sentence:[Encantado de saludarte. Vamos a ver. Yo estaba pensando]
+$
+$        Text Dialogue_Activity .........: [NLU:parameter-signchunk-encantado|NLU:parameter-letter-D|NLU:parameter-signchunk-saludarte|NLU:parameter-letter-A|NLU:parameter-signchunk-pensando]
+$                Evaluation ........: Different
+$
+$ ***********************************************************************
+$   Input Sentence:[Muy bien, gracias. Entendido. Vamos a ver.]
+$
+$        Text Dialogue_Activity .........: [NLU:core-basicanswer-agreement|NLU:core-social-thanking|NLU:parameter-signchunk-entendido|NLU:parameter-letter-A]
+$                Evaluation ........: Different

@@ -59,6 +59,7 @@
 		if(suggestions.BOBusinessStatus == 'OK')
 		{
 			RecommendedVenues selected;
+			bool first <- True;
 			for(int i <- 1; i <= BatchSize(suggestions.RecommendedVenues); i++)
 			{
 				Venue venue;
@@ -68,10 +69,18 @@
 				{
 					 BatchInsertEnd(selected, venue);
 				}
+				else
+				{
+					first <- False;
+				}
 			}
 
 			if(BatchSize(selected) > 0)
 			{
+				Parameter param1 <- getParameterCurrentScript('venuecategory');
+
+				bool subtypes <- param1.ParameterValue.VenueCategory.VenueAvailableSubcategories;
+
 				GenerateMainAnswer('msg-recommender-beginning');
 
 				Venue venue;
@@ -90,6 +99,11 @@
        				$MINDBOARD@CustomData.HackTourProfiling.ShownVenues <- cdata.HackTourProfiling.ShownVenues;
 				}
 				SetMainAnswer('. ');
+				if(subtypes && first)
+				{
+					VenueCategoryId category <- param1.ParameterValue.VenueCategory.VenueCategoryId;
+					GenerateMainAnswer(LiteralConcat('msg-recommender-desambiguator-', category));
+				}						
 			}
 			else
 			{
@@ -158,31 +172,68 @@
 		CustomData cdata <- getCustomData();
 		Venue venue <- cdata.HackTourProfiling.CurrentVenue;
 
-		if(Filled(venue.OpeningHoursList))
+		SetMainAnswer(Capitalize(venue.VenueName));
+		SetMainAnswer(" ");
+
+		GenerateMainAnswer('msg-venues-timetables');
+
+		OpeningHoursList openinghours <- venue.OpeningHoursList;
+
+		if(Devoid(openinghours))
 		{
-			GenerateMainAnswer('msg-venues-timetables');
+			openinghours <- getDefaultOpeningHoursList();
+		}
 
-			OpeningHoursList openinghours <- venue.OpeningHoursList;
-			for(int i <- 1; i <= BatchSize(openinghours); i++)
+		for(int i <- 1; i <= BatchSize(openinghours); i++)
+		{
+			OpeningHours hours;
+			BatchRecoverPosition(openinghours, i, hours);
+
+			GenerateHours(hours);
+
+			if(i < BatchSize(openinghours) - 1)
+            {
+               	SetMainAnswer(', ');
+            }
+            else if(i < BatchSize(openinghours))
+            {
+              	SetMainAnswer(' ');
+                GenerateMainAnswer('msg-hacktour-and');
+            }
+            else
+            {
+            	SetMainAnswer('. ');
+            }
+		}
+
+		if(venue.VenueOutdoorFlag == True)
+		{
+			Parameter paramDt <- getParameterCurrentScript('datetime');
+			Parameter paramCp <- getParameterCurrentScript('countryplace');
+			Parameters parameters;
+			BatchInsertEnd(parameters, paramDt);
+			BatchInsertEnd(parameters, paramCp);
+			Parameter paramFc <- getForecast(parameters);
+			ForecastList list <- paramFc.ParameterValue.Forecast.ForecastList;
+
+			bool rain <- False;
+			for(int i <- 1; i <= BatchSize(list); i++)
 			{
-				OpeningHours hours;
-				BatchRecoverPosition(openinghours, i, hours);
-
-				GenerateHours(hours);
-
-				if(i < BatchSize(openinghours) - 1)
-                {
-                	SetMainAnswer(', ');
-                }
-                else if(i < BatchSize(openinghours))
-                {
-                	SetMainAnswer(' ');
-                    GenerateMainAnswer('msg-hacktour-and');
-                }
-                else
-                {
-                	SetMainAnswer('. ');
-                }
+				ForecastElement el;
+				BatchRecoverPosition(list, i, el);
+				int descriptor <- getForecastDescriptorCategory(el.ForecastDescriptorId);
+				if(descriptor == 5)
+				{
+					rain <- True;
+				}
+			}
+			if(rain)
+			{
+				GenerateMainAnswer('msg-forecast-rain-warning');
+			}
+			else
+			{	
+				GenerateMainAnswer('msg-forecast-rain-nowarning');
 			}
 		}
    	}

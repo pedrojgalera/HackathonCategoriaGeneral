@@ -1,0 +1,24 @@
+// ****************************************************************************
+//
+//	English grammar for VenueCategory/VenueSubCategory parameter
+//
+// ****************************************************************************
+//
+//	PROJECT	: HackTour
+// 	DOMAIN  : -
+//	MODULE  : -
+//	PACKAGE	: English
+// 	FOLDER  : Grammar
+// 	FILE	: VenueCategoryGrammarParameter.lkt
+//
+// ****************************************************************************
+
+(VenueCategory_Rule01 :
+ 	[ Parameter -> VenueCategory ]
+	{
+		^.ParameterCategory <- 'terminal';
+		^.ParameterType <- 'venuecategory';
+		^.ParameterValue.VenueCategory <- #1;
+	}
+)
+

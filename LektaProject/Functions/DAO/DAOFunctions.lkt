@@ -107,7 +107,7 @@ Suggestions getRestaurantsNearList(string place)
   call <- CallBO('restaurants');
   CallUpdate(&call,'near',place);
 
-  CallUpdate(&call,'lang',getLang2(GetDialogueLanguageId()));
+  CallUpdate(&call,'lang',getLang2(GetDialogeLangIdentifier()));
   Suggestions ret;
 
   message result <- getCallResult(call);

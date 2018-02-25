@@ -27,60 +27,57 @@ UseProject
 setupRuntimeSpyMessageOn
 // MainAnswer:On
 // DisplayProcessLocutioOn
-//DisplayProcessUnderstandingOn
+DisplayProcessUnderstandingOn
 // DisplayProcessScriboOn
 // DisplayProcessSensoOn
 // DisplayProcessRespondoOn
 // DisplayProcessCogitoOn
 // DisplayProcessColligoOn
+//DisplayDialogueActivityOn
 
 CreateDialogue
 (
     InstanceOperation:Fluency
     InstanceLanguage:English
-    InstanceInterface:Written
+    InstanceInterface:Spoken
 )
 
-// WEATHER SCRIPT
+// DIALOGUE 1
+/*
+Hello, good morning. I'm going to travel to Madrid and I would like to plan a visit to some museum.
+Something else?
+What about the opening hours for Thyssen museum?
+Ok, it would be there on wednesday.
+No, it doesn't fit me, it's too late.
+A little earlier, could it be?
+No, I can't.
+What about for tomorrow, I mean, on tuesday?
+That sounds good, agreed.
+That's interesting for me, what could I visit in Ávila?
+Ok, I will think about it, thank you very much. Can you recommend some nice place to have dinner in Madrid?
+Right! But listen, after staying in Madrid I'm thinking in visiting Seville around 2nd March. What can I do there?
+But which will be the weather forecast?
+Thanks! You have been very useful for me, see you later!
+//*/
 
-// Script triggering for weather script
-//Hello! What's the weather?
-//I want to consult the weather.
-//What's the forecast for the next week?
-//What is the weather forecast? 
-//What's the forecast like?
-//How is the weather today?
-//How will be the weather today in Barcelona?
+// DIALOGUE 2
+/*
+I will arrive to Sevilla on Monday and I want to visit Itálica.
+Yes, but perhaps it will be better for next week.
+That's fine, thank you.
+No thanks. On Monday then I would like to go into some museum.
+Perfect, and some nice place to have launch afterwards?
+So thank you very much and goodbye.
+//*/
 
-// Parameter 'weatherinfotype'
-//What's the temperature?
-//Will it rain next week in Barcelona.
-//What temperature do you think it is?
-//Will we have snow? 
-
-// Script logic for weather info
-//How will be the weather tomorrow in Barcelona?
-//And the day after tomorrow?
-//Tell me now the forecast for Sevilla from 24th January to 28th January
-//Tell me now the forecast for Sevilla for the next week
-
-// Script triggering for recommendation system
-//What monuments should I visit in Barcelona?
-//Something else?
-//What about something related with art?
-//And what about famous museums?
-
-// Script triggering for Venue Searcher
-//What monuments should I visit in Sevilla?
-//Tell me more about la Escuela.
-
-// Recovering other scripts
-What monuments should I visit in Sevilla?
-Tell me more about la Escuela.
-//Is there any cheap restaurant near la Escuela?
-
-//I will go to Sevilla next week.
-
-
-
-
+// DIALOGUE 3
+/*
+hi, i will arrive to Seville the day after tomorrow, what can i do there?
+something else?
+people talked me about Baile Flamenco museum, which are the opening hours?
+yes, please
+sure
+nice, what can i visit in Córdoba?
+and what is the weather forecast there?
+thank you and goodbye
+//*/

@@ -17,6 +17,7 @@
 #Include "Scripts/VenueSuggestionScript.lkt"
 #Include "Scripts/WeatherScript.lkt"
 #Include "Scripts/DetailsSearcherScript.lkt"
+#Include "Scripts/TimetableSearcherScript.lkt"
 #Include "Scripts/CampaignSuggestionScript.lkt"
 #Include "Scripts/NextVenueScript.lkt"
 

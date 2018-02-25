@@ -1,0 +1,28 @@
+// ****************************************************************************
+//
+//	Lexicon for repeat script lexicon
+//
+// ****************************************************************************
+//
+//	PROJECT	: HackTour
+// 	DOMAIN  : -
+//	MODULE  : Scripts
+//	PACKAGE	: -
+// 	FOLDER  : -
+// 	FILE	: RepeatScriptLexiconScope.lkt
+//
+// ****************************************************************************
+
+// Lexicon about cities
+("cordoba",	 	lexCountryPlace, ( CountryName : 'spain', CountryZone : 'sur', CountryRegion : 'andalucía', CountryProvince : 'córdoba', CountryTown : 'córdoba' ))
+("avila",	 	lexCountryPlace, ( CountryName : 'spain', CountryZone : 'centro (es)', CountryRegion : 'castilla y león', CountryProvince : 'ávila', CountryTown : 'ávila' ))
+("Ávila",	 	lexCountryPlace, ( CountryName : 'spain', CountryZone : 'centro (es)', CountryRegion : 'castilla y león', CountryProvince : 'ávila', CountryTown : 'ávila' ))
+
+// Lexicon about offset base date days
+("ayer",				lexOffsetBaseDateDay, -1)
+("hoy",					lexOffsetBaseDateDay, 0)
+("acabo de llegar",	  	lexOffsetBaseDateDay, 0)
+("mañana",				lexOffsetBaseDateDay, 1)
+("pasado mañana",		lexOffsetBaseDateDay, 2)
+("finde", lexWeekend)
+("fin de semana", lexWeekend)

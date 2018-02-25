@@ -17,7 +17,15 @@
 #Include "English/VerbsLexicon.lkt"
 #Include "English/VenuesLexiconScope.lkt"
 #Include "English/RepeatScriptLexiconScope.lkt"
-#Include "English/Categories/VenueCategoriesLexicon.lkt"
-#Include "English/Categories/VenueSubcategoriesLexicon.lkt"
+#Include "English/VenueCategoriesLexicon.lkt"
 #Include "English/DetailsLexiconScope.lkt"
 #Include "English/MoneyLexiconScope.lkt"
+#Include "Spanish/VenueLexicon.lkt"
+#Include "English/TimetableLexiconScope.lkt"
+#Include "English/VenueCategoriesLexicon.lkt"
+
+
+
+
+
+

@@ -31,8 +31,8 @@ procedure createDialogueScheme()
 	BatchInsertEnd( scheme.DialogueScripts,	script );
 
 	// Script - Goodbyes
-	script <- createDialogueScriptGoodbyes();
-	BatchInsertEnd( scheme.DialogueScripts,	script );
+//	script <- createDialogueScriptGoodbyes();
+//	BatchInsertEnd( scheme.DialogueScripts,	script );
 
 	// Script - Insults
 	script <- createDialogueScriptInsult();
@@ -52,21 +52,25 @@ procedure createDialogueScheme()
 	script <- createVenueSuggestionScript();
 	BatchInsertEnd( scheme.DialogueScripts, script);
 
-	// Script - WeatherAdvisor
-	script <- createWeatherAdvisorScript();
-	BatchInsertEnd( scheme.DialogueScripts, script);
-
-	// Script - SearcherScript
-	script <- createDetailsSearcherScript();
+	// Script - TimetableSearcher
+	script <- createTimetableSearcherScript();
 	BatchInsertEnd( scheme.DialogueScripts, script);
 
 	// Script - CampaignScript
 	script <- createCampaignSuggestionScript();
 	BatchInsertEnd( scheme.DialogueScripts, script);
 
-	// Script - NextVenueScript
-	script <- createNextVenueScript();
+	// Script - WeatherAdvisor
+	script <- createWeatherAdvisorScript();
 	BatchInsertEnd( scheme.DialogueScripts, script);
+
+	// Script - SearcherScript
+//	script <- createDetailsSearcherScript();
+//	BatchInsertEnd( scheme.DialogueScripts, script);
+
+	// Script - NextVenueScript
+//	script <- createNextVenueScript();
+//	BatchInsertEnd( scheme.DialogueScripts, script);
 
 	MDScheme <- scheme;
 }
@@ -83,6 +87,12 @@ DialogueScript createDialogueScriptHackTourManager ()
 
 	BatchInsertEnd( script.ScriptTrigger.ParameterTypes , 'venuecategory' );
 	BatchInsertEnd( script.ScriptTrigger.ParameterTypes , 'venuesubcategory' );
+
+	BatchInsertEnd( script.ScriptTrigger.ParameterTypes , 'proposeddatetime' );
+
+	BatchInsertEnd( script.ScriptTrigger.ParameterTypes , 'venue' );
+
+	BatchInsertEnd( script.ScriptTrigger.ParameterTypes , 'negotiatemodifier' );
 
 	// Info
 	ScriptInfoItem scriptInfoItem, emptyScriptInfoItem;
@@ -116,19 +126,25 @@ DialogueScript createDialogueScriptHackTourManager ()
 
 	scriptInfoItem <- emptyScriptInfoItem;
 	scriptInfoItem.InfoItemType <- 'parameter';
-	scriptInfoItem.InfoItemParameterType <- 'weatherinfotype';
-	scriptInfoItem.InfoItemState <- 'empty';
-	BatchInsertEnd( script.ScriptInfoItems, scriptInfoItem );
-
-	scriptInfoItem <- emptyScriptInfoItem;
-	scriptInfoItem.InfoItemType <- 'parameter';
 	scriptInfoItem.InfoItemParameterType <- 'venuecategory';
 	scriptInfoItem.InfoItemState <- 'empty';
 	BatchInsertEnd( script.ScriptInfoItems, scriptInfoItem );
 
 	scriptInfoItem <- emptyScriptInfoItem;
 	scriptInfoItem.InfoItemType <- 'parameter';
-	scriptInfoItem.InfoItemParameterType <- 'venuesubcategory';
+	scriptInfoItem.InfoItemParameterType <- 'proposeddatetime';
+	scriptInfoItem.InfoItemState <- 'empty';
+	BatchInsertEnd( script.ScriptInfoItems, scriptInfoItem );
+
+	scriptInfoItem <- emptyScriptInfoItem;
+	scriptInfoItem.InfoItemType <- 'parameter';
+	scriptInfoItem.InfoItemParameterType <- 'venue';
+	scriptInfoItem.InfoItemState <- 'empty';
+	BatchInsertEnd( script.ScriptInfoItems, scriptInfoItem );
+
+	scriptInfoItem <- emptyScriptInfoItem;
+	scriptInfoItem.InfoItemType <- 'parameter';
+	scriptInfoItem.InfoItemParameterType <- 'negotiatemodifier';
 	scriptInfoItem.InfoItemState <- 'empty';
 	BatchInsertEnd( script.ScriptInfoItems, scriptInfoItem );
 
@@ -140,171 +156,289 @@ DialogueScript createDialogueScriptHackTourManager ()
 	script <- modifyBranchNodeMessage(script, 'welcome', 'social', 'greeting', 'offer', 'welcome');
 
     	// EDGE - Always
-    	script <- createOutputBranch(script, 1, 'welcome', 'offerHelp', 'always');
-		script <- modifyOutputBranchMessage(script, 'welcome', 'offerHelp', 'always', 'social', 'greeting', 'offer', 'hmihy');
+    	script <- createOutputBranch(script, 1, 'welcome', 'checkCampaign', 'always');
+		script <- modifyOutputBranchMessage(script, 'welcome', 'checkCampaign', 'always', 'social', 'greeting', 'offer', 'hmihy');
+    	script <- addOutputBranchActionGeneral(script, 'welcome', 'checkCampaign', 'always', 'initialize_category');
 
-	// NODE - offerHelp
-	script <- createBranchNodeNoWait(script, 1, 'offerHelp');
+	// NODE - checkCampaign
+	script <- createBranchNodeNoWait(script, 1, 'checkCampaign');
     	
 		// EDGE - Launching a campaign
-    	script <- createOutputBranch(script, 1, 'offerHelp', 'launchCampaign', 'campaign');
-   		script <- addOutputBranchConditionGeneral(script, 'offerHelp', 'launchCampaign', 'campaign', 'campaignTriggering');
+    	script <- createOutputBranch(script, 1, 'checkCampaign', 'launchCampaign', 'campaign');
+   		script <- addOutputBranchConditionGeneral(script, 'checkCampaign', 'launchCampaign', 'campaign', 'campaignTriggering');
 
     	// EDGE - Not launching a campaign
-    	script <- createOutputBranch(script, 1, 'offerHelp', 'offerHelp2', 'no_campaign');
-   		script <- addOutputBranchConditionGeneral(script, 'offerHelp', 'offerHelp2', 'no_campaign', 'notCampaignTriggering');
+    	script <- createOutputBranch(script, 1, 'checkCampaign', 'offerHelp', 'no_campaign');
+   		script <- addOutputBranchConditionGeneral(script, 'checkCampaign', 'offerHelp', 'no_campaign', 'notCampaignTriggering');
+   		script <- modifyOutputBranchMessage(script, 'checkCampaign', 'offerHelp', 'no_campaign', 'social', 'greeting', 'offer', 'hemihy');
 
-	script <- createBranchNode(script, 1, 'offerHelp2');
+	// NODE - offerHelp
+	script <- createBranchNode(script, 1, 'offerHelp');
 
 		// EDGE - Scope(repeatscript) - LastScript(VenueSuggestion)
-	    script <- createOutputBranch(script, 1, 'offerHelp2', 'launchVenue', 'scopeRepeatScript');
-	    script <- addOutputBranchConditionScope(script, 'offerHelp2', 'launchVenue', 'scopeRepeatScript', 'repeatscript');
-	    script <- addOutputBranchConditionGeneral(script, 'offerHelp2', 'launchVenue', 'scopeRepeatScript', 'lastScriptVenueSuggestion');
+	    script <- createOutputBranch(script, 1, 'offerHelp', 'launchVenue', 'scopeRepeatScript');
+	    script <- addOutputBranchConditionScope(script, 'offerHelp', 'launchVenue', 'scopeRepeatScript', 'repeatscript');
+	    script <- addOutputBranchConditionGeneral(script, 'offerHelp', 'launchVenue', 'scopeRepeatScript', 'lastScriptVenueSuggestion');
 
 	    // EDGE - Scope(weather)
-	    script <- createOutputBranch(script, 1, 'offerHelp2', 'launchWeather', 'scopeWeather');
-	    script <- addOutputBranchConditionScope(script, 'offerHelp2', 'launchWeather', 'scopeWeather', 'weather');
-		script <- addOutputBranchConditionScope(script, 'offerHelp2', 'launchVenue', 'scopeVenue', 'venue');
+	    script <- createOutputBranch(script, 1, 'offerHelp', 'launchWeather', 'scopeWeather');
+	    script <- addOutputBranchConditionScope(script, 'offerHelp', 'launchWeather', 'scopeWeather', 'weather');
 
 		// EDGE - Scope(venue)
-	    script <- createOutputBranch(script, 1, 'offerHelp2', 'launchVenue', 'scopeVenue');
-	    script <- addOutputBranchConditionScope(script, 'offerHelp2', 'launchVenue', 'scopeVenue', 'venue');
+	    script <- createOutputBranch(script, 1, 'offerHelp', 'launchVenue', 'scopeVenue');
+	    script <- addOutputBranchConditionScope(script, 'offerHelp', 'launchVenue', 'scopeVenue', 'venue');
 
-		// EDGE - Scope(scope)
-	    script <- createOutputBranch(script, 1, 'offerHelp2', 'launchDetails', 'scopeDetails');
-	    script <- addOutputBranchConditionScope(script, 'offerHelp2', 'launchDetails', 'scopeDetails', 'details');
+		// EDGE - Scope(scopeTimetable)
+	    script <- createOutputBranch(script, 1, 'offerHelp', 'launchTimetable', 'scopeTimetable');
+    	script <- addOutputBranchConditionParameterDigested(script, 'offerHelp', 'launchTimetable', 'scopeTimetable', 'venue');
+	    script <- addOutputBranchConditionScope(script, 'offerHelp', 'launchTimetable', 'scopeTimetable', 'timetable');
+
+	    // EDGE - Core(goodbye)
+	    script <- createOutputBranch(script, 1, 'offerHelp', 'end', 'goodbye');
+	    script <- addOutputBranchConditionCore(script, 'offerHelp', 'end', 'goodbye', 'social', 'goodbye');
 
 		// EDGE - NOT(Scope(weather)) - NOT(Scope(venue)) - NOT(Scope(repeatscript)) - NOT(Scope(details))
-	    script <- createOutputBranch(script, 1, 'offerHelp2', 'parameterProcessing', 'notScope');
-	    script <- addOutputBranchConditionNotScope(script, 'offerHelp2', 'parameterProcessing', 'notScope', 'weather');
-	    script <- addOutputBranchConditionNotScope(script, 'offerHelp2', 'parameterProcessing', 'notScope', 'venue');
-	    script <- addOutputBranchConditionNotScope(script, 'offerHelp2', 'parameterProcessing', 'notScope', 'repeatscript');
-	    script <- addOutputBranchConditionNotScope(script, 'offerHelp2', 'parameterProcessing', 'notScope', 'details');
+	    script <- createOutputBranch(script, 1, 'offerHelp', 'parameterPreProcessing', 'notScope');
+	    script <- addOutputBranchConditionNotScope(script, 'offerHelp', 'parameterPreProcessing', 'notScope', 'weather');
+	    script <- addOutputBranchConditionNotScope(script, 'offerHelp', 'parameterPreProcessing', 'notScope', 'venue');
+	    script <- addOutputBranchConditionNotScope(script, 'offerHelp', 'parameterPreProcessing', 'notScope', 'repeatscript');
+	    script <- addOutputBranchConditionNotScope(script, 'offerHelp', 'parameterPreProcessing', 'notScope', 'timetable');
+        script <- addOutputBranchConditionNotCore(script, 'offerHelp', 'parameterPreProcessing', 'notScope', 'social', 'goodbye');
+
+	// NODE - parameterPreProcessing
+    script <- createBranchNodeNoWait(script, 1, 'parameterPreProcessing');
+
+		// EDGE - Digested(countryplace) - NotDigested(venuecategory) - Changed(countryplace)
+	    script <- createOutputBranch(script, 1, 'parameterPreProcessing', 'parameterProcessing', 'changingCountryPlace');
+	    script <- addOutputBranchConditionParameterDigested(script, 'parameterPreProcessing', 'parameterProcessing', 'changingCountryPlace', 'countryplace');
+	    script <- addOutputBranchConditionParameterNotDigested(script, 'parameterPreProcessing', 'parameterProcessing', 'changingCountryPlace', 'venuecategory');
+	    script <- addOutputBranchConditionParameterNotDigested(script, 'parameterPreProcessing', 'parameterProcessing', 'changingCountryPlace', 'venue');
+	    script <- addOutputBranchConditionGeneral(script, 'parameterPreProcessing', 'parameterProcessing', 'changingCountryPlace', 'changedCountryPlace');
+    	script <- addOutputBranchActionGeneral(script, 'parameterPreProcessing', 'parameterProcessing', 'changingCountryPlace', 'setDefaultCategoryVenue');
+
+		// EDGE - NotDigested(countryplace)
+	    script <- createOutputBranch(script, 1, 'parameterPreProcessing', 'parameterProcessing', 'changingCountryPlace2');
+	    script <- addOutputBranchConditionParameterNotDigested(script, 'parameterPreProcessing', 'parameterProcessing', 'changingCountryPlace2', 'countryplace');
+
+		// EDGE - Digested(venuecategory)
+	    script <- createOutputBranch(script, 1, 'parameterPreProcessing', 'parameterProcessing', 'changingCountryPlace3');
+	    script <- addOutputBranchConditionParameterDigested(script, 'parameterPreProcessing', 'parameterProcessing', 'changingCountryPlace3', 'venuecategory');
+
+		// EDGE - NotChanged(countryplace)
+	    script <- createOutputBranch(script, 1, 'parameterPreProcessing', 'parameterProcessing', 'changingCountryPlace4');
+	    script <- addOutputBranchConditionGeneral(script, 'parameterPreProcessing', 'parameterProcessing', 'changingCountryPlace4', 'notChangedCountryPlace');
+
+		// EDGE - Digested(venue)
+	    script <- createOutputBranch(script, 1, 'parameterPreProcessing', 'parameterProcessing', 'changingCountryPlace5');
+	    script <- addOutputBranchConditionParameterDigested(script, 'parameterPreProcessing', 'parameterProcessing', 'changingCountryPlace5', 'venue');
 
 	// NODE - parameterProcessing
     script <- createBranchNodeNoWait(script, 1, 'parameterProcessing');
 
     	// EDGE - parameterDigested(datetime)
+    	script <- createOutputBranch(script, 1, 'parameterProcessing', 'offerHelp', 'datetime');
+    	script <- addOutputBranchConditionParameterDigested(script, 'parameterProcessing', 'offerHelp', 'datetime', 'datetime');
+    	script <- addOutputBranchConditionParameterEmpty(script, 'parameterProcessing', 'offerHelp', 'datetime', 'countryplace');
+		script <- modifyOutputBranchMessageParameter(script, 'parameterProcessing', 'offerHelp', 'datetime', 'statement', 'inform', 'implicit', 'parameter3', 'datetime');
+
+    	// EDGE - parameterDigested(datetime) - lastScript(WeatherAdvisor)
     	script <- createOutputBranch(script, 1, 'parameterProcessing', 'launchWeather', 'datetime');
     	script <- addOutputBranchConditionParameterDigested(script, 'parameterProcessing', 'launchWeather', 'datetime', 'datetime');
 		script <- addOutputBranchConditionGeneral(script, 'parameterProcessing', 'launchWeather', 'datetime', 'lastScriptWeatherAdvisor');
 
-		// EDGE - parameterDigested(countryplace)
+		// EDGE - parameterDigested(countryplace) - lastScript(WheatherAdvisor)
     	script <- createOutputBranch(script, 1, 'parameterProcessing', 'launchWeather', 'countryplace');
     	script <- addOutputBranchConditionParameterDigested(script, 'parameterProcessing', 'launchWeather', 'countryplace', 'countryplace');
+        script <- addOutputBranchConditionParameterNotDigested(script, 'parameterProcessing', 'launchWeather', 'countryplace', 'venuecategory');
 		script <- addOutputBranchConditionGeneral(script, 'parameterProcessing', 'launchWeather', 'countryplace', 'lastScriptWeatherAdvisor');
 
-		// EDGE - parameterDigested(weatherinfotype)
-    	script <- createOutputBranch(script, 1, 'parameterProcessing', 'launchWeather', 'weatherinfotype');
-    	script <- addOutputBranchConditionParameterDigested(script, 'parameterProcessing', 'launchWeather', 'weatherinfotype', 'weatherinfotype');
-		script <- addOutputBranchConditionGeneral(script, 'parameterProcessing', 'launchWeather', 'weatherinfotype', 'lastScriptWeatherAdvisor');
+		// EDGE - parameterDigested(countryplace) - lastScript(VenueSuggestion)
+        script <- createOutputBranch(script, 1, 'parameterProcessing', 'launchVenue', 'countryplacesuggestion');
+        script <- addOutputBranchConditionParameterDigested(script, 'parameterProcessing', 'launchVenue', 'countryplacesuggestion', 'countryplace');
+        script <- addOutputBranchConditionGeneral(script, 'parameterProcessing', 'launchVenue', 'countryplacesuggestion', 'lastScriptVenueSuggestion');
 
-		// EDGE - parameterDigested(countryplace)
-        script <- createOutputBranch(script, 1, 'parameterProcessing', 'launchVenue', 'countryplace');
-        script <- addOutputBranchConditionParameterDigested(script, 'parameterProcessing', 'launchVenue', 'countryplace', 'countryplace');
-        script <- addOutputBranchConditionGeneral(script, 'parameterProcessing', 'launchVenue', 'countryplace', 'lastScriptVenueSuggestion');
+		// EDGE - parameterDigested(countryplace) - lastScript(TimetableSearcher)
+        script <- createOutputBranch(script, 1, 'parameterProcessing', 'launchVenue', 'countryplacetimetable');
+        script <- addOutputBranchConditionParameterDigested(script, 'parameterProcessing', 'launchVenue', 'countryplacetimetable', 'countryplace');
+        script <- addOutputBranchConditionGeneral(script, 'parameterProcessing', 'launchVenue', 'countryplacetimetable', 'lastScriptTimetableSearcher');
 
-		// EDGE - parameterDigested(countryplace)
-        script <- createOutputBranch(script, 1, 'parameterProcessing', 'launchVenue', 'countryplace');
-        script <- addOutputBranchConditionParameterDigested(script, 'parameterProcessing', 'launchVenue', 'countryplace', 'countryplace');
-        script <- addOutputBranchConditionGeneral(script, 'parameterProcessing', 'launchVenue', 'countryplace', 'noLastScript');
+		// EDGE - parameterDigested(countryplace) - lastScript(CampaignSuggestion)
+        script <- createOutputBranch(script, 1, 'parameterProcessing', 'launchVenue', 'countryplacecampaign');
+        script <- addOutputBranchConditionParameterDigested(script, 'parameterProcessing', 'launchVenue', 'countryplacecampaign', 'countryplace');
+        script <- addOutputBranchConditionGeneral(script, 'parameterProcessing', 'launchVenue', 'countryplacecampaign', 'lastScriptCampaignSuggestion');
 
-		// TODO Hacer algo con las listas ya mostradas
+		// EDGE - parameterDigested(countryplace) - noLastScript
+        script <- createOutputBranch(script, 1, 'parameterProcessing', 'launchVenue', 'countryplacenolast');
+        script <- addOutputBranchConditionParameterDigested(script, 'parameterProcessing', 'launchVenue', 'countryplacenolast', 'countryplace');
+        script <- addOutputBranchConditionParameterNotDigested(script, 'parameterProcessing', 'launchVenue', 'countryplacenolast', 'venue');
+        script <- addOutputBranchConditionGeneral(script, 'parameterProcessing', 'launchVenue', 'countryplacenolast', 'noLastScript');
+		script <- modifyOutputBranchMessageParameter(script, 'parameterProcessing', 'launchVenue', 'countryplacenolast', 'statement', 'inform', 'implicit', 'parameter2', 'countryplace');
 
-		// EDGE - parameterDigested(venuecategory)
+		// EDGE - Hello
+        script <- createOutputBranch(script, 1, 'parameterProcessing', 'checkCampaign', 'hello');
+        script <- addOutputBranchConditionCore(script, 'parameterProcessing', 'checkCampaign', 'hello', 'social', 'greeting');
+        script <- addOutputBranchConditionGeneral(script, 'parameterProcessing', 'checkCampaign', 'hello', 'noLastScript');
+        script <- addOutputBranchConditionParameterEmpty(script, 'parameterProcessing', 'checkCampaign', 'hello', 'countryplace');
+		script <- modifyOutputBranchMessage(script, 'parameterProcessing', 'checkCampaign', 'hello', 'question', 'whquestion', 'explicit', 'countryplace');
+
+		// EDGE - parameterDigested(venue)
+        script <- createOutputBranch(script, 1, 'parameterProcessing', 'launchTimetable', 'venue');
+        script <- addOutputBranchConditionParameterDigested(script, 'parameterProcessing', 'launchTimetable', 'venue', 'venue');
+
+		// EDGE - parameterDigested(venuecategory) - NotParameterDigested(datetime)
         script <- createOutputBranch(script, 1, 'parameterProcessing', 'launchVenue', 'venuecategory');
         script <- addOutputBranchConditionParameterDigested(script, 'parameterProcessing', 'launchVenue', 'venuecategory', 'venuecategory');
-        script <- addOutputBranchActionGeneral(script, 'parameterProcessing', 'launchVenue', 'venuecategory', 'removeSubcategory');
+        script <- addOutputBranchConditionParameterNotDigested(script, 'parameterProcessing', 'launchVenue', 'venuecategory', 'datetime');
 
-		// EDGE - parameterDigested(venuesubcategory)
-        script <- createOutputBranch(script, 1, 'parameterProcessing', 'launchVenue', 'venuesubcategory');
-        script <- addOutputBranchConditionParameterDigested(script, 'parameterProcessing', 'launchVenue', 'venuesubcategory', 'venuesubcategory');
+		// EDGE - parameterDigested(venuecategory) - parameterDigested(datetime)
+        script <- createOutputBranch(script, 1, 'parameterProcessing', 'launchVenue', 'venuecategory2');
+        script <- addOutputBranchConditionParameterDigested(script, 'parameterProcessing', 'launchVenue', 'venuecategory2', 'venuecategory');
+        script <- addOutputBranchConditionParameterDigested(script, 'parameterProcessing', 'launchVenue', 'venuecategory2', 'datetime');
+        script <- addOutputBranchConditionParameterNotDigested(script, 'parameterProcessing', 'launchVenue', 'venuecategory2', 'venue');
+        script <- addOutputBranchConditionParameterNotEmpty(script, 'parameterProcessing', 'launchVenue', 'venuecategory2', 'countryplace');
+		script <- modifyOutputBranchMessageParameter(script, 'parameterProcessing', 'launchVenue', 'venuecategory2', 'statement', 'inform', 'implicit', 'parameter2', 'countryplace');
 
 		// EDGE - !parameterDigested(datetime) - !parameterDigested(countryplace) - !parameterDigested(weatherinfotype)
 		//      - !parameterDigested(venuecategory) - !parameterDigested(venuesubcategory)
-       	script <- createOutputBranch(script, 1, 'parameterProcessing', 'offerHelp', 'default');
-       	script <- addOutputBranchConditionParameterNotDigested(script, 'parameterProcessing', 'offerHelp', 'default', 'datetime');
-       	script <- addOutputBranchConditionParameterNotDigested(script, 'parameterProcessing', 'offerHelp', 'default', 'countryplace');
-       	script <- addOutputBranchConditionParameterNotDigested(script, 'parameterProcessing', 'offerHelp', 'default', 'weatherinfotype');
-       	script <- addOutputBranchConditionParameterNotDigested(script, 'parameterProcessing', 'offerHelp', 'default', 'venuecategory');
-       	script <- addOutputBranchConditionParameterNotDigested(script, 'parameterProcessing', 'offerHelp', 'default', 'venuesubcategory');
+       	script <- createOutputBranch(script, 1, 'parameterProcessing', 'checkCampaign', 'default');
+       	script <- addOutputBranchConditionParameterNotDigested(script, 'parameterProcessing', 'checkCampaign', 'default', 'venue');
+       	script <- addOutputBranchConditionParameterNotDigested(script, 'parameterProcessing', 'checkCampaign', 'default', 'datetime');
+       	script <- addOutputBranchConditionParameterNotDigested(script, 'parameterProcessing', 'checkCampaign', 'default', 'countryplace');
+       	script <- addOutputBranchConditionParameterNotDigested(script, 'parameterProcessing', 'checkCampaign', 'default', 'weatherinfotype');
+       	script <- addOutputBranchConditionParameterNotDigested(script, 'parameterProcessing', 'checkCampaign', 'default', 'venuecategory');
+        script <- addOutputBranchConditionNotCore(script, 'parameterProcessing', 'checkCampaign', 'default', 'social', 'greeting');
 
 	// NODE - launchWeather
 	script <- createBranchNodeNoWait(script, 1, 'launchWeather');
 	script <- addBranchActionGeneral0Parameter(script, 'launchWeather', 'launchWeatherAdvisor');
 
     	// EDGE - Always
-    	script <- createOutputBranch(script, 1, 'launchWeather', 'offerHelp', 'always');
-    	script <- addOutputBranchActionGeneral(script, 'launchWeather', 'offerHelp', 'always', 'updateAfterWeatherAdvisor');
-
-	// NODE - launchVenue
-    script <- createBranchNodeNoWait(script, 1, 'launchVenue');
-    script <- addBranchActionGeneral0Parameter(script, 'launchVenue', 'launchVenueSuggestion');
-
-        // EDGE - Always
-        script <- createOutputBranch(script, 1, 'launchVenue', 'offerHelp', 'always');
-        script <- addOutputBranchActionGeneral(script, 'launchVenue', 'offerHelp', 'always', 'updateAfterVenueSuggestion');
-
-	// NODE - launchDetails
-	script <- createBranchNodeNoWait(script, 1, 'launchDetails');
-	script <- addBranchActionGeneral0Parameter(script, 'launchDetails', 'launchDetailsSearcher');
-
-    	// EDGE - Always
-    	script <- createOutputBranch(script, 1, 'launchDetails', 'offerAdditionalInfo', 'always');
-    	script <- addOutputBranchActionGeneral(script, 'launchDetails', 'offerAdditionalInfo', 'always', 'updateAfterDetailsSearcher');
-
-	// NODE - offerAdditionalInfo
-	script <- createBranchNodeNoWait(script, 1, 'offerAdditionalInfo');
-
-    	// EDGE - Launching a campaign
-    	script <- createOutputBranch(script, 1, 'offerAdditionalInfo', 'launchCampaign', 'campaign');
-   		script <- addOutputBranchConditionGeneral(script, 'offerAdditionalInfo', 'launchCampaign', 'campaign', 'campaignTriggering');
-
-    	// EDGE - Not launching a campaign
-    	script <- createOutputBranch(script, 1, 'offerAdditionalInfo', 'offerAdditionalInfoSecondary', 'no_campaign');
-   		script <- addOutputBranchConditionGeneral(script, 'offerAdditionalInfo', 'offerAdditionalInfoSecondary', 'no_campaign', 'notCampaignTriggering');
-
-	// NODE - offerAdditionalInfoSecondary
-	script <- createBranchNodeNoWait(script, 1, 'offerAdditionalInfoSecondary');
-	script <- addBranchActionGeneral0Parameter(script, 'offerAdditionalInfoSecondary', 'create_random');
-
-    	// EDGE - Campaign mode selected
-    	script <- createOutputBranch(script, 1, 'offerAdditionalInfoSecondary', 'launchCampaign', 'campaign');
-   		script <- addOutputBranchConditionGeneral(script, 'offerAdditionalInfoSecondary', 'launchCampaign', 'campaign', 'isRandom1');
-
-		// EDGE - Timetables mode selected
-    	script <- createOutputBranch(script, 1, 'offerAdditionalInfoSecondary', 'offerHelp', 'timetables');
-   		script <- addOutputBranchConditionGeneral(script, 'offerAdditionalInfoSecondary', 'offerHelp', 'timetables', 'isRandom2');
-		script <- modifyOutputBranchMessage(script, 'offerAdditionalInfoSecondary', 'offerHelp', 'timetables', 'statement', 'inform', 'explicit', 'timetable');
-
-		// EDGE - Additional tips mode selected
-    	script <- createOutputBranch(script, 1, 'offerAdditionalInfoSecondary', 'offerHelp', 'tips');
-   		script <- addOutputBranchConditionGeneral(script, 'offerAdditionalInfoSecondary', 'offerHelp', 'tips', 'isRandom3');
-   		script <- addOutputBranchConditionGeneral(script, 'offerAdditionalInfoSecondary', 'offerHelp', 'tips', 'isDetailsSuccess');
-		script <- modifyOutputBranchMessage(script, 'offerAdditionalInfoSecondary', 'offerHelp', 'tips', 'statement', 'inform', 'explicit', 'tips');
-
-		// EDGE - Next Venue mode selected
-    	script <- createOutputBranch(script, 1, 'offerAdditionalInfoSecondary', 'launchNextVenue', 'next');
-   		script <- addOutputBranchConditionGeneral(script, 'offerAdditionalInfoSecondary', 'launchNextVenue', 'next', 'isRandom4');
+    	script <- createOutputBranch(script, 1, 'launchWeather', 'checkCampaign', 'always');
+    	script <- addOutputBranchActionGeneral(script, 'launchWeather', 'checkCampaign', 'always', 'updateAfterWeatherAdvisor');
 
 	// NODE - launchCampaign
 	script <- createBranchNodeNoWait(script, 1, 'launchCampaign');
 	script <- addBranchActionGeneral0Parameter(script, 'launchCampaign', 'launchCampaignSuggestion');
 
     	// EDGE - Always
-    	script <- createOutputBranch(script, 1, 'launchCampaign', 'offerHelp', 'always');
-    	script <- addOutputBranchActionGeneral(script, 'launchCampaign', 'offerHelp', 'always', 'updateAfterCampaignSuggestion');
+    	script <- createOutputBranch(script, 1, 'launchCampaign', 'checkCampaign', 'always');
+    	script <- addOutputBranchActionGeneral(script, 'launchCampaign', 'checkCampaign', 'always', 'updateAfterCampaignSuggestion');
 
-	// NODE - launchNextVenue
-	script <- createBranchNodeNoWait(script, 1, 'launchNextVenue');
-	script <- addBranchActionGeneral0Parameter(script, 'launchNextVenue', 'launchNextVenue');
+	// NODE - launchVenue
+    script <- createBranchNodeNoWait(script, 1, 'launchVenue');
+    script <- addBranchActionGeneral0Parameter(script, 'launchVenue', 'launchVenueSuggestion');
+
+        // EDGE - Always
+        script <- createOutputBranch(script, 1, 'launchVenue', 'checkCampaign', 'always');
+        script <- addOutputBranchActionGeneral(script, 'launchVenue', 'checkCampaign', 'always', 'updateAfterVenueSuggestion');
+
+	// NODE - launchTimetable
+	script <- createBranchNodeNoWait(script, 1, 'launchTimetable');
+	script <- addBranchActionGeneral0Parameter(script, 'launchTimetable', 'launchTimetableSearcher');
 
     	// EDGE - Always
-    	script <- createOutputBranch(script, 1, 'launchNextVenue', 'offerHelp', 'always');
-    	script <- addOutputBranchActionGeneral(script, 'launchNextVenue', 'offerHelp', 'always', 'updateAfterNextVenue');
+    	script <- createOutputBranch(script, 1, 'launchTimetable', 'askBooking', 'always');
+    	script <- addOutputBranchActionGeneral(script, 'launchTimetable', 'askBooking', 'always', 'updateAfterTimetableSearcher');
+		script <- modifyOutputBranchMessage(script, 'launchTimetable', 'askBooking', 'always', 'statement', 'inform', 'explicit', 'timetable');
 
-	// TODO REVIEW
-	//script <- endScript(script,10);
+	// NODE - askBooking
+	script <- createBranchNode(script, 1, 'askBooking');
+	script <- modifyBranchNodeMessage(script, 'askBooking', 'question', 'propositional', 'ask', 'booking');
+
+		// EDGE - Yes
+        script <- createOutputBranch(script, 1, 'askBooking', 'lookForCampaign', 'yes');
+        script <- addOutputBranchConditionCore(script, 'askBooking', 'lookForCampaign', 'yes', 'basicanswer', 'agreement');
+
+        // EDGE - No
+        script <- createOutputBranch(script, 1, 'askBooking', 'checkCampaign', 'no');
+        script <- addOutputBranchConditionCore(script, 'askBooking', 'checkCampaign', 'no', 'basicanswer', 'disagreement');
+
+		// EDGE - Digested(datetime)
+        script <- createOutputBranch(script, 1, 'askBooking', 'lookForCampaign', 'digested');
+        script <- addOutputBranchConditionParameterDigested(script, 'askBooking', 'lookForCampaign', 'digested', 'datetime');
+
+	// NODE - lookForCampaign
+	script <- createBranchNodeNoWait(script, 1, 'lookForCampaign');
+
+		// EDGE - Campaign for current venue
+	    script <- createOutputBranch(script, 1, 'lookForCampaign', 'negotiateAppointment', 'yes');
+   		script <- addOutputBranchConditionGeneral(script, 'lookForCampaign', 'negotiateAppointment', 'yes', 'campaignTriggeringVenue');
+		script <- modifyOutputBranchMessage(script, 'lookForCampaign', 'negotiateAppointment', 'yes', 'statement', 'inform', 'explicit', 'campaignvenue');
+
+		// EDGE - No campaign for current venue
+	    script <- createOutputBranch(script, 1, 'lookForCampaign', 'negotiateAppointment', 'no');
+   		script <- addOutputBranchConditionGeneral(script, 'lookForCampaign', 'negotiateAppointment', 'no', 'notCampaignTriggeringVenue');
+
+	// Datetime negotiation
+
+	// NODE - proposeAppointment
+	script <- createBranchNode(script, 1, 'proposeAppointment');
+	script <- modifyBranchNodeMessage(script, 'proposeAppointment', 'statement', 'inform', 'propose', 'appointment');
+
+		// EDGE - Yes
+        script <- createOutputBranch(script, 1, 'proposeAppointment', 'negotiateAppointment', 'yes');
+        script <- addOutputBranchConditionCore(script, 'proposeAppointment', 'negotiateAppointment', 'yes', 'basicanswer', 'agreement');
+        script <- addOutputBranchConditionParameterNotDigested(script, 'proposeAppointment', 'negotiateAppointment', 'yes', 'datetime');
+   		script <- addOutputBranchActionGeneral(script, 'proposeAppointment', 'negotiateAppointment', 'yes', 'clear_datetime');
+
+		// EDGE - Digested(datetime)
+        script <- createOutputBranch(script, 1, 'proposeAppointment', 'negotiateAppointment', 'digested');
+        script <- addOutputBranchConditionParameterDigested(script, 'proposeAppointment', 'negotiateAppointment', 'digested', 'datetime');
+
+        // EDGE - No
+        script <- createOutputBranch(script, 1, 'proposeAppointment', 'checkCampaign', 'no');
+        script <- addOutputBranchConditionCore(script, 'proposeAppointment', 'checkCampaign', 'no', 'basicanswer', 'disagreement');
+
+	// NODE - negotiateAppointment
+	script <- createBranchNodeNoWait(script, 1, 'negotiateAppointment');
+	script <- addBranchActionGeneral1Parameter(script, 'negotiateAppointment', 'negotiate_datetime', 'datetime');
+	
+		// EDGE - NotEmpty(proposeddatetime)
+        script <- createOutputBranch(script, 1, 'negotiateAppointment', 'confirmAppointment', 'notemptyproposeddatetime');
+        script <- addOutputBranchConditionParameterNotEmpty(script, 'negotiateAppointment', 'confirmAppointment', 'notemptyproposeddatetime', 'proposeddatetime');
+
+		// EDGE - Empty(proposeddatetime) - Not(InThePast)
+        script <- createOutputBranch(script, 1, 'negotiateAppointment', 'proposeAppointment', 'emptyproposeddatetime');
+        script <- addOutputBranchConditionParameterEmpty(script, 'negotiateAppointment', 'proposeAppointment', 'emptyproposeddatetime', 'proposeddatetime');
+        script <- addOutputBranchConditionGeneral(script, 'negotiateAppointment', 'proposeAppointment', 'emptyproposeddatetime', 'not_negotiating_in_the_past');
+		script <- modifyOutputBranchMessage(script, 'negotiateAppointment', 'proposeAppointment', 'emptyproposeddatetime', 'statement', 'inform', 'nomore', 'appointments');
+
+		// EDGE - Empty(proposeddatetime) - InThePast
+        script <- createOutputBranch(script, 1, 'negotiateAppointment', 'proposeAppointment', 'emptyproposeddatetimepast');
+        script <- addOutputBranchConditionParameterEmpty(script, 'negotiateAppointment', 'proposeAppointment', 'emptyproposeddatetimepast', 'proposeddatetime');
+        script <- addOutputBranchConditionGeneral(script, 'negotiateAppointment', 'proposeAppointment', 'emptyproposeddatetimepast', 'negotiating_in_the_past');
+		script <- modifyOutputBranchMessage(script, 'negotiateAppointment', 'proposeAppointment', 'emptyproposeddatetimepast', 'statement', 'inform', 'past', 'appointments');
+
+	// NODE - confirmAppointment
+	script <- createBranchNode(script, 1, 'confirmAppointment');
+	script <- modifyBranchNodeMessageParameter(script, 'confirmAppointment', 'question', 'propositional', 'confirm', 'appointment', 'proposeddatetime');
+
+		// EDGE - Yes
+        script <- createOutputBranch(script, 1, 'confirmAppointment', 'checkCampaign', 'yes');
+        script <- addOutputBranchConditionCore(script, 'confirmAppointment', 'checkCampaign', 'yes', 'basicanswer', 'agreement');
+        script <- addOutputBranchConditionParameterNotDigested(script, 'confirmAppointment', 'checkCampaign', 'yes', 'negotiatemodifier');
+		script <- modifyOutputBranchMessageParameter(script, 'confirmAppointment', 'checkCampaign', 'yes', 'statement', 'inform', 'explicit', 'appointment', 'proposeddatetime');
+
+		// EDGE - No
+        script <- createOutputBranch(script, 1, 'confirmAppointment', 'negotiateAppointment', 'no');
+        script <- addOutputBranchConditionCore(script, 'confirmAppointment', 'negotiateAppointment', 'no', 'basicanswer', 'disagreement');
+        script <- addOutputBranchConditionParameterNotDigested(script, 'confirmAppointment', 'negotiateAppointment', 'no', 'negotiatemodifier');
+		script <- addOutputBranchActionGeneral1Parameter(script, 'confirmAppointment', 'negotiateAppointment', 'no', 'add_rejected_datetime', 'proposeddatetime');
+
+		// EDGE - Digested(datetime)
+        script <- createOutputBranch(script, 1, 'confirmAppointment', 'negotiateAppointment', 'digested');
+        script <- addOutputBranchConditionParameterDigested(script, 'confirmAppointment', 'negotiateAppointment', 'digested', 'datetime');
+
+		// EDGE - Digested(negotiatemodifier)
+        script <- createOutputBranch(script, 1, 'confirmAppointment', 'negotiateAppointment', 'negotiate');
+        script <- addOutputBranchConditionParameterDigested(script, 'confirmAppointment', 'negotiateAppointment', 'negotiate', 'negotiatemodifier');
+		script <- addOutputBranchActionGeneral2Parameter(script, 'confirmAppointment', 'negotiateAppointment', 'negotiate', 'add_negotiate_datetime', 'proposeddatetime', 'negotiatemodifier');
+
+	// NODE - confirmAppointment
+	script <- createBranchNodeNoWait(script, 1, 'end');
+	script <- modifyBranchNodeMessage(script, 'end', 'social', 'goodbye', '', '');
+
+	script <- endScript(script,10);
 
   	return script;
 }

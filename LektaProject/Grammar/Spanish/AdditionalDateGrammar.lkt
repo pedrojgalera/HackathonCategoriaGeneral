@@ -1,0 +1,132 @@
+// ****************************************************************************
+//
+//	Grammar for repeat script scope
+//
+// ****************************************************************************
+//
+//	PROJECT	: HackTour
+// 	DOMAIN  : -
+//	MODULE  : Grammar
+//	PACKAGE	: -
+// 	FOLDER  : -
+// 	FILE	: RepeatScriptGrammarScope.lkt
+//
+// ****************************************************************************
+
+// 1 de agosto
+(DateRule07 :
+	[ BaseDate -> Number lexPrepOf lexBaseMonth ]
+	{
+		^.Day <- #1.NumberValue;
+		^.Month <- #3;
+    }
+)
+
+// next monday
+// last monday
+(DateRule34 :
+   	[ DateTime -> lexOffsetOne < lexDayInWeek | lexDayInWeekShort > ]
+	{
+		if(GetClass(#2) == 'lexDayInWeekShort' && IsTokenSpelled(2))
+		{
+			Fail();
+		}
+		^.BaseDate <- getCurrentBaseDate();
+		^.OffsetDate.DirectionOfTime <- #1;
+		^.OffsetDate.Date.DayInWeek <- #2;
+		^.OffsetDate.DayInWeekOffset <- 1;
+    }
+)
+
+// on monday
+(DateRule34 :
+   	[ DateTime -> < lexDayInWeek | lexDayInWeekShort > ]
+	{
+		if(GetClass(#1) == 'lexDayInWeekShort' && IsTokenSpelled(1))
+		{
+			Fail();
+		}
+		^.BaseDate <- getCurrentBaseDate();
+		^.OffsetDate.DirectionOfTime <- 'forward';
+		^.OffsetDate.Date.DayInWeek <- #1;
+		^.OffsetDate.DayInWeekOffset <- 1;
+    }
+)
+
+
+// next week
+// last week
+(DateRule35 :
+   	[ DateTime -> < lexDirectionOfTimeModifier % lexWeekTerm > ]
+	{
+		^.BaseDate <- getCurrentBaseDate();
+		^.OffsetDate.Date.Week <- 1;
+		^.OffsetDate.DirectionOfTime <- #1;
+		^.DateTimeRole <- 'duration';
+	}
+)
+
+// next month
+// last month
+(DateRule36 :
+   	[ DateTime -> lexOffsetOne lexMonthTerm ]
+	{
+		^.BaseDate <- getCurrentBaseDate();
+		^.OffsetDate.Date.Month <- 1;
+		^.OffsetDate.DirectionOfTime <- #1;
+		^.DateTimeRole <- 'duration';
+   	}
+)
+
+// next year
+// last year
+(DateRule37 :
+	[ DateTime -> lexOffsetOne lexYearTerm ]
+	{
+		^.BaseDate <- getCurrentBaseDate();
+		^.OffsetDate.Date.Year <- 1;
+		^.OffsetDate.DirectionOfTime <- #1;
+		^.DateTimeRole <- 'duration';
+	}
+)
+
+// next weekend
+// last weekend
+(DateRule46b :
+	[ DateTime -> < lexDirectionOfTimeModifier % lexWeekend >]
+	{
+		^.BaseDate <- getCurrentBaseDate();
+		^.OffsetDate.DirectionOfTime <- #1;
+		^.OffsetDate.Date.DayInWeek <- 6;
+
+		int currentDOW <- ClockAskDayOfTheWeek();
+		if(#1 == 'backward' && currentDOW == 0)
+		{
+			^.OffsetDate.DayInWeekOffset <- 2;			
+		}		
+		else
+		{	
+			^.OffsetDate.DayInWeekOffset <- 1;			
+		}
+	}
+)
+
+(DateRule10 :
+   	[ DateTime -> lexOffsetBaseDateDay ] 
+	{
+		^.BaseDate <- getCurrentBaseDate();
+		if(#1 < 0)
+		{
+			^.OffsetDate.Date.Day <- -#1;
+			^.OffsetDate.DirectionOfTime <- 'backward';
+		}
+		else if(#1 >= 0)
+		{
+			^.OffsetDate.Date.Day <- #1;
+			^.OffsetDate.DirectionOfTime <- 'forward';	
+		}
+    }
+)
+
+
+

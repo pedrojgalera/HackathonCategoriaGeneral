@@ -1,0 +1,62 @@
+
+conceptualScheme
+	TemporalFolder: "."
+	AssembleFile: "../Deployment/HacktourEFE.cso"		// ConceptualScheme Object (Binary)
+	//	AssembleBlock: 1000
+
+	conceptualLanguageScope
+		conceptualLanguageSetup {
+			LanguageCode: 3
+	
+			WordModelLower:On // Off - On
+			WordModelNormalization:Duplicate // Off - Reduce - Duplicate
+
+			indexingArea [Locs] {
+				SetupMatter3Weight 		20		// locs
+			}
+
+			indexingArea [Keywords] {
+				SetupMatter3Weight 		20		// locs
+				SetupMatter1Weight 		40		// keywords
+				SetupHeaderWeight 		40
+			}
+
+			indexingArea [General] {
+				SetupMatter3Weight 		20		// locs
+				SetupMatter1Weight 		20		// keywords
+				SetupHeaderWeight 		40
+				SetupSubjectWeight 		10
+			}
+			
+			SetupInfoSpaceStore {Key Header Subject Matter1 Matter3 Matter4}
+			
+			SetupInfoSpaceModelScope {Header Subject Matter1 Matter3 Matter4 }
+			
+			InfoSpaceTokenizer:NotFoundWords:Include
+
+
+			InfoSpaceLower:On // Off - On
+			InfoSpaceNormalization:Reduce // Off - Reduce
+			InfoSpaceSeparatorChars: " ~\"\'\\\n"
+			InfoIssueScoreChars: ".,;:-_()[]{}<>\""
+
+		}
+
+		conceptualLexicalScope {
+			#Include "LexicalScope/LexicalScopeSpanish.lex"
+		}
+	
+		conceptualStopWords {
+			#Include "StopWords/StopWordsSpanish.lex"
+		}
+	
+		conceptualMap {
+			#Include "ConceptualMap/ConceptualMapSpanish.cm"
+		}
+	
+		infoSpaceMap {
+			//#Include "InfoSpaceMap/newscul10.corpus"
+			#Include "InfoSpaceMap/newscul2000.corpus"
+		}
+
+

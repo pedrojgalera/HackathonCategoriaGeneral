@@ -1,0 +1,22 @@
+
+.modal
+{
+    overflow: hidden;
+}
+.modal-dialog{
+    margin-right: 0;
+    margin-left: 0;
+    width: 500px;
+}
+.modal-body {
+    min-height: 300px;
+    max-height: 300px;
+    overflow-y: auto;
+}
+.modeless{
+    top:30%;
+    left:2%;
+    bottom:auto;
+    right:auto;
+        /*margin-left:-50%;*/
+}

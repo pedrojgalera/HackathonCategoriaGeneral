@@ -1,0 +1,18 @@
+// ****************************************************************************
+//
+//	Lexicon for repeat script lexicon
+//
+// ****************************************************************************
+//
+//	PROJECT	: HackTour
+// 	DOMAIN  : -
+//	MODULE  : Scripts
+//	PACKAGE	: -
+// 	FOLDER  : -
+// 	FILE	: RepeatScriptLexiconScope.lkt
+//
+// ****************************************************************************
+
+("horario", lexTimetable)
+("horarios", lexTimetable)
+

@@ -25,3 +25,69 @@
     }
 )
 
+
+(ScriboScheme OutputContextDataSentinel: [ DialogueAct ]
+	ScriboCapture 
+	{
+		IsRequest && &IsSco('ocd_sentinel')
+	}
+	ScriboAction 
+	{
+		if(GetMainAnswer() == "")
+		{
+			GenerateMainAnswer('msg-nothing-generated');
+		}
+	}
+)
+
+(ScriboScheme GenerateCountryplace: [ DialogueAct ]
+	ScriboCapture 
+	{
+		#OBJLOCUTIO-1.CoreDialogueAct.Dimension == 'statement' &&
+        #OBJLOCUTIO-1.CoreDialogueAct.Function == 'inform' &&
+		containsActionDomainRoot( #OBJLOCUTIO-1.TaskDialogueAct.Action, 'implicit') &&
+		#OBJLOCUTIO-1.TaskDialogueAct.Scope == 'parameter2'  &&
+		parametersContainsParameterType ( #OBJLOCUTIO-1.Parameters, 'countryplace' )
+	}
+	ScriboAction 
+	{
+		Parameter parPlace <- parametersRecoverParameterType ( #OBJLOCUTIO-1.Parameters, 'countryplace' );	
+
+		GenerateMainAnswer('msg-implicit-place');
+		SetMainAnswerString(FirstUpper(mostConcretePlace(parPlace.ParameterValue.CountryPlace)));
+
+		Parameter parDt <- getParameterCurrentScript('datetime');
+		DateTime dt <- parDt.ParameterValue.DateTime;
+
+		if(Filled(dt))
+		{
+			dt <- normalizeDateTime(dt, False);
+			SetMainAnswer(" ");
+			SetMainAnswer(dateTimeToString2(dt));
+		}
+		SetMainAnswer(". ");
+	}
+)
+
+(ScriboScheme GenerateCountryplace: [ DialogueAct ]
+	ScriboCapture 
+	{
+		#OBJLOCUTIO-1.CoreDialogueAct.Dimension == 'statement' &&
+        #OBJLOCUTIO-1.CoreDialogueAct.Function == 'inform' &&
+		containsActionDomainRoot( #OBJLOCUTIO-1.TaskDialogueAct.Action, 'implicit') &&
+		#OBJLOCUTIO-1.TaskDialogueAct.Scope == 'parameter3'  &&
+		parametersContainsParameterType ( #OBJLOCUTIO-1.Parameters, 'datetime' )
+	}
+	ScriboAction 
+	{
+		Parameter parDt <- parametersRecoverParameterType ( #OBJLOCUTIO-1.Parameters, 'datetime' );	
+		DateTime dt <- parDt.ParameterValue.DateTime;
+
+		GenerateMainAnswer('msg-implicit-datetime');
+		dt <- normalizeDateTime(dt, False);
+		SetMainAnswer(" ");
+		SetMainAnswer(dateTimeToString2(dt));
+		SetMainAnswer("? ");
+	}
+)
+

@@ -24,14 +24,52 @@
 		Campaign campaign <- parameter.ParameterValue.Campaign;
 
 		string pname <- LiteralConcat('campaign', ShapeToLiteral(campaign.CampaignNumber), '-message-');
-		if(GetDialogueLanguageId() == 'English')
+		pname <- LiteralConcat(pname, LiteralConvertLower(GetDialogueInterId()), '-');
+
+		if(GetDialogeLangIdentifier() == 'English')
 		{
 			pname <- LiteralConcat(pname, '1');			
 		}
-		else
+		else if(GetDialogeLangIdentifier() == 'Polish')
 		{
 			pname <- LiteralConcat(pname, '2');
 		}
+		else if(GetDialogeLangIdentifier() == 'Spanish')
+		{
+			pname <- LiteralConcat(pname, '3');
+		}
+
+		message pvalue <- StaticTableRecoverValue(CAMPAIGNPROPPATH, pname);
+
+		SetMainAnswer(pvalue);		
+  	}
+)
+
+(ScriboScheme GenerateCampaign: [ DialogueAct ]
+	ScriboCapture
+	{
+		&IsExplicit('campaignvenue')
+	}
+	ScriboAction
+	{
+		Campaign campaign <- whichCampaignVenueTriggered();
+
+		string pname <- LiteralConcat('campaign', ShapeToLiteral(campaign.CampaignNumber), '-message-');
+		pname <- LiteralConcat(pname, LiteralConvertLower(GetDialogueInterId()), '-');
+
+		if(GetDialogeLangIdentifier() == 'English')
+		{
+			pname <- LiteralConcat(pname, '1');			
+		}
+		else if(GetDialogeLangIdentifier() == 'Polish')
+		{
+			pname <- LiteralConcat(pname, '2');
+		}
+		else if(GetDialogeLangIdentifier() == 'Spanish')
+		{
+			pname <- LiteralConcat(pname, '3');
+		}
+
 		message pvalue <- StaticTableRecoverValue(CAMPAIGNPROPPATH, pname);
 
 		SetMainAnswer(pvalue);		

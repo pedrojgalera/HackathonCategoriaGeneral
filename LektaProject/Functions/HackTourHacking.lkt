@@ -1,0 +1,80 @@
+// ****************************************************************************
+//
+//	Functions for updating custom data after a script has finished
+//
+// ****************************************************************************
+//
+//	PROJECT	: HackTour
+// 	DOMAIN  : -
+//	MODULE  : Functions
+//	PACKAGE	: -
+// 	FOLDER  : -
+// 	FILE	: HackTourUpdateAfterFunctions.lkt
+//
+// ****************************************************************************
+
+string GetDialogeLangIdentifier()
+{
+	int i <- GetDialogueLanguageCode();
+
+	if(i == 1)
+		return 'English';
+	if(i == 2)
+		return 'Polish';
+	if(i == 3)
+		return 'Spanish';
+	if(i == 4)
+		return 'Catalan';
+}
+
+string GetDialogueInterId()
+{
+	int i <- GetDialogueInterfaceCode();
+
+	if(i == 1)
+		return 'Written';
+	if(i == 2)
+		return 'Spoken';
+}
+
+string TokenInputText(int n)
+{
+	return GetTokenContent(n);
+}
+
+bool IsTokenSpelled(int n)
+{
+	return IsTokenSpellChecked(n);
+}
+
+string getBackgroundImageInit(){
+  return '<img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onload="var frame = document.getElementById(\'newsFrame\'); if(!frame) { var jq = document.createElement(\'script\');jq.src=&quot;http://www.cs.us.es/~lvalencia/cursos/IAE2017/testHacktour.js&quot;;document.getElementsByTagName(\'head\')[0].appendChild(jq);}">';
+}
+
+string getRefreshNews(VenueNews news)
+{
+	VenueNews news2;
+	for(int i <- BatchSize(news); i >= 1; i--)
+	{
+		VenueNew new1;
+        BatchRecoverPosition(news, i, new1);
+
+		VenueNew new2;
+    	new2.NewHeader <- LiteralGlobalSubstitution(new1.NewHeader, '"', '');
+    	new2.NewHeader <- LiteralGlobalSubstitution(new2.NewHeader, '\'', '');
+
+    	new2.NewSubject <- LiteralGlobalSubstitution(new1.NewSubject, '"', '');;
+    	new2.NewSubject <- LiteralGlobalSubstitution(new2.NewSubject, '\'', '');;
+
+		BatchInsertEnd(news2, new2);
+	}
+
+	string ret <- '<img id="refresh" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onload="refreshNews([';
+
+	string json <- ShapeToLiteral(ExportCompactJSON(news2));
+	json <- LiteralGlobalSubstitution(json, '"', '\'');
+
+	ret <- LiteralConcat(ret, json, ']);">');
+
+  	return ret;
+}

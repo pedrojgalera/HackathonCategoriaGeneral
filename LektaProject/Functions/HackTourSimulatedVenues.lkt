@@ -1,0 +1,952 @@
+// ****************************************************************************
+//
+//	Functions for MyApp domain
+//
+// ****************************************************************************
+//
+//	PROJECT	: Fluency/Indices
+// 	DOMAIN  : MyApp
+//	MODULE  : Functions
+//	PACKAGE	: -
+// 	FOLDER  : -
+// 	FILE	: MyAppFunctions
+//
+// ****************************************************************************
+
+AllVenues getAllVenues()
+{
+	AllVenues ret;
+
+	// Museos Madrid
+	BatchInsertEnd(ret, getVenuePrado());
+	BatchInsertEnd(ret, getVenueReinaSofia());
+	BatchInsertEnd(ret, getVenueArqueologico());
+	BatchInsertEnd(ret, getVenueThyssen());
+
+	// Museos Sevilla
+	BatchInsertEnd(ret, getVenueBellasArtes());
+	BatchInsertEnd(ret, getVenueBaileFlamenco());
+	BatchInsertEnd(ret, getVenueCarruajes());
+
+	// Museos Barcelona
+	BatchInsertEnd(ret, getVenueMacba());
+	BatchInsertEnd(ret, getVenueMiro());
+	BatchInsertEnd(ret, getVenueCiencias());
+
+	// Monumentos Córdoba
+	BatchInsertEnd(ret, getVenueCallejaDeLasFlores());
+	BatchInsertEnd(ret, getVenueTorreDeLaCalahorra());
+	BatchInsertEnd(ret, getVenueAlcazar());
+	BatchInsertEnd(ret, getVenueMezquita());
+
+	// Monumentos Sevilla
+	BatchInsertEnd(ret, getVenueCasaDePilatos());
+	BatchInsertEnd(ret, getVenueRuinasDeItalica());
+	BatchInsertEnd(ret, getVenueTorreDelOro());
+	BatchInsertEnd(ret, getVenueGiralda());
+
+	// Monumentos Madrid
+	BatchInsertEnd(ret, getVenueTemploDeDebod());
+	BatchInsertEnd(ret, getVenuePalacioReal());
+	BatchInsertEnd(ret, getVenuePuertaDeAlcala());
+	BatchInsertEnd(ret, getVenueCatedralDeLaAlmudena());
+
+	// Monumentos Barcelona
+	BatchInsertEnd(ret, getVenueParcGuell());
+	BatchInsertEnd(ret, getVenueSagradaFamilia());
+	BatchInsertEnd(ret, getVenueCasaBatllo());
+	BatchInsertEnd(ret, getVenueBarrioGotico());
+
+	// Monumentos Ávila
+	BatchInsertEnd(ret, getVenueMuralla());
+	BatchInsertEnd(ret, getVenueCuatroPostes());
+
+	// Restaurantes Madrid
+	BatchInsertEnd(ret, getVenueCasaJulio());
+	BatchInsertEnd(ret, getVenuePezTortilla());
+
+	// Restaurantes Barcelona
+	BatchInsertEnd(ret, getVenueMosquito());
+	BatchInsertEnd(ret, getVenueFlaxKale());
+
+	// Restaurantes Sevilla
+	BatchInsertEnd(ret, getVenueRuperto());
+	BatchInsertEnd(ret, getVenueJuanCarlos());
+
+	return ret;	
+}
+
+// MUSEOS MADRID
+Venue getVenuePrado()
+{
+	Venue venue;
+
+	venue.VenueId <- '4adcda37f964a520fd3b21e3';
+    venue.VenueName <- 'el Museo del Prado';
+	venue.Location.LocationAddress <- 'C. de Ruiz de Alarcón, 23 (P. del Prado), 28014 Madrid Madrid, España';
+	venue.Location.Geocoordinates.Lon = -3.6925821340722407;
+	venue.Location.Geocoordinates.Lat = 40.414267270820694;
+	venue.Contact.ContactPhone <- '+34913302800';
+
+	return venue;
+}
+
+Venue getVenueReinaSofia()
+{
+	Venue venue;
+	
+	venue.VenueId <- '4b4ddd13f964a520b6d926e3';
+	venue.VenueName <- 'el Museo Reina Sofía';
+	venue.Location.LocationAddress <- 'C. de Santa Isabel, 52, 28012 Madrid Madrid, España';
+	venue.Location.Geocoordinates.Lon = -3.6937760946919647;
+	venue.Location.Geocoordinates.Lat = 40.40868866766593;
+	venue.Contact.ContactPhone <- '+34917741000';
+
+	return venue;
+}
+
+Venue getVenueArqueologico()
+{
+	Venue venue;
+
+	venue.VenueId <- '4eda06cf775bcc53fa120bd4';
+	venue.VenueName <- 'el Museo Arqueológico Nacional';
+	venue.Location.LocationAddress <- 'C. Serrano, 13, 28001 Madrid Madrid, España';
+	venue.Location.Geocoordinates.Lon = -3.688431683863512;
+	venue.Location.Geocoordinates.Lat = 40.42325921497666;
+	venue.Contact.ContactPhone <- '+34915777912';
+
+	return venue;	
+}
+
+Venue getVenueThyssen()
+{	
+	Venue venue;
+
+	venue.VenueId <- '4adcda37f964a5200d3c21e3';
+	venue.VenueName <- 'el Museo Thyssen-Bornemisza';
+	venue.Location.LocationAddress <- 'P. del Prado, 8, 28014 Madrid, España';
+	venue.Location.Geocoordinates.Lon = -3.6948908136558845;
+	venue.Location.Geocoordinates.Lat = 40.41635928605382;
+	venue.Contact.ContactPhone <- '+34902760511';
+
+	OpeningFrames opfrs;
+	OpeningFrame opfr;
+	
+	opfr.OpeningStart <- '1000';
+	opfr.OpeningEnd <- '1900';
+	BatchInsertEnd(opfrs, opfr);
+	
+	OpeningDays opdas;
+	OpeningDay opda <- 2;
+	BatchInsertEnd(opdas, opda);
+	opda <- 3;
+	BatchInsertEnd(opdas, opda);
+	opda <- 4;
+	BatchInsertEnd(opdas, opda);
+	opda <- 5;
+	BatchInsertEnd(opdas, opda);
+	opda <- 6;
+	BatchInsertEnd(opdas, opda);
+	opda <- 7;
+	BatchInsertEnd(opdas, opda);
+	
+	OpeningHours opho;
+	opho.OpeningDays <- opdas;
+	opho.OpeningFrames <- opfrs;
+
+	BatchInsertEnd(venue.OpeningHoursList, opho);		
+
+	return venue;
+}
+
+
+// FIN MUSEOS MADRID
+
+// MUSEOS SEVILLA
+Venue getVenueBellasArtes()
+{
+	Venue venue;
+
+	venue.VenueId <- '4bcabe4268f976b0eafe5f83';
+    venue.VenueName <- 'el Museo de Bellas Artes';
+	venue.Location.LocationAddress <- 'Plaza del Museo, 9';
+	venue.Location.Geocoordinates.Lon = -5.999722;
+    venue.Location.Geocoordinates.Lat = 37.3925;
+	venue.Contact.ContactPhone <- '955542942';
+
+	OpeningFrames opfrs;
+	OpeningFrame opfr;
+	
+	opfr.OpeningStart <- '0900';
+	opfr.OpeningEnd <- '2000';
+	BatchInsertEnd(opfrs, opfr);
+	
+	OpeningDays opdas;
+	OpeningDay opda <- 2;
+	BatchInsertEnd(opdas, opda);
+	opda <- 3;
+	BatchInsertEnd(opdas, opda);
+	opda <- 4;
+	BatchInsertEnd(opdas, opda);
+	opda <- 5;
+	BatchInsertEnd(opdas, opda);
+	opda <- 6;
+	BatchInsertEnd(opdas, opda);
+	
+	OpeningHours opho;
+	opho.OpeningDays <- opdas;
+	opho.OpeningFrames <- opfrs;
+
+	BatchInsertEnd(venue.OpeningHoursList, opho);		
+
+	Erase(opfrs);
+	Erase(opdas);
+
+	opfr.OpeningStart <- '0900';
+	opfr.OpeningEnd <- '1500';
+	BatchInsertEnd(opfrs, opfr);
+	
+	opda <- 7;
+	BatchInsertEnd(opdas, opda);
+
+	opho.OpeningDays <- opdas;
+	opho.OpeningFrames <- opfrs;
+
+	BatchInsertEnd(venue.OpeningHoursList, opho);		
+
+	return venue;
+}
+
+Venue getVenueBaileFlamenco()
+{
+	Venue venue;
+
+	venue.VenueId <- '4c28d5caed0ac9b67ad460aa';
+    venue.VenueName <- 'el Museo de Baile Flamenco';
+	venue.Location.LocationAddress <- 'Calle Manuel Rojas Marcos, 3';
+	venue.Location.Geocoordinates.Lon = -5.991111;
+    venue.Location.Geocoordinates.Lat = 37.388889;
+	venue.Contact.ContactPhone <- '954340311';
+
+	OpeningFrames opfrs;
+	OpeningFrame opfr;
+	
+	opfr.OpeningStart <- '1000';
+	opfr.OpeningEnd <- '1900';
+	BatchInsertEnd(opfrs, opfr);
+	
+	OpeningDays opdas;
+	OpeningDay opda <- 1;
+	BatchInsertEnd(opdas, opda);
+	opda <- 2;
+	BatchInsertEnd(opdas, opda);
+	opda <- 3;
+	BatchInsertEnd(opdas, opda);
+	opda <- 4;
+	BatchInsertEnd(opdas, opda);
+	opda <- 5;
+	BatchInsertEnd(opdas, opda);
+	opda <- 6;
+	BatchInsertEnd(opdas, opda);
+	opda <- 7;
+	BatchInsertEnd(opdas, opda);
+	
+	OpeningHours opho;
+	opho.OpeningDays <- opdas;
+	opho.OpeningFrames <- opfrs;
+
+	BatchInsertEnd(venue.OpeningHoursList, opho);		
+
+	return venue;
+}
+
+Venue getVenueCarruajes()
+{
+	Venue venue;
+
+	venue.VenueId <- '4bc1e362920eb713453e1b2c';
+    venue.VenueName <- 'el Museo de Carruajes';
+	venue.Location.LocationAddress <- 'Plaza de Cuba';
+	venue.Location.Geocoordinates.Lon = -5.9975;
+    venue.Location.Geocoordinates.Lat = 37.38;
+	venue.Contact.ContactPhone <- '954272604';
+
+	OpeningFrames opfrs;
+	OpeningFrame opfr;
+	
+	opfr.OpeningStart <- '0900';
+	opfr.OpeningEnd <- '1400';
+	BatchInsertEnd(opfrs, opfr);
+	
+	OpeningDays opdas;
+	OpeningDay opda <- 1;
+	BatchInsertEnd(opdas, opda);
+	opda <- 2;
+	BatchInsertEnd(opdas, opda);
+	opda <- 3;
+	BatchInsertEnd(opdas, opda);
+	opda <- 4;
+	BatchInsertEnd(opdas, opda);
+	opda <- 5;
+	BatchInsertEnd(opdas, opda);
+	
+	OpeningHours opho;
+	opho.OpeningDays <- opdas;
+	opho.OpeningFrames <- opfrs;
+
+	BatchInsertEnd(venue.OpeningHoursList, opho);		
+
+	return venue;
+}
+
+// FIN MUSEOS SEVILLA
+
+// MUSEOS BARCELONA
+
+Venue getVenueMacba()
+{
+	Venue venue;
+
+	venue.VenueId <- '4adcda57f964a520a94321e3';
+    venue.VenueName <- 'el Museo de Arte Contemporáneo de Barcelona';
+	venue.Location.LocationAddress <- 'Plaça dels Àngels, 1';
+	venue.Location.Geocoordinates.Lon = 2.167;
+    venue.Location.Geocoordinates.Lat = 41.3832;
+	venue.Contact.ContactPhone <- '934813368';
+
+	OpeningFrames opfrs;
+	OpeningFrame opfr;
+
+	opfr.OpeningStart <- '1100';
+	opfr.OpeningEnd <- '1900';
+	BatchInsertEnd(opfrs, opfr);
+
+	OpeningDays opdas;
+	OpeningDay opda <- 1;
+	BatchInsertEnd(opdas, opda);
+	opda <- 3;
+	BatchInsertEnd(opdas, opda);
+	opda <- 4;
+	BatchInsertEnd(opdas, opda);
+	opda <- 5;
+	BatchInsertEnd(opdas, opda);
+
+	OpeningHours opho;
+	opho.OpeningDays <- opdas;
+	opho.OpeningFrames <- opfrs;
+
+	BatchInsertEnd(venue.OpeningHoursList, opho);
+
+	Erase(opfrs);
+	Erase(opdas);
+
+	opfr.OpeningStart <- '1000';
+	opfr.OpeningEnd <- '2000';
+	BatchInsertEnd(opfrs, opfr);
+
+	opda <- 6;
+	BatchInsertEnd(opdas, opda);
+
+	opho.OpeningDays <- opdas;
+	opho.OpeningFrames <- opfrs;
+
+	BatchInsertEnd(venue.OpeningHoursList, opho);
+
+	Erase(opfrs);
+	Erase(opdas);
+
+	opfr.OpeningStart <- '1000';
+	opfr.OpeningEnd <- '1500';
+	BatchInsertEnd(opfrs, opfr);
+
+	opda <- 7;
+	BatchInsertEnd(opdas, opda);
+
+	opho.OpeningDays <- opdas;
+	opho.OpeningFrames <- opfrs;
+
+	BatchInsertEnd(venue.OpeningHoursList, opho);
+
+	return venue;
+}
+
+
+Venue getVenueMiro()
+{
+	Venue venue;
+
+	venue.VenueId <- '4bb79a0a98c7ef3bc90a3002';
+    venue.VenueName <- 'la Fundaciò Joan Miró';
+	venue.Location.LocationAddress <- 'Parc de Montjuïc';
+	venue.Location.Geocoordinates.Lon = 2.16;
+    venue.Location.Geocoordinates.Lat = 41.368611;
+	venue.Contact.ContactPhone <- '934439470';
+
+	OpeningFrames opfrs;
+	OpeningFrame opfr;
+
+	opfr.OpeningStart <- '1000';
+	opfr.OpeningEnd <- '1800';
+	BatchInsertEnd(opfrs, opfr);
+
+	OpeningDays opdas;
+	OpeningDay opda <- 2;
+	BatchInsertEnd(opdas, opda);
+	opda <- 3;
+	BatchInsertEnd(opdas, opda);
+	opda <- 5;
+	BatchInsertEnd(opdas, opda);
+
+	OpeningHours opho;
+	opho.OpeningDays <- opdas;
+	opho.OpeningFrames <- opfrs;
+
+	BatchInsertEnd(venue.OpeningHoursList, opho);
+
+	Erase(opfrs);
+	Erase(opdas);
+
+	opfr.OpeningStart <- '1000';
+	opfr.OpeningEnd <- '2100';
+	BatchInsertEnd(opfrs, opfr);
+
+	opda <- 4;
+	BatchInsertEnd(opdas, opda);
+
+	opho.OpeningDays <- opdas;
+	opho.OpeningFrames <- opfrs;
+
+	BatchInsertEnd(venue.OpeningHoursList, opho);
+
+	Erase(opfrs);
+	Erase(opdas);
+
+	opfr.OpeningStart <- '1000';
+	opfr.OpeningEnd <- '2000';
+	BatchInsertEnd(opfrs, opfr);
+
+	opda <- 6;
+	BatchInsertEnd(opdas, opda);
+
+	opho.OpeningDays <- opdas;
+	opho.OpeningFrames <- opfrs;
+
+	BatchInsertEnd(venue.OpeningHoursList, opho);
+
+	Erase(opfrs);
+	Erase(opdas);
+
+	opfr.OpeningStart <- '1000';
+	opfr.OpeningEnd <- '1500';
+	BatchInsertEnd(opfrs, opfr);
+
+	opda <- 7;
+	BatchInsertEnd(opdas, opda);
+
+	opho.OpeningDays <- opdas;
+	opho.OpeningFrames <- opfrs;
+
+	BatchInsertEnd(venue.OpeningHoursList, opho);
+
+	return venue;
+}
+
+Venue getVenueCiencias()
+{
+	Venue venue;
+
+	venue.VenueId <- '4d8f4910c1b1721e89b54246';
+    venue.VenueName <- 'el Museu de Ciències Naturals de Barcelona';
+	venue.Location.LocationAddress <- 'Plaza Leonardo da Vinci, 4';
+	venue.Location.Geocoordinates.Lon = 2.22133;
+    venue.Location.Geocoordinates.Lat = 41.411039;
+	venue.Contact.ContactPhone <- '932566002​';
+
+	OpeningFrames opfrs;
+	OpeningFrame opfr;
+
+	opfr.OpeningStart <- '1000';
+	opfr.OpeningEnd <- '1800';
+	BatchInsertEnd(opfrs, opfr);
+
+	OpeningDays opdas;
+	OpeningDay opda <- 2;
+	BatchInsertEnd(opdas, opda);
+	opda <- 3;
+	BatchInsertEnd(opdas, opda);
+	opda <- 4;
+	BatchInsertEnd(opdas, opda);
+	opda <- 5;
+	BatchInsertEnd(opdas, opda);
+
+	OpeningHours opho;
+	opho.OpeningDays <- opdas;
+	opho.OpeningFrames <- opfrs;
+
+	BatchInsertEnd(venue.OpeningHoursList, opho);
+
+	Erase(opfrs);
+	Erase(opdas);
+
+	opfr.OpeningStart <- '1000';
+	opfr.OpeningEnd <- '1900';
+	BatchInsertEnd(opfrs, opfr);
+
+	opda <- 6;
+	BatchInsertEnd(opdas, opda);
+
+	opho.OpeningDays <- opdas;
+	opho.OpeningFrames <- opfrs;
+
+	BatchInsertEnd(venue.OpeningHoursList, opho);
+
+	Erase(opfrs);
+	Erase(opdas);
+
+	opfr.OpeningStart <- '1000';
+	opfr.OpeningEnd <- '2000';
+	BatchInsertEnd(opfrs, opfr);
+
+	opda <- 7;
+	BatchInsertEnd(opdas, opda);
+
+	opho.OpeningDays <- opdas;
+	opho.OpeningFrames <- opfrs;
+
+	BatchInsertEnd(venue.OpeningHoursList, opho);
+
+	return venue;
+}
+
+// FIN MUSEOS BARCELONA
+
+
+// MONUMENTOS MADRID 
+
+Venue getVenueTemploDeDebod()
+{
+    Venue venue;
+    
+    venue.VenueId <- '4adcda37f964a520113c21e3';
+    venue.VenueName <- 'el Templo de Debod';
+    venue.Location.LocationAddress <- 'C. Ferraz, 1';
+    venue.Location.Geocoordinates.Lon = -3.7164320046391643;
+    venue.Location.Geocoordinates.Lat = 40.424139387520164;
+    venue.Contact.ContactPhone <- '+34913667415';
+
+    return venue;
+}
+
+Venue getVenuePalacioReal()
+{
+    Venue venue;
+    
+    venue.VenueId <- '4adcda37f964a5200e3c21e3';
+    venue.VenueName <- 'el Palacio Real';
+    venue.Location.LocationAddress <- 'C. Bailén, s/n (Pl. de Oriente)';
+    venue.Location.Geocoordinates.Lon = -3.714258670806885;
+    venue.Location.Geocoordinates.Lat = 40.41793972010854;
+    venue.Contact.ContactPhone <- '+34915597404';
+
+    return venue;
+}
+
+Venue getVenuePuertaDeAlcala()
+{
+    Venue venue;
+    
+    venue.VenueId <- '4adcda37f964a5201b3c21e3';
+    venue.VenueName <- 'la Puerta de Alcalá';
+    venue.Location.LocationAddress <- 'Pl. de la Independencia';
+    venue.Location.Geocoordinates.Lon = -3.6885694439495564;
+    venue.Location.Geocoordinates.Lat = 40.42004520901021;
+    venue.Contact.ContactPhone <- 'unknown';
+
+    return venue;
+}
+
+Venue getVenueCatedralDeLaAlmudena()
+{
+    Venue venue;
+    
+    venue.VenueId <- '4adcda38f964a520523c21e3';
+    venue.VenueName <- 'la Catedral de la Almudena';
+    venue.Location.LocationAddress <- 'C. Bailén, 8-10';
+    venue.Location.Geocoordinates.Lon = -3.7145161628723145;
+    venue.Location.Geocoordinates.Lat = 40.41576693264202;
+    venue.Contact.ContactPhone <- '+34915422200';
+
+    return venue;
+}
+
+// FIN MONUMENTOS MADRID 
+
+
+// MONUMENTOS SEVILLA 
+
+Venue getVenueGiralda()
+{
+    Venue venue;
+    
+    venue.VenueId <- '4b8274eaf964a520b2d330e3';
+    venue.VenueName <- 'la Giralda';
+    venue.Location.LocationAddress <- 'Plaza Virgen de los Reyes';
+    venue.Location.Geocoordinates.Lon = -5.991962759858657;
+    venue.Location.Geocoordinates.Lat = 37.38614321489355;
+    venue.Contact.ContactPhone <- '+34954228250';
+
+    return venue;
+}
+
+Venue getVenueTorreDelOro()
+{
+    Venue venue;
+    
+    venue.VenueId <- '4b4c0c15f964a52091ad26e3';
+    venue.VenueName <- 'la Torre del Oro';
+    venue.Location.LocationAddress <- 'P. de Cristobal Colón';
+    venue.Location.Geocoordinates.Lon = -5.996330380439758;
+    venue.Location.Geocoordinates.Lat = 37.382396029674446;
+    venue.Contact.ContactPhone <- '+34954222419';
+
+    return venue;
+}
+
+Venue getVenueRuinasDeItalica()
+{
+    Venue venue;
+    
+    venue.VenueId <- '4c69256835d3be9a54791e06';
+    venue.VenueName <- 'el conjunto arqueológico de Itálica';
+    venue.Location.LocationAddress <- 'Av. de Extremadura, 2, 41970 Santiponce';
+    venue.Location.Geocoordinates.Lon = -6.044863966419871;
+    venue.Location.Geocoordinates.Lat = 37.44398509453206;
+    venue.Contact.ContactPhone <- '+34955123847';
+	venue.VenueOutdoorFlag <- True;
+
+	OpeningFrames opfrs;
+	OpeningFrame opfr;
+
+	opfr.OpeningStart <- '1000';
+	opfr.OpeningEnd <- '1900';
+	BatchInsertEnd(opfrs, opfr);
+
+	OpeningDays opdas;
+	OpeningDay opda <- 1;
+    BatchInsertEnd(opdas, opda);
+	opda <- 2;
+	BatchInsertEnd(opdas, opda);
+	opda <- 3;
+	BatchInsertEnd(opdas, opda);
+	opda <- 4;
+	BatchInsertEnd(opdas, opda);
+	opda <- 5;
+	BatchInsertEnd(opdas, opda);
+
+	OpeningHours opho;
+	opho.OpeningDays <- opdas;
+	opho.OpeningFrames <- opfrs;
+
+	BatchInsertEnd(venue.OpeningHoursList, opho);
+
+    return venue;
+}
+
+Venue getVenueCasaDePilatos()
+{
+    Venue venue;
+    
+    venue.VenueId <- '4bc1b745b492d13a4d60a660';
+    venue.VenueName <- 'la Casa de Pilatos'; 
+    venue.Location.LocationAddress <- 'Plaza de Pilatos, 1';
+    venue.Location.Geocoordinates.Lon = -5.987153055611998;
+    venue.Location.Geocoordinates.Lat = 37.39029789079146;
+    venue.Contact.ContactPhone <- '+34954225298';
+
+    return venue;
+}
+
+// FIN MONUMENTOS SEVILLA
+
+
+// MONUMENTOS CORDOBA 
+
+Venue getVenueMezquita()
+{
+    Venue venue;
+    
+    venue.VenueId <- '4b5c63d0f964a520b22d29e3';
+    venue.VenueName <- 'la Mezquita de Córdoba';
+    venue.Location.LocationAddress <- 'C. del Cardenal Herrero, 1';
+    venue.Location.Geocoordinates.Lon = -4.7793985640955725;
+    venue.Location.Geocoordinates.Lat = 37.87889717264155;
+    venue.Contact.ContactPhone <- '+34957470512';
+
+    return venue;
+}
+
+Venue getVenueAlcazar()
+{
+    Venue venue;
+    
+    venue.VenueId <- '4b714776f964a520273f2de3';
+    venue.VenueName <- 'el Alcázar de los Reyes';
+    venue.Location.LocationAddress <- 'C. Caballerizas Reales';
+    venue.Location.Geocoordinates.Lon = -4.7817325298529925;
+    venue.Location.Geocoordinates.Lat = 37.876939170716106;
+    venue.Contact.ContactPhone <- '+957420151';
+
+    return venue;
+}
+
+Venue getVenueTorreDeLaCalahorra()
+{
+    Venue venue;
+    
+    venue.VenueId <- '4d0debdcbe6d6ea8d6bd07b5';
+    venue.VenueName <- 'la Torre de la Calahorra';
+    venue.Location.LocationAddress <- 'Puente Romano, s/n';
+    venue.Location.Geocoordinates.Lon = -4.776649808908076;
+    venue.Location.Geocoordinates.Lat = 37.875767848608106;
+    venue.Contact.ContactPhone <- '+34957293929';
+
+    return venue;
+}
+
+Venue getVenueCallejaDeLasFlores()
+{
+    Venue venue;
+
+    venue.VenueId <- '4b5c63d0f964a520b22d29e3';
+    venue.VenueName <- 'la Calleja de las Flores';
+    venue.Location.LocationAddress <- 'Calleja de las Flores, 1';
+    venue.Location.Geocoordinates.Lon = -4.779281;
+    venue.Location.Geocoordinates.Lat = 37.880153;
+    venue.Contact.ContactPhone <- '+34902201774';
+
+    return venue;
+}
+// FIN MONUMENTOS CORDOBA
+
+
+// MONUMENTOS BARCELONA
+
+Venue getVenueParcGuell()
+{
+    Venue venue;
+    
+    venue.VenueId <- '4b76bca2f964a520975b2ee3';
+    venue.VenueName <- 'el Parque Güell';
+    venue.Location.LocationAddress <- 'C. Olot, s/n';
+    venue.Location.Geocoordinates.Lon = 2.152419090270996;
+    venue.Location.Geocoordinates.Lat = 41.41402430211336;
+    venue.Contact.ContactPhone <- '+34902200302';
+
+    return venue;
+}
+
+Venue getVenueSagradaFamilia()
+{
+    Venue venue;
+    
+    venue.VenueId <- '4adcda50f964a520544121e3';
+    venue.VenueName <- 'la Sagrada Familia';
+    venue.Location.LocationAddress <- 'C. de Mallorca, 401 ';
+    venue.Location.Geocoordinates.Lon = 2.1743541955947876;
+    venue.Location.Geocoordinates.Lat = 41.403519293054394;
+    venue.Contact.ContactPhone <- '+34934366933';
+
+    return venue;
+}
+
+Venue getVenueCasaBatllo()
+{
+    Venue venue;
+    
+    venue.VenueId <- '4adcda51f964a520aa4121e3';
+    venue.VenueName <- 'la Casa Batlló';
+    venue.Location.LocationAddress <- 'Pg. de Grácia, 43';
+    venue.Location.Geocoordinates.Lon = 2.165009379386902;
+    venue.Location.Geocoordinates.Lat = 41.391716734434084;
+    venue.Contact.ContactPhone <- '+34932160306';
+
+    return venue;
+}
+
+Venue getVenueBarrioGotico()
+{
+    Venue venue;
+
+    venue.VenueId <- '4c45dcab429a0f479cb94a1e';
+    venue.VenueName <- 'el Barrio Gótico';
+    venue.Location.LocationAddress <- 'Barcelona';
+    venue.Location.Geocoordinates.Lon = 2.1772899008766218;
+    venue.Location.Geocoordinates.Lat = 41.38366049614543;
+    venue.Contact.ContactPhone <- 'unknown';
+
+    return venue;
+}
+
+// FIN MONUMENTOS BARCELONA
+
+// MONUMENTOS AVILA
+
+Venue getVenueMuralla()
+{
+    Venue venue;
+
+    venue.VenueId <- '4bf924415ec320a1f1be89d3';
+    venue.VenueName <- 'las Murallas de Ávila';
+    venue.Location.LocationAddress <- 'Ávila';
+    venue.Location.Geocoordinates.Lon = -4.6972213919126355;
+    venue.Location.Geocoordinates.Lat = 40.656293644869436;
+    venue.Contact.ContactPhone <- 'unknown';
+
+    return venue;
+}
+
+Venue getVenueCuatroPostes()
+{
+    Venue venue;
+
+    venue.VenueId <- '4dd91e9fd22d38ef4310d772';
+    venue.VenueName <- 'los Cuatro Postes';
+    venue.Location.LocationAddress <- 'Ávila';
+    venue.Location.Geocoordinates.Lon = -4.71110967748586;
+    venue.Location.Geocoordinates.Lat = 40.65998016971712;
+    venue.Contact.ContactPhone <- 'unknown';
+
+    return venue;
+}
+
+// FIN MONUMENTOS AVILA
+
+// MADRID RESTAURANTES
+
+Venue getVenueCasaJulio()
+{
+    Venue venue;
+    
+    venue.VenueId <- '4bd0af4577b29c7416438b82';
+    venue.VenueName <- 'Casa Julio';
+    venue.Location.LocationAddress <- 'C. Madera, 41';
+    venue.Location.Geocoordinates.Lon = -3.703590104092062;
+    venue.Location.Geocoordinates.Lat = 40.42429216821949;
+    venue.Contact.ContactPhone <- 'unknown';
+
+    return venue;
+}
+
+Venue getVenuePezTortilla()
+{
+    Venue venue;
+
+    venue.VenueId <- '552cc0cd498e4bba96669cb2';
+    venue.VenueName <- 'el Pez Tortilla';
+    venue.Location.LocationAddress <- 'C. Pez, 36';
+    venue.Location.Geocoordinates.Lon = -3.706568309829162;
+    venue.Location.Geocoordinates.Lat = 40.4242382067626;
+    venue.Contact.ContactPhone <- '+34653919984';
+
+    return venue;
+}
+
+// FIN MADRID RESTAURANTES
+
+// SEVILLA RESTAURANTES
+Venue getVenueRuperto()
+{
+    Venue venue;
+
+    venue.VenueId <- '4b69dd0df964a520e6b82be3';
+    venue.VenueName <- 'Bar Casa Ruperto';
+    venue.Location.LocationAddress <- 'Calle Santa Cecilia';
+    venue.Location.Geocoordinates.Lon = -6.008613617239879;
+    venue.Location.Geocoordinates.Lat = 37.38174595746006;
+    venue.Contact.ContactPhone <- 'unknown';
+
+    return venue;
+}
+
+Venue getVenueJuanCarlos()
+{
+    Venue venue;
+
+    venue.VenueId <- '4e84df2b5503e18a12aaa103';
+    venue.VenueName <- 'Bar Juan Carlos';
+    venue.Location.LocationAddress <- 'C. Febo, 6';
+    venue.Location.Geocoordinates.Lon = -6.003751054513301;
+    venue.Location.Geocoordinates.Lat = 37.380761226117876;
+    venue.Contact.ContactPhone <- 'unknown';
+
+    return venue;
+}
+
+// FIN SEVILLA RESTAURANTES
+
+// BARCELONA  RESTAURANTES
+Venue getVenueFlaxKale()
+{
+    Venue venue;
+   
+    venue.VenueId <- '53e5e4e6498e03a758bc9bd4';
+    venue.VenueName <- 'el Flax & Kale';
+    venue.Location.LocationAddress <- 'C. Tallers, 74 bis';
+    venue.Location.Geocoordinates.Lon = 2.1655136346817017;
+    venue.Location.Geocoordinates.Lat = 41.38509622287388;
+    venue.Contact.ContactPhone <- '+34933175664';
+
+    return venue;
+}
+
+Venue getVenueMosquito()
+{
+    Venue venue;
+
+    venue.VenueId <- '4b73066bf964a52088962de3';
+    venue.VenueName <- 'el Mosquito';
+    venue.Location.LocationAddress <- 'C. Carders, 46';
+    venue.Location.Geocoordinates.Lon = 2.1805438695413857;
+    venue.Location.Geocoordinates.Lat = 41.38746280661704;
+    venue.Contact.ContactPhone <- '+34932687569';
+
+    return venue;
+}
+
+// FIN BARCELONA RESTAURANTES
+
+OpeningHoursList getDefaultOpeningHoursList()
+{
+	OpeningHoursList list;
+	OpeningFrames opfrs;
+	OpeningFrame opfr;
+
+	opfr.OpeningStart <- '0900';
+	opfr.OpeningEnd <- '2000';
+	BatchInsertEnd(opfrs, opfr);
+
+	OpeningDays opdas;
+	OpeningDay opda <- 1;
+    BatchInsertEnd(opdas, opda);
+	opda <- 2;
+	BatchInsertEnd(opdas, opda);
+	opda <- 3;
+	BatchInsertEnd(opdas, opda);
+	opda <- 4;
+	BatchInsertEnd(opdas, opda);
+	opda <- 5;
+	BatchInsertEnd(opdas, opda);
+	opda <- 6;
+	BatchInsertEnd(opdas, opda);
+	opda <- 7;
+	BatchInsertEnd(opdas, opda);
+
+	OpeningHours opho;
+	opho.OpeningDays <- opdas;
+	opho.OpeningFrames <- opfrs;
+
+	BatchInsertEnd(list, opho);
+
+	return list;
+}

@@ -20,10 +20,59 @@
 	}
 	ScriboAction
 	{
-		SetMainAnswerStringRandom(getGreet(), getHello());
-    	SetMainAnswerString(getWelcome());
-    	SetMainAnswerString(getAnswerOps('msg-instructions', '', '. ', True,False));
-  }
+		GenerateMainAnswer('msg-welcome-part1');
+		GenerateMainAnswer('msg-welcome-part2');
+
+		if(GetDialogueInterId() == 'Written')
+		{
+			SetMainAnswerString(getBackgroundImageInit());
+		}
+	}
 )
 
+(ScriboScheme GenerateTips: [ DialogueAct ]
+	ScriboCapture
+	{
+		#OBJLOCUTIO-1.CoreDialogueAct.Dimension == 'question' &&
+		#OBJLOCUTIO-1.CoreDialogueAct.Function == 'propositional' &&
+		containsActionDomainRoot( #OBJLOCUTIO-1.TaskDialogueAct.Action, 'ask') &&
+		#OBJLOCUTIO-1.TaskDialogueAct.Scope == 'booking'
+	}
+	ScriboAction
+	{
+		GenerateMainAnswer('msg-ask-booking');
+   	}
+)
+
+(ScriboScheme GenerateTips: [ DialogueAct ]
+	ScriboCapture
+	{
+		#OBJLOCUTIO-1.CoreDialogueAct.Dimension == 'social' &&
+		#OBJLOCUTIO-1.CoreDialogueAct.Function == 'greeting' &&
+		containsActionDomainRoot( #OBJLOCUTIO-1.TaskDialogueAct.Action, 'offer') &&
+		#OBJLOCUTIO-1.TaskDialogueAct.Scope == 'hemihy'
+	}
+	ScriboAction
+	{
+		string s <- ShapeToString(GetMainAnswer());
+		if(trim(s) == '' || trim(s) == 'Lo siento, no tengo información.')
+		{
+			GenerateMainAnswer('msg-offer-hemihy');
+		}
+   	}
+)
+
+(ScriboScheme GenerateGoodbye: [ DialogueAct ]
+	ScriboCapture 
+	{
+		IsGoodbye
+	}
+	ScriboAction 
+	{
+		&SetAnsPropConc2('msg-goodbye-start')
+		&SetAnsPropConc2('msg-seeyouagain')
+		&SetAnsPropConc1('msg-pregreetbye')
+		SetMainAnswerString(getGreetingByeConc(False, '', ''));
+    }
+)
 

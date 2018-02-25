@@ -52,7 +52,7 @@ Parameter getNextVenue(Parameters parameters)
       		CallUpdate(&call,'ll',ll);
       	}
 
-    	CallUpdate(&call,'lang',getLang2(GetDialogueLanguageId()));
+    	CallUpdate(&call,'lang',getLang2(GetDialogeLangIdentifier()));
 	  	//TODO change for getCallResponse for specific transport errors handling
     	message result <- getCallResult(call);
 
@@ -95,11 +95,13 @@ Parameter getVenueDetails(Parameters parameters)
     	updatedVenue <- paramVenue.ParameterValue.Venue;
   	}
 
-  	string langString <- GetDialogueLanguageId();
+  	string langString <- GetDialogeLangIdentifier();
 
 	if(&ON('simulation-mode'))
 	{
-	    updatedVenue <- getVenueDetailsInfoSimulated(langString, id);
+	    // updatedVenue <- getVenueDetailsInfoSimulated(langString, id);
+
+		updatedVenue <- paramVenue.ParameterValue.Venue;
 	}
 	else
 	{
@@ -156,7 +158,7 @@ Parameter getForecast(Parameters parameters)
 	BatchRecoverPosition(parameters, 3, param3);
 
 	// Language
-	string langString <- GetDialogueLanguageId();
+	string langString <- GetDialogeLangIdentifier();
 
 	// DateTime
 	DateTime current;
@@ -191,7 +193,7 @@ Parameter getForecast(Parameters parameters)
 	string cityString <- mostConcretePlace(cp);
 
 	Forecast forecast;
-	if(&ON('simulation-mode'))
+	if(&ON('simulation-forecast-mode'))
 	{
 		forecast <- getWeatherInfoSimulated(langString, cityString, dateTimeBatch);
 	}
@@ -209,27 +211,63 @@ Parameter getForecast(Parameters parameters)
 	return ret;
 }
 
-ForecastElement getRandomForecastDescriptor(ForecastElement element)
+ForecastElement getRandomForecastDescriptor(string langString, ForecastElement element)
 {
 	int i <- Random(1,3);
 
 	string ret;
 	if(i == 1)
 	{
-		element.ForecastDescriptor <- 'scattered clouds';
+		element.ForecastDescriptor <- getScatteredClouds(langString);
         element.ForecastDescriptorId <- '802';
 	}
 	else if(i == 2)
 	{
-		element.ForecastDescriptor <- 'clear sky';
+		element.ForecastDescriptor <- getClearSky(langString);
         element.ForecastDescriptorId <- '800';
 	}
 	else
 	{
-		element.ForecastDescriptor <- 'light rain';
+		element.ForecastDescriptor <- getLightRain(langString);
 		element.ForecastDescriptorId <- '500';
 	}
 	return element;
+}
+
+string getScatteredClouds(string langString)
+{
+	if(langString == 'Spanish')
+	{
+		return 'nubes dispersas';
+	}
+	else if(langString == 'English')
+	{	
+		return 'scattered clouds';
+	}
+}
+
+string getClearSky(string langString)
+{
+	if(langString == 'Spanish')
+	{
+		return 'cielo despejado';
+	}
+	else if(langString == 'English')
+	{	
+		return 'clear sky';
+	}
+}
+
+string getLightRain(string langString)
+{
+	if(langString == 'Spanish')
+	{
+		return 'lluvia ligera';
+	}
+	else if(langString == 'English')
+	{	
+		return 'light rain';
+	}
 }
 
 string getRandomForecastTemperature()
@@ -290,20 +328,14 @@ string showTempAnswer(Forecast forecast, int n) {
 
 Parameter getSuggestions(Parameters parameters)
 {
-	// TODO REMOVE
-	//SpyMessage("");
-  	//SpyMessage("getSuggestions");
-  	//SpyMessage("");
-
 	Parameter ret;
 
-	Parameter paramCountryPlace, paramCityPlace, paramVenue, paramCategoryId, paramSubcategoryId;
+	Parameter paramCountryPlace, paramCityPlace, paramVenue, paramCategoryId;
 
 	paramCountryPlace <- getParByType(parameters, 'countryplace');
 	paramCityPlace <- getParByType(parameters, 'cityplace');
 	paramVenue <- getParByType(parameters, 'venue');
 	paramCategoryId <- getParByType(parameters, 'venuecategory');
-	paramSubcategoryId <- getParByType(parameters, 'venuesubcategory');
 
   	string near <- '';
   	string cityPlace;
@@ -325,12 +357,9 @@ Parameter getSuggestions(Parameters parameters)
     ll <- LiteralConcat(ShapeToString(coords.Lat),', ',ShapeToString(coords.Lon));
   }
 
-  string categoryId;
-  if (Filled(paramSubcategoryId.ParameterValue)){
-    categoryId <- paramSubcategoryId.ParameterValue.VenueSubcategory.VenueCategoryId;
-  } else if (Filled(paramCategoryId.ParameterValue)){
-    categoryId <- paramCategoryId.ParameterValue.VenueCategory.VenueCategoryId;
-  }
+    string categoryId <- paramCategoryId.ParameterValue.VenueCategory.VenueCategoryId;
+
+	getConceptualScheme(paramCategoryId.ParameterValue.VenueCategory.VenueCategoryName, cityString);
 
 	Suggestions suggestions;
 	if(&ON('simulation-mode'))
@@ -351,7 +380,7 @@ Parameter getSuggestions(Parameters parameters)
     if (Filled(categoryId))
       CallUpdate(&call,'categoryId',categoryId);
 
-    CallUpdate(&call,'lang',getLang2(GetDialogueLanguageId()));
+    CallUpdate(&call,'lang',getLang2(GetDialogeLangIdentifier()));
 
 	  //TODO change for getCallResponse for specific transport errors handling
     message result <- getCallResult(call);
@@ -406,7 +435,7 @@ Parameter getSimilarVenues(Parameters parameters)
     if (Filled(ll) && LiteralSize(trim(ll))>0)
       CallUpdate(&call,'ll',ll);
 
-    CallUpdate(&call,'lang',getLang2(GetDialogueLanguageId()));
+    CallUpdate(&call,'lang',getLang2(GetDialogeLangIdentifier()));
 	  //TODO change for getCallResponse for specific transport errors handling
     message result <- getCallResult(call);
 
@@ -455,7 +484,7 @@ Parameter getTips(Parameters parameters)
     if (Filled(id) && LiteralSize(trim(id))>0)
       CallUpdate(&call,'id',id);
 
-    CallUpdate(&call,'lang',getLang2(GetDialogueLanguageId()));
+    CallUpdate(&call,'lang',getLang2(GetDialogeLangIdentifier()));
 	  //TODO change for getCallResponse for specific transport errors handling
     message result <- getCallResult(call);
 
@@ -488,7 +517,7 @@ Parameter getRestaurantsNear(Parameters parameters)
 	string place <- mostConcretePlace(cp);
 
 	// Language
-	string langString <- GetDialogueLanguageId();
+	string langString <- GetDialogeLangIdentifier();
 
   Suggestions restaurants;
 

@@ -1,0 +1,33 @@
+// ****************************************************************************
+//
+//	Lexicon for repeat script lexicon
+//
+// ****************************************************************************
+//
+//	PROJECT	: HackTour
+// 	DOMAIN  : -
+//	MODULE  : Scripts
+//	PACKAGE	: -
+// 	FOLDER  : -
+// 	FILE	: RepeatScriptLexiconScope.lkt
+//
+// ****************************************************************************
+
+("algo más", lexRepeatScript)
+("¿algo más", lexRepeatScript)
+("algo mas", lexRepeatScript)
+("¿algo mas", lexRepeatScript)
+("qué mas", lexRepeatScript)
+("que mas", lexRepeatScript)
+("cuéntame más", lexRepeatScript)
+("cuentame mas", lexRepeatScript)
+("cuentame más", lexRepeatScript)
+("cuéntame mas", lexRepeatScript)
+("cuéntame algo más", lexRepeatScript)
+("cuéntame algo mas", lexRepeatScript)
+("cuentame algo más", lexRepeatScript)
+("cuentame algo mas", lexRepeatScript)
+("algún otro", lexRepeatScript)
+("¿algún otro", lexRepeatScript)
+("algun otro", lexRepeatScript)
+("¿algun otro", lexRepeatScript)

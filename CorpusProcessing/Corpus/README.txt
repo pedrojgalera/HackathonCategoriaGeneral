@@ -1,0 +1,1 @@
+Noticias de enero a octubre de 2017 proporcionadas por la Agencia EFE para el en el segundo concurso ‘Hackathon de tecnologías del lenguaje’, destinado a empresas e investigadores relacionados con el Procesamiento del Lenguaje Natural y la Traducción Automática y los sistemas conversacionales. 

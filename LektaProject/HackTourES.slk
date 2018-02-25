@@ -24,15 +24,16 @@ UseProject
 	TemporalFolder : ".tmp/"
 )
 
-setupRuntimeSpyMessageOn
+//setupRuntimeSpyMessageOff
 // MainAnswer:On
 // DisplayProcessLocutioOn
-// DisplayProcessUnderstandingOn
-// DisplayProcessScriboOn
+//DisplayProcessUnderstandingOn
+//DisplayProcessScriboOn
 // DisplayProcessSensoOn
 // DisplayProcessRespondoOn
 // DisplayProcessCogitoOn
 // DisplayProcessColligoOn
+//DisplayDialogueActivityOn
 
 CreateDialogue
 (
@@ -40,3 +41,78 @@ CreateDialogue
     InstanceLanguage:Spanish
     InstanceInterface:Written
 )
+
+
+// Parlance Sensor
+/*
+Yo voy Madrid y bisitar museo. Ok, could you speak in English?
+Something else?
+Could you please tell me the opening hours of Palacio Real?
+Yes, sure.
+Sí, però ara m'agradaria parlar en català.
+De veritat no saps parlar en català?
+Molt be.
+De acuerdo, hablemos en español a partir de ahora.
+//*/
+
+// DIALOGUE PARA GRABAR
+///*
+Hola buenos días, voy a viajar a Madrid y me gustaría planificar una visita a un museo.
+Esos dos ya los conozco. ¿Me puedes recomendar algún otro?
+¿Qué horario tiene el Thyssen?
+De acuerdo, es para el miércoles.
+No no me viene bien, es demasiado tarde.
+¿Podría ser más temprano?
+No, no puedo.
+Bueno, mañana martes.
+Perfecto, eso si me viene bien.
+Me interesa, ¿qué podría visitar en Avila?
+Bueno, me lo pensaré, muchas gracias. ¿Me puedes recomendar además algún sitio para comer en Madrid?
+A propósito, después tengo pensado viajar hasta Barcelona el día 2 de Marzo. ¿Qué puedo hacer allí?
+¿Y que tiempo hará?
+Gracias, me ha sido muy útil. Hasta luego.
+//*/
+
+// DIALOGUE 1
+/*
+Hola, buenos días, voy a viajar a Madrid y me gustaría planificar una visita a un museo.
+Esos dos ya los conozco, ¿me puedes recomendar algún otro?
+¿Qué horarios tiene el Thyssen?
+De acuerdo, es para el miércoles.
+No, no me viene bien, es demasiado tarde.
+Más temprano, ¿podría ser?
+¿Tienes algo para mañana martes?
+Me viene bien.
+Me interesa, ¿qué podría visitar en Ávila?
+Bueno me lo pensaré, muchas gracias. ¿Me puedes recomendar entonces algún sitio donde comer en Madrid?
+Oye, pues después de Madrid tengo pensado visitar Sevilla sobre el dos de marzo, ¿qué puedo hacer allí?
+¿Y que tiempo hará?
+Gracias, me has sido muy útil. Hasta luego.
+//*/
+
+// DIALOGUE 2
+/*
+Llegaré a Sevilla el lunes y me gustaría visitar Itálica.
+Sí, pero mejor para la semana que viene
+Me viene bien, lo apunto.
+No gracias. Para el lunes entonces búscame algún museo en Sevilla.
+Perfecto, ¿y algo para comer después?
+Pues muchas gracias y adiós.
+//*/
+
+// DIALOGUE 3
+/*
+Hola buenos dias voy a viajar a Sevilla y quiero visitar un museo.
+Y algún museo?
+Dame los horarios del museo de bellas artes.
+Si
+//*/
+
+// DIALOGUE 4
+/*
+Hola Buenos días. Acabo de llegar a Sevilla y me gustaria planificar el día
+Muy interesante pero me gustaría visitar un museo primero.
+Muchas gracias. Me podrías indicar cual es el horario del museo de bellas artes?
+Si, por favor.
+//*/
+

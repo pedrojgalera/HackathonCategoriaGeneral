@@ -1,0 +1,50 @@
+/*("Arts & Entertainment", VenueCategory, ( VenueCategoryId : '4d4b7104d754a06370d81259', VenueCategoryName : 'Arts & Entertainment' ))
+("College & University", VenueCategory, ( VenueCategoryId : '4d4b7105d754a06372d81259', VenueCategoryName : 'College & University' ))
+("Event", VenueCategory, ( VenueCategoryId : '4d4b7105d754a06373d81259', VenueCategoryName : 'Event' ))
+("Food", VenueCategory, ( VenueCategoryId : '4d4b7105d754a06374d81259', VenueCategoryName : 'Food' ))
+("Nightlife Spot", VenueCategory, ( VenueCategoryId : '4d4b7105d754a06376d81259', VenueCategoryName : 'Nightlife Spot' ))
+("Outdoors & Recreation", VenueCategory, ( VenueCategoryId : '4d4b7105d754a06377d81259', VenueCategoryName : 'Outdoors & Recreation' ))
+("Professional & Other Places", VenueCategory, ( VenueCategoryId : '4d4b7105d754a06375d81259', VenueCategoryName : 'Professional & Other Places' ))
+("Residence", VenueCategory, ( VenueCategoryId : '4e67e38e036454776db1fb3a', VenueCategoryName : 'Residence' ))
+("Shop & Service", VenueCategory, ( VenueCategoryId : '4d4b7105d754a06378d81259', VenueCategoryName : 'Shop & Service' ))
+("Travel & Transport", VenueCategory, ( VenueCategoryId : '4d4b7105d754a06379d81259', VenueCategoryName : 'Travel & Transport' ))*/
+
+("monumentos", VenueCategory, ( VenueCategoryId : '4deefb944765f83613cdba6e', VenueCategoryName : 'Historic Site', VenueAvailableSubcategories: True ))
+("monumento", VenueCategory, ( VenueCategoryId : '4deefb944765f83613cdba6e', VenueCategoryName : 'Historic Site', VenueAvailableSubcategories: True ))
+("visitar", VenueCategory, ( VenueCategoryId : '4deefb944765f83613cdba6e', VenueCategoryName : 'Historic Site', VenueAvailableSubcategories: True ))
+
+("arte", VenueCategory, ( VenueCategoryId : '4d4b7104d754a06370d81259', VenueCategoryName : 'Arts & Entertainment', VenueAvailableSubcategories: False ))
+("artes", VenueCategory, ( VenueCategoryId : '4d4b7104d754a06370d81259', VenueCategoryName : 'Arts & Entertainment', VenueAvailableSubcategories: False  ))
+
+("cultura", VenueCategory, ( VenueCategoryId : '4d4b7104d754a06370d81259', VenueCategoryName : 'Arts & Entertainment', VenueAvailableSubcategories: False ))
+("cultural", VenueCategory, ( VenueCategoryId : '4d4b7104d754a06370d81259', VenueCategoryName : 'Arts & Entertainment', VenueAvailableSubcategories: False ))
+
+("comer", VenueCategory, ( VenueCategoryId : '4d4b7105d754a06374d81259', VenueCategoryName : 'Food', VenueAvailableSubcategories: False ))
+("comida", VenueCategory, ( VenueCategoryId : '4d4b7105d754a06374d81259', VenueCategoryName : 'Food', VenueAvailableSubcategories: False ))
+("restaurante", VenueCategory, ( VenueCategoryId : '4d4b7105d754a06374d81259', VenueCategoryName : 'Food', VenueAvailableSubcategories: False ))
+("bar", VenueCategory, ( VenueCategoryId : '4d4b7105d754a06374d81259', VenueCategoryName : 'Food', VenueAvailableSubcategories: False ))
+("cenar", VenueCategory, ( VenueCategoryId : '4d4b7105d754a06374d81259', VenueCategoryName : 'Food', VenueAvailableSubcategories: False ))
+
+("museo", VenueCategory, ( VenueCategoryId : '4bf58dd8d48988d181941735', VenueCategoryName : 'Museum', VenueAvailableSubcategories: False ))
+("museos", VenueCategory, ( VenueCategoryId : '4bf58dd8d48988d181941735', VenueCategoryName : 'Museum', VenueAvailableSubcategories: False ))
+
+("museo de arte", VenueCategory, ( VenueCategoryId : '4bf58dd8d48988d18f941735', VenueCategoryName : 'Art Museum', VenueAvailableSubcategories: False ))
+
+("museo erótico", VenueCategory, ( VenueCategoryId : '559acbe0498e472f1a53fa23', VenueCategoryName : 'Erotic Museum', VenueAvailableSubcategories: False ))
+
+("museo de historia", VenueCategory, ( VenueCategoryId : '4bf58dd8d48988d190941735', VenueCategoryName : 'History Museum', VenueAvailableSubcategories: False ))
+
+("planetario", VenueCategory, ( VenueCategoryId : '4bf58dd8d48988d192941735', VenueCategoryName : 'Science Museum', VenueAvailableSubcategories: False ))
+("museo de ciencia", VenueCategory, ( VenueCategoryId : '4bf58dd8d48988d191941735', VenueCategoryName : 'Science Museum', VenueAvailableSubcategories: False ))
+("museo de ciencias", VenueCategory, ( VenueCategoryId : '4bf58dd8d48988d191941735', VenueCategoryName : 'Science Museum', VenueAvailableSubcategories: False ))
+("museo de historia natural", VenueCategory, ( VenueCategoryId : '4bf58dd8d48988d191941735', VenueCategoryName : 'Science Museum', VenueAvailableSubcategories: False ))
+
+("restaurante asiático", VenueCategory, ( VenueCategoryId : '4bf58dd8d48988d142941735', VenueCategoryName : 'Asian Restaurant', VenueAvailableSubcategories: False ))
+
+("estación de tren", VenueCategory, ( VenueCategoryId : '4bf58dd8d48988d129951735', VenueCategoryName : 'Train Station', VenueAvailableSubcategories: False ))
+("estación de trenes", VenueCategory, ( VenueCategoryId : '4bf58dd8d48988d129951735', VenueCategoryName : 'Train Station', VenueAvailableSubcategories: False ))
+
+("parque", VenueCategory, ( VenueCategoryId : '4bf58dd8d48988d163941735', VenueCategoryName : 'Park', VenueAvailableSubcategories: False ))
+("parques", VenueCategory, ( VenueCategoryId : '4bf58dd8d48988d163941735', VenueCategoryName : 'Park', VenueAvailableSubcategories: False ))
+
+

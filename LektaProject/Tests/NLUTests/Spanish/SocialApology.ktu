@@ -1,0 +1,32 @@
+// Tests for CoreDialogueActs, dimension: social, function: apology
+
+ktunitTarget {
+    targetTrace (
+        TargetTraceFile: 	    "Traces/Spanish/TraceCoreSocialApology.trace"
+        TargetTraceFilter:  {
+            EVAL_EQUAL
+            EVAL_HEAD
+            EVAL_INSIDE
+            EVAL_DEVOID
+            EVAL_PARTIAL
+            EVAL_DIFFERENT
+        }
+        TargetStats:            "Statistics/Spanish/StatCoreSocialApology.stats"
+    )
+    targetDialogue (
+        InstanceOperation:	    "Fluency"
+        InstanceLanguage: 	    "Spanish"
+        InstanceInterface: 	    "Written"
+    )
+    targetScheme (
+        SchemeGroup:		    "Fluency-NLUTests"
+        SchemeUnit:		        "CoreDialogueAct"
+        SchemeLabel:		    "SocialApology"
+        SchemeDialogueContext:  { }
+        SchemeDialogueActivity:	"NLU:core-social-apology"
+        SchemeFilterPrefix: 	"NLU"
+    )
+    targetCorpus (
+        #Include "Corpus/SocialApology.corpus"
+    )
+}

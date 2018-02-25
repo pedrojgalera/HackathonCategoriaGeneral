@@ -1,0 +1,32 @@
+// Tests for CoreDialogueActs, dimension: basic answer, function: agreement
+
+ktunitTarget {
+    targetTrace (
+        TargetTraceFile: 	    "Traces/English/BasicAnswerAgreement.trace"
+        TargetTraceFilter:  {
+            EVAL_EQUAL
+            EVAL_HEAD
+            EVAL_INSIDE
+            EVAL_DEVOID
+            EVAL_PARTIAL
+            EVAL_DIFFERENT
+        }
+        TargetStats:            "Statistics/English/BasicAnswerAgreement.stats"
+    )
+    targetDialogue (
+        InstanceOperation:	    "Fluency"
+        InstanceLanguage: 	    "English"
+        InstanceInterface: 	    "Written"
+    )
+    targetScheme (
+        SchemeGroup:		    "Fluency-NLUTests"
+        SchemeUnit:		        "CoreDialogueAct"
+        SchemeLabel:		    "BasicAnswerAgreement"
+        SchemeDialogueContext:  { }
+        SchemeDialogueActivity:	"NLU:core-basicanswer-agreement"
+        SchemeFilterPrefix: 	"NLU"
+    )
+    targetCorpus (
+        #Include "Corpus/BasicAnswerAgreement.corpus"
+    )
+}

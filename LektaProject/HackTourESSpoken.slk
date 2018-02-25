@@ -1,0 +1,136 @@
+// ****************************************************************************
+//
+//	Scripting for testing purposes: Spanish HackTour app
+//
+// ****************************************************************************
+//
+//	PROJECT	: HackTour
+// 	DOMAIN  : -
+//	MODULE  : -
+//	PACKAGE	: -
+// 	FOLDER  : -
+// 	FILE	: HackTourESP.slk
+//
+// ****************************************************************************
+
+LaunchLektaKernel
+(
+	ExecStrategy = KernelSynchronous
+)
+
+UseProject
+(
+	ProjectCompile : "Deployment/HackTour.olk"
+	TemporalFolder : ".tmp/"
+)
+
+//setupRuntimeSpyMessageOff
+// MainAnswer:On
+// DisplayProcessLocutioOn
+DisplayProcessUnderstandingOn
+//DisplayProcessScriboOn
+// DisplayProcessSensoOn
+// DisplayProcessRespondoOn
+// DisplayProcessCogitoOn
+// DisplayProcessColligoOn
+//DisplayDialogueActivityOn
+
+CreateDialogue
+(
+    InstanceOperation:Fluency
+    InstanceLanguage:Spanish
+    InstanceInterface:Spoken
+)
+
+// Hablado
+//Hola, acabo de llegar a Barcelona y me gustaria planificar una visita
+//Me puedes decir el horario de la sagrada familia.
+
+// Parlance Sensor
+/*
+Yo voy Madrid y bisitar museo. Ok, could you speak in English?
+Something else?
+Could you please tell me the opening hours of Palacio Real?
+Yes, sure.
+Sí, però ara m'agradaria parlar en català.
+De veritat no saps parlar en català?
+Molt be.
+De acuerdo, hablemos en español a partir de ahora.
+//*/
+
+// DIALOGUE PARA GRABAR
+/*
+Hola buenos días, voy a viajar a Madrid y me gustaría planificar una visita a un museo.
+Esos dos ya los conozco. ¿Me puedes recomendar algún otro?
+¿Qué horario tiene el Thyssen?
+De acuerdo, es para el miércoles.
+No no me viene bien, es demasiado tarde.
+¿Podría ser más temprano?
+No, no puedo.
+Bueno, mañana martes.
+Perfecto, eso si me viene bien.
+Me interesa, ¿qué podría visitar en Avila?
+Bueno, me lo pensaré, muchas gracias. ¿Me puedes recomendar además algún sitio para comer en Madrid?
+A propósito, después tengo pensado viajar hasta Barcelona el día 2 de Marzo. ¿Qué puedo hacer allí?
+¿Y que tiempo hará?
+Gracias, me ha sido muy útil. Hasta luego.
+//*/
+
+// DIALOGUE 1
+/*
+Hola, buenos días, voy a viajar a Madrid y me gustaría planificar una visita a un museo.
+Esos dos ya los conozco, ¿me puedes recomendar algún otro?
+¿Qué horarios tiene el Thyssen?
+De acuerdo, es para el miércoles.
+No, no me viene bien, es demasiado tarde.
+Más temprano, ¿podría ser?
+¿Tienes algo para mañana martes?
+Me viene bien.
+Me interesa, ¿qué podría visitar en Ávila?
+Bueno me lo pensaré, muchas gracias. ¿Me puedes recomendar entonces algún sitio donde comer en Madrid?
+Oye, pues después de Madrid tengo pensado visitar Sevilla sobre el dos de marzo, ¿qué puedo hacer allí?
+¿Y que tiempo hará?
+Gracias, me has sido muy útil. Hasta luego.
+//*/
+
+// DIALOGUE 2
+/*
+Llegaré a Sevilla el lunes y me gustaría visitar Itálica.
+Sí, pero mejor para la semana que viene
+Me viene bien, lo apunto.
+No gracias. Para el lunes entonces búscame algún museo en Sevilla.
+Perfecto, ¿y algo para comer después?
+Pues muchas gracias y adiós.
+//*/
+
+// DIALOGUE 3
+/*
+Hola, sóc català i tan sols parlo català, d'acord?
+Hola, sóc català i tan sols parlo català, d'acord?
+Hola, sóc català i tan sols parlo català, d'acord?
+Hola, sóc català i tan sols parlo català, d'acord?
+Ok, I will change to english, then.
+//*/
+
+// DIALOGUE 4
+/*
+buenos dias estoy en Sevilla y me gustaria saber que puedo visitar
+bueno esos monumentos ya los he visto me puede indicar algun otro
+y que tal algun museo cerca
+pues me gustaria visitar el museo de bellas artes que horario tiene
+si por favor
+vale de acuerdo
+muchas gracias y hasta luego
+*/
+
+
+// DIALOGUE 5
+/*
+vale he salido del museo de bellas artes y me han dicho que en Sevilla hay unas ruinas romanas llamadas italica
+si pero para mañana
+de acuerdo
+no no me interesa la verdad es que tengo hambre, dime un sitio chulo para comer
+casa ruperto me han dicho que esta bien que horarios tiene
+no dejalo vamos para alla
+hasta luego
+*/

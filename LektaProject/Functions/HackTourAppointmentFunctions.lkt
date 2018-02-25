@@ -1,0 +1,501 @@
+// ****************************************************************************
+//
+//	Functions for MyApp domain
+//
+// ****************************************************************************
+//
+//	PROJECT	: Fluency/Indices
+// 	DOMAIN  : MyApp
+//	MODULE  : Functions
+//	PACKAGE	: -
+// 	FOLDER  : -
+// 	FILE	: MyAppFunctions
+//
+// ****************************************************************************
+
+procedure negotiateDateTime(Parameters parameters)
+{
+	// TODO REMOVE
+	//SpyMessage("");
+	//SpyMessage("negotiateDateTime:");
+	//SpyMessage(parameters);
+	//SpyMessage("");
+
+	// TODO LLAMADA
+	BackOfficeReturn bor <- negotiateDateTimeMedicalAppointment(parameters);
+
+	// TODO REMOVE
+	//SpyMessage("bor:");
+	//SpyMessage(bor);
+
+	CustomData cdata <- getCustomData();
+	cdata.ErrorMessage <- bor.ErrorMessage;
+	setCustomData(cdata);
+
+	Parameters filteredParameters;
+	for(int i <- 1; i <= BatchSize(bor.Parameters); i++)
+	{
+		Parameter currentParameter;
+		BatchRecoverPosition(bor.Parameters, i, currentParameter);
+		DateTime dt <- currentParameter.ParameterValue.DateTime;
+
+		if(notRejectedDateTime(dt))
+		{
+			BatchInsertEnd(filteredParameters, currentParameter);
+		}
+	}
+
+	// TODO REMOVE
+	//SpyMessage("filtered:");
+	//SpyMessage(filteredParameters);
+
+	if(BatchSize(filteredParameters) >= 1)
+	{
+		bor.Parameters <- filteredParameters;
+		Parameter parameter;
+		// La tercera cita disponible: para poder jugar con el "más temprano"
+		BatchRecoverPosition(bor.Parameters, Min(3, BatchSize(filteredParameters)), parameter);
+		parameter.ParameterType <- 'proposeddatetime';
+
+		setParameterCurrentScript('proposeddatetime', parameter);
+		setInfoState('7', 'grounded');
+	}
+	else
+	{
+		setInfoState('7', 'empty');
+	}
+}
+
+bool negotiatingInThePast()
+{
+	CustomData cdata <- getCustomData();
+
+	return (cdata.ErrorMessage == 'negotiating_in_the_past');
+}
+
+procedure clearDateTime()
+{
+	Parameter emptyParameter;
+	setParameterCurrentScript('datetime', emptyParameter);
+	setInfoState('4', 'empty');
+}
+
+procedure addRejectedDateTime(Parameters parameters)
+{
+	Parameter parameter;
+	BatchRecoverPosition(parameters, 1, parameter);
+	DateTime dt <- parameter.ParameterValue.DateTime;
+	Erase(dt.GeneralTime.MinTime);
+	Erase(dt.GeneralTime.MaxTime);
+
+	CustomData cdata <- getCustomData();
+	BatchInsertEnd(cdata.RejectedDateTimes, dt);
+	setCustomData(cdata);
+}
+
+procedure addNegotiateDateTime(Parameters parameters)
+{
+	Parameter parameter;
+	BatchRecoverPosition(parameters, 1, parameter);
+	DateTime dt <- parameter.ParameterValue.DateTime;
+	Erase(dt.GeneralTime.MinTime);
+	Erase(dt.GeneralTime.MaxTime);
+
+	BatchRecoverPosition(parameters, 2, parameter);
+	NegotiateModifier mod <- parameter.ParameterValue.DateTime.GeneralTime.NegotiateModifier;
+	if(mod == 'later')
+	{
+		dt.GeneralTime.MinTime.BaseTime <- dt.GeneralTime.BaseTime;
+		Erase(dt.GeneralTime.BaseTime);
+	}
+	else
+	{
+		dt.GeneralTime.MaxTime.BaseTime <- dt.GeneralTime.BaseTime;
+		Erase(dt.GeneralTime.BaseTime);
+	}
+
+	CustomData cdata <- getCustomData();
+	BatchInsertEnd(cdata.RejectedDateTimes, dt);
+	setCustomData(cdata);
+}
+
+bool notRejectedDateTime(DateTime dt)
+{
+	CustomData cdata <- getCustomData();
+
+	bool ret <- True;
+	for(int i <- 1; i<= BatchSize(cdata.RejectedDateTimes); i++)	
+	{
+		DateTime currentDt;
+		BatchRecoverPosition(cdata.RejectedDateTimes, i, currentDt);
+
+		if(isIncludedDateTime(currentDt, dt))
+		{
+			ret <- False;
+		}
+	}
+
+	return ret;
+}
+
+bool isIncludedDateTime(DateTime rejected, DateTime current)
+{
+	bool ret <- False;
+
+	if(rejected.GeneralTime.BaseTime.Hour == current.GeneralTime.BaseTime.Hour)
+	{
+		ret <- True;
+	}
+	else if(Filled(rejected.GeneralTime.MinTime) && rejected.GeneralTime.MinTime.BaseTime.Hour >= current.GeneralTime.BaseTime.Hour)
+	{
+		ret <- True;
+	}
+	else if(Filled(rejected.GeneralTime.MaxTime) && rejected.GeneralTime.MaxTime.BaseTime.Hour <= current.GeneralTime.BaseTime.Hour)
+	{
+		ret <- True;
+	}
+	
+	return ret;
+}
+
+string dateTimeToString2( DateTime datetime )
+{
+	switch (GetDialogueLanguageCode())
+	{
+		case ENGLISH {return dateTimeToStringEnglish(datetime);}
+		case SPANISH {return dateTimeToStringSpanish2(datetime);}
+	}
+}
+
+string baseDateToString2(DateTime datetime)
+{
+	switch (GetDialogueLanguageCode())
+	{
+		case ENGLISH {return baseDateToStringEnglish(datetime);}
+		case SPANISH {return baseDateToStringSpanish2(datetime);}
+	}
+}
+
+string dateTimeToStringSpanish2( DateTime datetime )
+{
+	string ret;
+	DateTime current;
+	current.BaseDate <- getCurrentBaseDate();
+	
+	if(datetime.BaseDate)
+	{
+		if(differenceDateTime(datetime, current) == 1)
+		{
+			ret <- 'mañana';
+		}
+		else if(differenceDateTime(datetime, current) == 0)
+		{
+			ret <- 'hoy';
+		}
+		else if(differenceDateTime(datetime, current) == -1)
+		{
+			ret <- 'ayer';
+		}
+		else if(differenceDateTime(datetime, current) == 2)
+		{
+			ret <- 'pasado mañana';
+		}
+		else
+		{
+			ret <- 'el ';
+			ret <- LiteralConcat(ret, baseDateToString2( datetime ));
+		}
+	}
+	else
+	{
+		//ret <- 'el ';
+		//ret <- LiteralConcat(ret, baseDateToString( datetime ));
+	}
+
+	if(datetime.MinDate && !! datetime.MaxDate)
+	{
+		ret <- 'desde el ';		
+		ret <- LiteralConcat(ret, baseDateToString( datetime.MinDate ) );
+	}
+	else if(!! datetime.MinDate && datetime.MaxDate)
+	{
+		ret <- 'hasta el ';		
+		ret <- LiteralConcat(ret, baseDateToString( datetime.MaxDate ) );
+	}
+	else if(datetime.MinDate && datetime.MaxDate)
+	{
+		ret <- 'desde el ';		
+		ret <- LiteralConcat(ret, baseDateToString( datetime.MinDate ) );
+		ret <- LiteralConcat(ret, ' hasta el ');		
+		ret <- LiteralConcat(ret, baseDateToString( datetime.MaxDate ) );
+	}
+
+	if(!! datetime.BaseDate && datetime.OffsetDate)
+	{
+		string periodSing, periodPlur;
+		int number <- 1;
+		
+		if(Filled(datetime.OffsetDate.Date.Year))
+		{
+			periodSing <- ' año';
+			periodPlur <- ' años';
+			number <- datetime.OffsetDate.Date.Year;
+		}
+		else if(Filled(datetime.OffsetDate.Date.Month))
+		{	
+			periodSing <- ' mes';
+			periodPlur <- ' meses';
+			number <- datetime.OffsetDate.Date.Month;
+		}
+		else if(Filled(datetime.OffsetDate.Date.Week))
+		{	
+			periodSing <- ' semana';
+			periodPlur <- ' semanas';
+			number <- datetime.OffsetDate.Date.Week;
+		}			
+		else if(Filled(datetime.OffsetDate.Date.DayInWeek))
+		{	
+			periodSing <- dayInWeekName( datetime.OffsetDate.Date.DayInWeek );
+			periodPlur <- dayInWeekNameInPlural( datetime.OffsetDate.Date.DayInWeek );
+			number <- datetime.OffsetDate.DayInWeekOffset;
+		}
+
+		if(datetime.OffsetDate.DirectionOfTime == 'forward')
+		{
+			if(number == 1)
+			{
+				if(periodSing == ' semana')
+				{
+					ret <- 'la próxima ';				
+				}
+				else
+				{
+					ret <- 'el próximo ';				
+				}
+			
+				ret <- LiteralConcat(ret, periodSing);				
+			}
+			else
+			{
+				ret <- 'dentro de ';
+				ret <- LiteralConcat(ret, ShapeToString(number));				
+				ret <- LiteralConcat(ret, ' ');				
+				ret <- LiteralConcat(ret, periodPlur);				
+			}
+		}
+		else
+		{
+			if(number == 1)
+			{
+				if(periodSing == ' semana')
+				{
+					ret <- 'la ';				
+				}
+				else
+				{
+					ret <- 'el ';				
+				}
+				ret <- LiteralConcat(ret, periodSing);				
+				if(periodSing == ' semana')
+				{
+					ret <- LiteralConcat(ret, ' pasada');				
+				}
+				else
+				{
+					ret <- LiteralConcat(ret, ' pasado');
+				}
+			}
+			else
+			{
+				ret <- 'hace ';
+				ret <- LiteralConcat(ret, ShapeToString(number));				
+				ret <- LiteralConcat(ret, ' ');				
+				ret <- LiteralConcat(ret, periodPlur);				
+			}
+		}
+	}
+
+	if(datetime.GeneralTime.NegotiateModifier)
+	{
+		// TODO REMOVE
+		// SpyMessage("Hola 1");
+		// SpyMessage(datetime.GeneralTime.NegotiateModifier);	
+		
+		ret <- negotiateModifierToStringSpanish(datetime.GeneralTime.NegotiateModifier);
+	}
+
+	if( datetime.GeneralTime )
+	{
+		if(datetime.GeneralTime.BaseTime || datetime.GeneralTime.OffsetTime)
+		{
+			datetime <- normalizeTime(datetime);
+		}
+		if(datetime.GeneralTime.MinTime)
+		{
+			DateTime temp;
+			temp.GeneralTime.BaseTime <- datetime.GeneralTime.MinTime.BaseTime;			
+			temp <- normalizeTime(temp);
+			datetime.GeneralTime.MinTime.BaseTime <- temp.GeneralTime.BaseTime;
+		}
+		if(datetime.GeneralTime.MaxTime)
+		{
+			DateTime temp;
+			temp.GeneralTime.BaseTime <- datetime.GeneralTime.MaxTime.BaseTime;			
+			temp <- normalizeTime(temp);
+			datetime.GeneralTime.MaxTime.BaseTime <- temp.GeneralTime.BaseTime;
+		}
+
+		ret <- LiteralConcat(ret, generalTimeToStringSpanish2(datetime) );
+	}
+
+	return ret;
+}
+
+string baseDateToStringSpanish2(DateTime datetime)
+{
+	string ret;
+
+	ret <- '';
+	if( Filled(datetime.BaseDate.DayInWeek) )
+	{
+		ret <- LiteralConcat(ret, dayInWeekName( datetime.BaseDate.DayInWeek ) );
+		ret <- LiteralConcat(ret, ', ' );
+	}
+	if( datetime.BaseDate.Day )
+	{
+		ret <- LiteralConcat(ret, ShapeToString( datetime.BaseDate.Day ), ' '  );
+		ret <- LiteralConcat(ret, getOrdinalSuffixDateTime( datetime.BaseDate.Day ));
+	}
+	if( datetime.BaseDate.Month )
+	{
+		ret <- LiteralConcat(ret, ' ' );
+		ret <- LiteralConcat(ret, monthName( datetime.BaseDate.Month ) );
+	}
+	if( datetime.BaseDate.Year && datetime.BaseDate.Year != ClockAskYear())
+	{
+		ret <- LiteralConcat(ret, ', ' );
+		ret <- LiteralConcat(ret, ShapeToString( datetime.BaseDate.Year ) );
+	}
+
+	return ret;
+}
+
+string generalTimeToStringSpanish2(DateTime datetime)
+{
+	return generalTimeToStringSpanishAux2(datetime, False);
+}
+
+string generalTimeToStringSpanishAux2(DateTime datetime, bool recursive)
+{
+	string ret;
+
+	if(Filled(datetime.GeneralTime.BaseTime.Hour) && Filled(datetime.GeneralTime.BaseTime.Minute))
+	{
+		if(!! recursive)
+		{
+			ret <- ' a las ';
+		}
+		else
+		{
+			ret <- '';
+		}
+		
+		if(datetime.GeneralTime.BaseTime.Minute != 0 && datetime.GeneralTime.BaseTime.Minute != 30 && datetime.GeneralTime.BaseTime.Minute != 15 && datetime.GeneralTime.BaseTime.Minute != 45)
+		{
+			ret <- LiteralConcat(ret, ShapeToString( datetime.GeneralTime.BaseTime.Hour ) );
+			ret <- LiteralConcat(ret, ':' );
+			if( datetime.GeneralTime.BaseTime.Minute < 10 )
+			{
+				ret <- LiteralConcat( ret, '0' );
+			}
+			ret <- LiteralConcat(ret, ShapeToString( datetime.GeneralTime.BaseTime.Minute ) );
+		}
+		else if(datetime.GeneralTime.BaseTime.Minute == 0)
+		{
+			if(datetime.GeneralTime.BaseTime.Hour <= 12)
+			{
+				ret <- LiteralConcat(ret, ShapeToString( datetime.GeneralTime.BaseTime.Hour ) );
+				ret <- LiteralConcat(ret, ' en punto' );
+			}
+			else
+			{
+				ret <- LiteralConcat(ret, ShapeToString( datetime.GeneralTime.BaseTime.Hour - 12 ), ' de la tarde' );
+			}
+		}
+		else if(datetime.GeneralTime.BaseTime.Minute == 30)
+		{
+			ret <- LiteralConcat(ret, ShapeToString( datetime.GeneralTime.BaseTime.Hour ) );
+			ret <- LiteralConcat(ret, ' y media' );
+		}
+		else if(datetime.GeneralTime.BaseTime.Minute == 15)
+		{
+			ret <- LiteralConcat(ret, ShapeToString( datetime.GeneralTime.BaseTime.Hour ) );
+			ret <- LiteralConcat(ret, ' y cuarto' );
+		}
+		else if(datetime.GeneralTime.BaseTime.Minute == 45)
+		{
+			if(datetime.GeneralTime.BaseTime.Hour < 23)
+			{
+				ret <- LiteralConcat(ret, ShapeToString( datetime.GeneralTime.BaseTime.Hour + 1) );			
+			}
+			else
+			{
+				ret <- LiteralConcat(ret, 'doce' );			
+			}
+			ret <- LiteralConcat(ret, ' menos cuarto' );
+		}
+		
+		if(datetime.GeneralTime.BaseTime.Hour < 12)
+		{
+			ret <- LiteralConcat(ret, ' de la mañana' );
+		}
+	}
+	else if(datetime.GeneralTime.BaseTime.PartOfTheDay)
+	{
+		if(datetime.GeneralTime.BaseTime.PartOfTheDay.PartOfTheDayName == 'afternoon')
+		{
+			ret <- ' por la tarde';
+		}
+		else if(datetime.GeneralTime.BaseTime.PartOfTheDay.PartOfTheDayName == 'morning')
+		{
+			ret <- ' por la mañana';
+		}
+		else if(datetime.GeneralTime.BaseTime.PartOfTheDay.PartOfTheDayName == 'evening')
+		{
+			ret <- ' por la noche';
+		}
+	}
+	else if(datetime.GeneralTime.MinTime && !! datetime.GeneralTime.MaxTime)
+	{
+		ret <- ' desde las ';		
+		DateTime temp;
+		temp.GeneralTime <- datetime.GeneralTime.MinTime;
+		ret <- LiteralConcat(ret, generalTimeToStringSpanishAux( temp, True ) );
+	}
+	else if(!! datetime.GeneralTime.MinTime && datetime.GeneralTime.MaxTime)
+	{
+		ret <- ' hasta las ';		
+		DateTime temp;
+		temp.GeneralTime <- datetime.GeneralTime.MaxTime;
+		ret <- LiteralConcat(ret, generalTimeToStringSpanishAux( temp, True ) );
+	}
+	else if(datetime.GeneralTime.MinTime && datetime.GeneralTime.MaxTime && !! equalsBaseTime(datetime.GeneralTime.MinTime.BaseTime, datetime.GeneralTime.MaxTime.BaseTime))
+	{
+		ret <- ' desde las ';		
+		DateTime temp;
+		temp.GeneralTime <- datetime.GeneralTime.MinTime;
+		ret <- LiteralConcat(ret, generalTimeToStringSpanishAux( temp, True ) );
+		ret <- LiteralConcat(ret, ' hasta las ');		
+		temp.GeneralTime <- datetime.GeneralTime.MaxTime;
+		ret <- LiteralConcat(ret, generalTimeToStringSpanishAux( temp, True ) );
+	}
+	else if(datetime.GeneralTime.MinTime && datetime.GeneralTime.MaxTime && equalsBaseTime(datetime.GeneralTime.MinTime.BaseTime, datetime.GeneralTime.MaxTime.BaseTime))
+	{
+		DateTime temp;
+		temp.GeneralTime <- datetime.GeneralTime.MinTime;
+		ret <- LiteralConcat(ret, generalTimeToStringSpanish( temp ) );
+	}
+
+	return ret;
+}
+

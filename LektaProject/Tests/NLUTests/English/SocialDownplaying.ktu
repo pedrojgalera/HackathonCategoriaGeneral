@@ -1,0 +1,31 @@
+// Tests for CoreDialogueActs, dimension: social, function: downplaying
+ktunitTarget {
+    targetTrace (
+        TargetTraceFile: 	    "Traces/English/TraceCoreSocialDownplaying.trace"
+        TargetTraceFilter:  {
+            EVAL_EQUAL
+            EVAL_HEAD
+            EVAL_INSIDE
+            EVAL_DEVOID
+            EVAL_PARTIAL
+            EVAL_DIFFERENT
+        }
+        TargetStats:            "Statistics/English/StatCoreSocialDownplaying.stats"
+    )
+    targetDialogue (
+        InstanceOperation:	    "Fluency"
+        InstanceLanguage: 	    "English"
+        InstanceInterface: 	    "Written"
+    )
+    targetScheme (
+        SchemeGroup:		    "Fluency-NLUTests"
+        SchemeUnit:		        "CoreDialogueAct"
+        SchemeLabel:		    "SocialDownplaying"
+        SchemeDialogueContext:  { }
+        SchemeDialogueActivity:	"NLU:core-social-downplaying"
+        SchemeFilterPrefix: 	"NLU"
+    )
+    targetCorpus (
+        #Include "Corpus/SocialDownplaying.corpus"
+    )
+}

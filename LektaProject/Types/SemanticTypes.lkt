@@ -15,7 +15,7 @@
 
 classDef:Synonym
 (
-	WeatherScope, VenuesScope, RepeatScriptScope, DetailsScope, MoneyScope = TaskDialogueAct
+	WeatherScope, VenuesScope, RepeatScriptScope, DetailsScope, MoneyScope, TimetableScope = TaskDialogueAct
 )
 
 classDef:StructureComplex
@@ -100,7 +100,8 @@ classDef:StructureComplex
     	VenueDuration,
     	VenueDescription,
     	OpeningHoursList,
-    	VenueTips
+    	VenueTips,
+		VenueOutdoorFlag
 	)
 )
 
@@ -157,17 +158,14 @@ classDef:StructureComplex
     VenueCategory :
     (
         VenueCategoryId,
-        VenueCategoryName
+        VenueCategoryName, 
+		VenueAvailableSubcategories
     )
 )
 
-classDef:StructureComplex
+classDef:ElementBool
 (
-    VenueSubcategory :
-    (
-        VenueCategoryId,
-        VenueCategoryName
-    )
+	VenueAvailableSubcategories, VenueOutdoorFlag
 )
 
 classDef:ElementLiteral

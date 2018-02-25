@@ -3,3 +3,4 @@
 #Include "Generation/FoursquareGeneration.lkt"
 #Include "Generation/ParamGeneration.lkt"
 #Include "Generation/CampaignGeneration.lkt"
+#Include "Generation/AppointmentGeneration.lkt"

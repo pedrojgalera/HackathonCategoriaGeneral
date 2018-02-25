@@ -28,10 +28,10 @@ classDef:StructureComplex
         Address,
         PeselNumber,
         RegonNumber,
+
         Forecast,
         Suggestions,
         VenueCategory,
-        VenueSubcategory,
         Venue,
         CityPlace,
         VenueTips,
@@ -53,8 +53,65 @@ classDef:StructureComplex
         StrArrayAppKeys,
         DomainPropFiles,
 
-        HackTourProfiling
+        HackTourProfiling,
+		ErrorMessage,
+		RejectedDateTimes,
+		AllVenues,
+		VenueNews
     )
+)
+
+classDef:StructureBatch
+(
+	VenueNews :
+	(
+		VenueNew
+	)
+)
+
+classDef:StructureComplex
+(
+	VenueNew :
+	(
+		NewKey,
+    	NewHeader,
+    	NewMatter1,
+    	NewMatter3,
+    	NewMatter4,
+    	NewScore,
+        NewSubject
+	)
+)
+
+classDef:ElementLiteral
+(
+	NewKey,
+    NewHeader,
+    NewMatter1,
+    NewMatter3,
+    NewMatter4,
+    NewSubject
+)
+
+classDef:ElementInt
+(
+	NewScore
+)
+
+classDef:StructureBatch
+(
+	AllVenues :
+	(
+		Venue
+	)
+)
+
+classDef:StructureBatch
+(
+	RejectedDateTimes :
+	(
+		DateTime
+	)
 )
 
 classDef:Synonym

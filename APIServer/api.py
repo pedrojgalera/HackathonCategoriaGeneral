@@ -33,7 +33,8 @@ class S(BaseHTTPRequestHandler):
         except:
             response_json = api.call_method(params) # This is only for timezone google API
         self._set_headers()
-        self.wfile.write(json.dumps(response_json).encode("utf-8"))
+        self.wfile.write(json.dumps(response_json,ensure_ascii=False).encode("iso-8859-1"))
+        #self.wfile.write(json.dumps(response_json).encode('utf-8'))
 
     def do_HEAD(self):
         self._set_headers()

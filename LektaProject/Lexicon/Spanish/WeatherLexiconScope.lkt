@@ -1,0 +1,27 @@
+// ****************************************************************************
+//
+//	Scripting functions for MyApp domain
+//
+// ****************************************************************************
+//
+//	PROJECT	: Fluency/Indices
+// 	DOMAIN  : MyApp
+//	MODULE  : Scripts
+//	PACKAGE	: -
+// 	FOLDER  : -
+// 	FILE	: HackTourIndexLexiconEnglish.lkt
+//
+// ****************************************************************************
+
+("como", lexAdvInt)
+("que", lexAdvInt)
+("soy", lexAdvInt)
+("voy", lexAdvInt)
+
+("clima", lexWeather)
+("tiempo", lexWeather)
+("día hace", lexWeather)
+("dia hace", lexWeather)
+
+		
+		

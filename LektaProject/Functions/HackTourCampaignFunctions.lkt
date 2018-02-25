@@ -13,6 +13,27 @@
 //
 // ****************************************************************************
 
+bool campaignTriggeringVenue()
+{
+	CustomData cdata <- getCustomData(); 
+	Campaigns campaigns <- cdata.HackTourProfiling.Campaigns;
+	
+	bool ret <- False;
+	for(int i <- 1; i <= BatchSize(campaigns); i++)
+	{
+		Campaign campaign;
+		BatchRecoverPosition(campaigns, i, campaign);
+
+		if(triggeredCampaignVenue(campaign, cdata, i))
+		{
+			i <- BatchSize(campaigns);
+			ret <- True;
+		}
+	}
+
+	return ret;
+}
+
 Parameter getCampaign(Parameters parameters)
 {
 	Parameter ret;
@@ -31,7 +52,6 @@ Parameter getCampaign(Parameters parameters)
 
 	return ret;
 }
-
 
 bool campaignTriggering()
 {
@@ -75,6 +95,25 @@ int whichCampaignTriggered()
 	return ret;
 }
 
+Campaign whichCampaignVenueTriggered()
+{
+	CustomData cdata <- getCustomData(); 
+	Campaigns campaigns <- cdata.HackTourProfiling.Campaigns;
+
+	Campaign campaign;
+	for(int i <- 1; i <= BatchSize(campaigns); i++)
+	{
+		BatchRecoverPosition(campaigns, i, campaign);
+
+		if(triggeredCampaignVenue(campaign, cdata, i))
+		{
+			i <- BatchSize(campaigns);
+		}
+	}
+
+	return campaign;
+}
+
 bool triggeredCampaign(Campaign c, CustomData cdata, int i)
 {
 	string moneyStatus <- ShapeToString(cdata.HackTourProfiling.MoneyStatus);
@@ -82,14 +121,36 @@ bool triggeredCampaign(Campaign c, CustomData cdata, int i)
 	string city <- mostConcretePlace(param.ParameterValue.CountryPlace);
 
 	bool ret <- False;
-	if(city == LiteralConvertLower(c.CampaignTriggerCity))
+	if(!! included(cdata.HackTourProfiling.ProposedCampaigns, i))
 	{
-		if(LiteralIncluded(c.CampaignTriggerMoney, moneyStatus))
+		if(city == LiteralConvertLower(c.CampaignTriggerCity))
 		{
-			if(!! included(cdata.HackTourProfiling.ProposedCampaigns, i))
+			// Campañas de ciudades
+			if(c.CampaignTriggerMoney == '0' && lastLaunchedScriptDescriptor('TimetableSearcher'))
 			{
 				ret <- True;
 			}
+			else if(LiteralIncluded(moneyStatus, c.CampaignTriggerMoney))
+			{
+				ret <- True;
+			}
+		}
+	}
+
+	return ret;	
+}
+
+bool triggeredCampaignVenue(Campaign c, CustomData cdata, int i)
+{
+	string venueid <- cdata.HackTourProfiling.CurrentVenue.VenueId;
+
+	bool ret <- False;
+	if(!! included(cdata.HackTourProfiling.ProposedCampaigns, i))
+	{
+		// Campañas de venues
+		if(c.CampaignTriggerVenueId == venueid)
+		{
+			ret <- True;
 		}
 	}
 

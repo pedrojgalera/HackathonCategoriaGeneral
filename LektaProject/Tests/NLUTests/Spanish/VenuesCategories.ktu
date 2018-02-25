@@ -1,0 +1,77 @@
+ktunitTarget 
+{
+    targetTrace 
+    (
+        TargetTraceFile:        "Traces/Spanish/foodSuggestion.trace"
+        TargetTraceFilter: 
+        {
+            EVAL_EQUAL
+            EVAL_HEAD
+            EVAL_INSIDE
+            EVAL_DEVOID
+            EVAL_PARTIAL
+            EVAL_DIFFERENT
+        }
+        TargetStats:            "Statistics/Spanish/foodSuggestion.stats"
+    )
+    targetDialogue 
+    (
+        InstanceOperation:      "Fluency"
+        InstanceLanguage:       "Spanish"
+        InstanceInterface:      "Written"
+    )
+    targetScheme 
+    (
+        SchemeGroup:            "hacktour"
+        SchemeUnit:             "NLU"
+        SchemeLabel:            "foodSuggestion"
+        SchemeDialogueContext:  { }
+        SchemeDialogueActivity: "NLU:parameter-venuecategory-food"
+        SchemeFilterPrefix:     "NLU"
+    )
+    targetCorpus 
+    (
+        Donde me recomiendas comer?
+        Estaba buscando algun sitio para comer
+        me gustaría comer algo
+        donde puedo comer?
+        tengo hambre
+    )
+}
+
+ktunitTarget 
+{
+    targetTrace 
+    (
+        TargetTraceFile:        "Traces/Spanish/artSuggestion.trace"
+        TargetTraceFilter: 
+        {
+            EVAL_EQUAL
+            EVAL_HEAD
+            EVAL_INSIDE
+            EVAL_DEVOID
+            EVAL_PARTIAL
+            EVAL_DIFFERENT
+        }
+        TargetStats:            "Statistics/Spanish/artSuggestion.stats"
+    )
+    targetDialogue 
+    (
+        InstanceOperation:      "Fluency"
+        InstanceLanguage:       "Spanish"
+        InstanceInterface:      "Written"
+    )
+    targetScheme 
+    (
+        SchemeGroup:            "hacktour"
+        SchemeUnit:             "NLU"
+        SchemeLabel:            "artSuggestion"
+        SchemeDialogueContext:  { }
+        SchemeDialogueActivity: "NLU:parameter-venuecategory-arts&entertainment"
+        SchemeFilterPrefix:     "NLU"
+    )
+    targetCorpus 
+    (
+        Me interesa algun tipo de exposición de arte
+    )
+}

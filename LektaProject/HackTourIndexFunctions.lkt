@@ -21,9 +21,15 @@
 #Include "Functions/HackTourWeatherFunctions.lkt"
 #Include "Functions/HackTourSuggestionFunctions.lkt"
 #Include "Functions/HackTourCampaignFunctions.lkt"
+#Include "Functions/HackTourTimetables.lkt"
+#Include "Functions/HackTourAppointmentFunctions.lkt"
+#Include "Functions/HackTourSimulatedVenues.lkt"
+#Include "Functions/MedicalAppointmentBackOfficeSimulation.lkt"
+#Include "Functions/MedicalAppointmentBackOffice.lkt"
 #Include "Functions/DAO/EndpointInterfaces.lkt"
 #Include "Functions/DAO/DAOUtilsFunctions.lkt"
 #Include "Functions/DAO/DAOFunctions.lkt"
+#Include "Functions/HackTourHacking.lkt"
 
 
 

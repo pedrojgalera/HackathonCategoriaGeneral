@@ -1,0 +1,83 @@
+// ****************************************************************************
+//
+//	Functions for MyApp domain
+//
+// ****************************************************************************
+//
+//	PROJECT	: Fluency/Indices
+// 	DOMAIN  : MyApp
+//	MODULE  : Functions
+//	PACKAGE	: -
+// 	FOLDER  : -
+// 	FILE	: MyAppFunctions
+//
+// ****************************************************************************
+
+Parameter getVenueTimetable(Parameters parameters)
+{
+	Parameter ret;
+	Parameter paramVenue;
+	Venue updatedVenue;
+
+	paramVenue <- getParByType(parameters, 'venue');
+
+  	string id <- '';
+  	if (Filled(paramVenue.ParameterValue))
+  	{
+    	id <- paramVenue.ParameterValue.Venue.VenueId;
+    	updatedVenue <- paramVenue.ParameterValue.Venue;
+  	}
+
+  	string langString <- GetDialogeLangIdentifier();
+
+	if(&ON('simulation-mode'))
+	{
+	    // updatedVenue <- getVenueDetailsInfoSimulated(langString, id);
+
+		updatedVenue <- paramVenue.ParameterValue.Venue;
+	}
+	else
+	{
+    	CallAPI call;
+    	call <- CallBO('details');
+    	if (Filled(id) && LiteralSize(trim(id))>0)
+    	{
+      		CallUpdate(&call,'id',id);
+
+    		CallUpdate(&call,'lang',getLang2(langString));
+	  		//TODO change for getCallResponse for specific transport errors handling
+    		message result <- getCallResult(call);
+
+			if (result != "ERROR")
+			{
+				Venue newVenue;
+			  	newVenue <- ImportJSON(result);
+				if (Filled(updatedVenue))
+				{
+					if (Filled(newVenue))
+					{
+						updatedVenue <| newVenue;
+					}
+					else
+					{
+					}
+				}
+			}
+			else
+			{
+				// TODO REMOVE
+			}
+		}
+	}
+
+	CustomData cdata <- getCustomData();
+	cdata.HackTourProfiling.CurrentVenue <- updatedVenue;
+	setCustomData(cdata);
+
+	ret.ParameterValue.Venue <- updatedVenue;
+	ret.ParameterType <- 'venue';
+	ret.ParameterCategory <- 'terminal';
+
+	return ret;
+}
+

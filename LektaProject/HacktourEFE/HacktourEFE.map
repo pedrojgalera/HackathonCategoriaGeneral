@@ -1,0 +1,15 @@
+["newId", "title", "content", "keyword", "tesauro", "locs", "orgs", "date"]
+
+{
+    "newId": "KEY",
+    "title": "HEADER",
+    "content": "CONTENT",
+    "keyword": "MATTER1",
+    "tesauro": "MATTER2",
+    "locs": "MATTER3",
+    "orgs": "MATTER4",
+    "date": "MATTER5",
+    "pers": "MATTER6"
+}
+
+

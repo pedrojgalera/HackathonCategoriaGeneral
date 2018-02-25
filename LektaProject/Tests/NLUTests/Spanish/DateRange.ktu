@@ -1,0 +1,668 @@
+ktunitTarget
+{
+	targetTrace
+	(
+		TargetTraceFile: "Traces/Spanish/DateMinD0.trace"
+		TargetTraceFilter:
+		{		
+			EVAL_EQUAL
+			EVAL_HEAD
+			EVAL_INSIDE
+			EVAL_DEVOID
+			EVAL_PARTIAL
+			EVAL_DIFFERENT
+		}
+		TargetStats: "Statistics/Spanish/DateMinD0.stats"
+	)
+	targetDialogue
+	(
+		InstanceOperation: "Fluency"
+		InstanceLanguage: "Spanish"
+		InstanceInterface: "Written"
+	)
+	targetScheme
+	(
+		SchemeGroup: "Parameter"
+		SchemeUnit: "Date"
+		SchemeLabel: "BaseDateMinD0"
+		SchemeDialogueContext: { }
+		SchemeDialogueActivity: "NLU:parameter-datetime-.mindate(.base(.current).offset(.T:forward.D:0))"
+		SchemeFilterPrefix: "NLU"
+	)
+	targetCorpus
+	(
+		desde hoy
+	)
+}
+
+ktunitTarget
+{
+	targetTrace
+	(
+		TargetTraceFile: "Traces/Spanish/DateMinD+1.trace"
+		TargetTraceFilter:
+		{		
+			EVAL_EQUAL
+			EVAL_HEAD
+			EVAL_INSIDE
+			EVAL_DEVOID
+			EVAL_PARTIAL
+			EVAL_DIFFERENT
+		}
+		TargetStats: "Statistics/Spanish/DateMinD+1.stats"
+	)
+	targetDialogue
+	(
+		InstanceOperation: "Fluency"
+		InstanceLanguage: "Spanish"
+		InstanceInterface: "Written"
+	)
+	targetScheme
+	(
+		SchemeGroup: "Parameter"
+		SchemeUnit: "Date"
+		SchemeLabel: "BaseDateMinD+1"
+		SchemeDialogueContext: { }
+		SchemeDialogueActivity: "NLU:parameter-datetime-.mindate(.base(.current).offset(.T:forward.D:1))"
+		SchemeFilterPrefix: "NLU"
+	)
+	targetCorpus
+	(
+		desde mañana
+	)
+}
+
+ktunitTarget
+{
+	targetTrace
+	(
+		TargetTraceFile: "Traces/Spanish/DateMinD-1.trace"
+		TargetTraceFilter:
+		{		
+			EVAL_EQUAL
+			EVAL_HEAD
+			EVAL_INSIDE
+			EVAL_DEVOID
+			EVAL_PARTIAL
+			EVAL_DIFFERENT
+		}
+		TargetStats: "Statistics/Spanish/DateMinD-1.stats"
+	)
+	targetDialogue
+	(
+		InstanceOperation: "Fluency"
+		InstanceLanguage: "Spanish"
+		InstanceInterface: "Written"
+	)
+	targetScheme
+	(
+		SchemeGroup: "Parameter"
+		SchemeUnit: "Date"
+		SchemeLabel: "BaseDateMinD-1"
+		SchemeDialogueContext: { }
+		SchemeDialogueActivity: "NLU:parameter-datetime-.mindate(.base(.current).offset(.T:backward.D:1))"
+		SchemeFilterPrefix: "NLU"
+	)
+	targetCorpus
+	(
+		desde ayer
+	)
+}
+
+ktunitTarget
+{
+	targetTrace
+	(
+		TargetTraceFile: "Traces/Spanish/DateMinBase.trace"
+		TargetTraceFilter:
+		{		
+			EVAL_EQUAL
+			EVAL_HEAD
+			EVAL_INSIDE
+			EVAL_DEVOID
+			EVAL_PARTIAL
+			EVAL_DIFFERENT
+		}
+		TargetStats: "Statistics/Spanish/DateMinBase.stats"
+	)
+	targetDialogue
+	(
+		InstanceOperation: "Fluency"
+		InstanceLanguage: "Spanish"
+		InstanceInterface: "Written"
+	)
+	targetScheme
+	(
+		SchemeGroup: "Parameter"
+		SchemeUnit: "Date"
+		SchemeLabel: "BaseDateMinBase"
+		SchemeDialogueContext: { }
+		SchemeDialogueActivity: "NLU:parameter-datetime-.mindate(.base(.D:25.M:8))"
+		SchemeFilterPrefix: "NLU"
+	)
+	targetCorpus
+	(
+		desde el 25 de agosto
+	)
+}
+
+ktunitTarget
+{
+	targetTrace
+	(
+		TargetTraceFile: "Traces/Spanish/DateMaxBase.trace"
+		TargetTraceFilter:
+		{		
+			EVAL_EQUAL
+			EVAL_HEAD
+			EVAL_INSIDE
+			EVAL_DEVOID
+			EVAL_PARTIAL
+			EVAL_DIFFERENT
+		}
+		TargetStats: "Statistics/Spanish/DateMaxBase.stats"
+	)
+	targetDialogue
+	(
+		InstanceOperation: "Fluency"
+		InstanceLanguage: "Spanish"
+		InstanceInterface: "Written"
+	)
+	targetScheme
+	(
+		SchemeGroup: "Parameter"
+		SchemeUnit: "Date"
+		SchemeLabel: "BaseDateMaxBase"
+		SchemeDialogueContext: { }
+		SchemeDialogueActivity: "NLU:parameter-datetime-.maxdate(.base(.D:25.M:8))"
+		SchemeFilterPrefix: "NLU"
+	)
+	targetCorpus
+	(
+		hasta el 25 de agosto
+	)
+}
+
+ktunitTarget
+{
+	targetTrace
+	(
+		TargetTraceFile: "Traces/Spanish/DateMaxBaseOffsetD-1.trace"
+		TargetTraceFilter:
+		{		
+			EVAL_EQUAL
+			EVAL_HEAD
+			EVAL_INSIDE
+			EVAL_DEVOID
+			EVAL_PARTIAL
+			EVAL_DIFFERENT
+		}
+		TargetStats: "Statistics/Spanish/DateMaxBaseOffsetD-1.stats"
+	)
+	targetDialogue
+	(
+		InstanceOperation: "Fluency"
+		InstanceLanguage: "Spanish"
+		InstanceInterface: "Written"
+	)
+	targetScheme
+	(
+		SchemeGroup: "Parameter"
+		SchemeUnit: "Date"
+		SchemeLabel: "BaseDateMaxBaseOffsetD-1"
+		SchemeDialogueContext: { }
+		SchemeDialogueActivity: "NLU:parameter-datetime-.maxdate(.base(.D:25.M:8).offset(.T:backward.D:1))"
+		SchemeFilterPrefix: "NLU"
+	)
+	targetCorpus
+	(
+		hasta el día después del 25 de agosto
+	)
+}
+
+ktunitTarget
+{
+	targetTrace
+	(
+		TargetTraceFile: "Traces/Spanish/DateMinBaseOffsetO+1E1.trace"
+		TargetTraceFilter:
+		{		
+			EVAL_EQUAL
+			EVAL_HEAD
+			EVAL_INSIDE
+			EVAL_DEVOID
+			EVAL_PARTIAL
+			EVAL_DIFFERENT
+		}
+		TargetStats: "Statistics/Spanish/DateMinBaseOffsetO+1E1.stats"
+	)
+	targetDialogue
+	(
+		InstanceOperation: "Fluency"
+		InstanceLanguage: "Spanish"
+		InstanceInterface: "Written"
+	)
+	targetScheme
+	(
+		SchemeGroup: "Parameter"
+		SchemeUnit: "Date"
+		SchemeLabel: "BaseDateMinBaseOffsetO+1E1"
+		SchemeDialogueContext: { }
+		SchemeDialogueActivity: "NLU:parameter-datetime-.mindate(.base(.current).offset(.T:forward.O:1.E:1))"
+		SchemeFilterPrefix: "NLU"
+	)
+	targetCorpus
+	(
+		desde el lunes
+	)
+}
+
+ktunitTarget
+{
+	targetTrace
+	(
+		TargetTraceFile: "Traces/Spanish/DateMaxBaseOffsetO+1E1.trace"
+		TargetTraceFilter:
+		{		
+			EVAL_EQUAL
+			EVAL_HEAD
+			EVAL_INSIDE
+			EVAL_DEVOID
+			EVAL_PARTIAL
+			EVAL_DIFFERENT
+		}
+		TargetStats: "Statistics/Spanish/DateMaxBaseOffsetO+1E1.stats"
+	)
+	targetDialogue
+	(
+		InstanceOperation: "Fluency"
+		InstanceLanguage: "Spanish"
+		InstanceInterface: "Written"
+	)
+	targetScheme
+	(
+		SchemeGroup: "Parameter"
+		SchemeUnit: "Date"
+		SchemeLabel: "BaseDateMaxBaseOffsetO+1E1"
+		SchemeDialogueContext: { }
+		SchemeDialogueActivity: "NLU:parameter-datetime-.maxdate(.base(.current).offset(.T:forward.O:1.E:1))"
+		SchemeFilterPrefix: "NLU"
+	)
+	targetCorpus
+	(
+		antes del lunes
+	)
+}
+
+ktunitTarget
+{
+	targetTrace
+	(
+		TargetTraceFile: "Traces/Spanish/DateMinMaxBase.trace"
+		TargetTraceFilter:
+		{		
+			EVAL_EQUAL
+			EVAL_HEAD
+			EVAL_INSIDE
+			EVAL_DEVOID
+			EVAL_PARTIAL
+			EVAL_DIFFERENT
+		}
+		TargetStats: "Statistics/Spanish/DateMinMaxBase.stats"
+	)
+	targetDialogue
+	(
+		InstanceOperation: "Fluency"
+		InstanceLanguage: "Spanish"
+		InstanceInterface: "Written"
+	)
+	targetScheme
+	(
+		SchemeGroup: "Parameter"
+		SchemeUnit: "Date"
+		SchemeLabel: "BaseDateMinMaxBase"
+		SchemeDialogueContext: { }
+		SchemeDialogueActivity: "NLU:parameter-datetime-.mindate(.base(.D:20.M:3)).maxdate(.base(.D:30.M:3))"
+		SchemeFilterPrefix: "NLU"
+	)
+	targetCorpus
+	(
+		desde el 20 de marzo hasta el 30 de marzo
+	)
+}
+
+ktunitTarget
+{
+	targetTrace
+	(
+		TargetTraceFile: "Traces/Spanish/DateMinOffsetW+2.trace"
+		TargetTraceFilter:
+		{		
+			EVAL_EQUAL
+			EVAL_HEAD
+			EVAL_INSIDE
+			EVAL_DEVOID
+			EVAL_PARTIAL
+			EVAL_DIFFERENT
+		}
+		TargetStats: "Statistics/Spanish/DateMinOffsetW+2.stats"
+	)
+	targetDialogue
+	(
+		InstanceOperation: "Fluency"
+		InstanceLanguage: "Spanish"
+		InstanceInterface: "Written"
+	)
+	targetScheme
+	(
+		SchemeGroup: "Parameter"
+		SchemeUnit: "Date"
+		SchemeLabel: "MinOffsetW+2"
+		SchemeDialogueContext: { }
+		SchemeDialogueActivity: "NLU:parameter-datetime-.mindate(.base(.current).offset(.T:forward.W:2))"
+		SchemeFilterPrefix: "NLU"
+	)
+	targetCorpus
+	(
+		después de un par semanas
+	)
+}
+
+ktunitTarget
+{
+	targetTrace
+	(
+		TargetTraceFile: "Traces/Spanish/DateMaxOffsetW+2.trace"
+		TargetTraceFilter:
+		{		
+			EVAL_EQUAL
+			EVAL_HEAD
+			EVAL_INSIDE
+			EVAL_DEVOID
+			EVAL_PARTIAL
+			EVAL_DIFFERENT
+		}
+		TargetStats: "Statistics/Spanish/DateMaxOffsetW+2.stats"
+	)
+	targetDialogue
+	(
+		InstanceOperation: "Fluency"
+		InstanceLanguage: "Spanish"
+		InstanceInterface: "Written"
+	)
+	targetScheme
+	(
+		SchemeGroup: "Parameter"
+		SchemeUnit: "Date"
+		SchemeLabel: "MaxOffsetW+2"
+		SchemeDialogueContext: { }
+		SchemeDialogueActivity: "NLU:parameter-datetime-.maxdate(.base(.current).offset(.T:forward.W:2))"
+		SchemeFilterPrefix: "NLU"
+	)
+	targetCorpus
+	(
+		antes de dos semanas
+	)
+}
+
+ktunitTarget
+{
+	targetTrace
+	(
+		TargetTraceFile: "Traces/Spanish/DateMaxOffsetD+1.trace"
+		TargetTraceFilter:
+		{		
+			EVAL_EQUAL
+			EVAL_HEAD
+			EVAL_INSIDE
+			EVAL_DEVOID
+			EVAL_PARTIAL
+			EVAL_DIFFERENT
+		}
+		TargetStats: "Statistics/Spanish/DateMaxOffsetD+1.stats"
+	)
+	targetDialogue
+	(
+		InstanceOperation: "Fluency"
+		InstanceLanguage: "Spanish"
+		InstanceInterface: "Written"
+	)
+	targetScheme
+	(
+		SchemeGroup: "Parameter"
+		SchemeUnit: "Date"
+		SchemeLabel: "MaxOffsetD+1"
+		SchemeDialogueContext: { }
+		SchemeDialogueActivity: "NLU:parameter-datetime-.maxdate(.base(.current).offset(.T:forward.D:1))"
+		SchemeFilterPrefix: "NLU"
+	)
+	targetCorpus
+	(
+		antes de mañana
+	)
+}
+
+ktunitTarget
+{
+	targetTrace
+	(
+		TargetTraceFile: "Traces/Spanish/DateMaxOffsetD-1.trace"
+		TargetTraceFilter:
+		{		
+			EVAL_EQUAL
+			EVAL_HEAD
+			EVAL_INSIDE
+			EVAL_DEVOID
+			EVAL_PARTIAL
+			EVAL_DIFFERENT
+		}
+		TargetStats: "Statistics/Spanish/DateMaxOffsetD-1.stats"
+	)
+	targetDialogue
+	(
+		InstanceOperation: "Fluency"
+		InstanceLanguage: "Spanish"
+		InstanceInterface: "Written"
+	)
+	targetScheme
+	(
+		SchemeGroup: "Parameter"
+		SchemeUnit: "Date"
+		SchemeLabel: "MaxOffsetD-1"
+		SchemeDialogueContext: { }
+		SchemeDialogueActivity: "NLU:parameter-datetime-.maxdate(.base(.current).offset(.T:backward.D:1))"
+		SchemeFilterPrefix: "NLU"
+	)
+	targetCorpus
+	(
+		hasta ayer
+	)
+}
+
+ktunitTarget
+{
+	targetTrace
+	(
+		TargetTraceFile: "Traces/Spanish/DateMinOffsetW+1.trace"
+		TargetTraceFilter:
+		{		
+			EVAL_EQUAL
+			EVAL_HEAD
+			EVAL_INSIDE
+			EVAL_DEVOID
+			EVAL_PARTIAL
+			EVAL_DIFFERENT
+		}
+		TargetStats: "Statistics/Spanish/DateMinOffsetW+1.stats"
+	)
+	targetDialogue
+	(
+		InstanceOperation: "Fluency"
+		InstanceLanguage: "Spanish"
+		InstanceInterface: "Written"
+	)
+	targetScheme
+	(
+		SchemeGroup: "Parameter"
+		SchemeUnit: "Date"
+		SchemeLabel: "MinOffsetW+1"
+		SchemeDialogueContext: { }
+		SchemeDialogueActivity: "NLU:parameter-datetime-.mindate(.base(.current).offset(.T:forward.W:1))"
+		SchemeFilterPrefix: "NLU"
+	)
+	targetCorpus
+	(
+		después de la semana que viene
+	)
+}
+
+ktunitTarget
+{
+	targetTrace
+	(
+		TargetTraceFile: "Traces/Spanish/DateMinOffsetD+1DM.trace"
+		TargetTraceFilter:
+		{		
+			EVAL_EQUAL
+			EVAL_HEAD
+			EVAL_INSIDE
+			EVAL_DEVOID
+			EVAL_PARTIAL
+			EVAL_DIFFERENT
+		}
+		TargetStats: "Statistics/Spanish/DateMinOffsetD+1DM.stats"
+	)
+	targetDialogue
+	(
+		InstanceOperation: "Fluency"
+		InstanceLanguage: "Spanish"
+		InstanceInterface: "Written"
+	)
+	targetScheme
+	(
+		SchemeGroup: "Parameter"
+		SchemeUnit: "Date"
+		SchemeLabel: "MinOffsetD+1DM"
+		SchemeDialogueContext: { }
+		SchemeDialogueActivity: "NLU:parameter-datetime-.mindate(.base(.D:25.M:8).offset(.T:forward.D:1))"
+		SchemeFilterPrefix: "NLU"
+	)
+	targetCorpus
+	(
+		desde el día después del 25 de agosto
+	)
+}
+
+ktunitTarget
+{
+	targetTrace
+	(
+		TargetTraceFile: "Traces/Spanish/DateMaxDM.trace"
+		TargetTraceFilter:
+		{		
+			EVAL_EQUAL
+			EVAL_HEAD
+			EVAL_INSIDE
+			EVAL_DEVOID
+			EVAL_PARTIAL
+			EVAL_DIFFERENT
+		}
+		TargetStats: "Statistics/Spanish/DateMaxDM.stats"
+	)
+	targetDialogue
+	(
+		InstanceOperation: "Fluency"
+		InstanceLanguage: "Spanish"
+		InstanceInterface: "Written"
+	)
+	targetScheme
+	(
+		SchemeGroup: "Parameter"
+		SchemeUnit: "Date"
+		SchemeLabel: "MaxDM"
+		SchemeDialogueContext: { }
+		SchemeDialogueActivity: "NLU:parameter-datetime-.maxdate(.base(.D:25.M:8))"
+		SchemeFilterPrefix: "NLU"
+	)
+	targetCorpus
+	(
+		hasta el 25 de agosto
+	)
+}
+
+ktunitTarget
+{
+	targetTrace
+	(
+		TargetTraceFile: "Traces/Spanish/DateMinMaxSpecial1.trace"
+		TargetTraceFilter:
+		{		
+			EVAL_EQUAL
+			EVAL_HEAD
+			EVAL_INSIDE
+			EVAL_DEVOID
+			EVAL_PARTIAL
+			EVAL_DIFFERENT
+		}
+		TargetStats: "Statistics/Spanish/DateMinMaxSpecial1.stats"
+	)
+	targetDialogue
+	(
+		InstanceOperation: "Fluency"
+		InstanceLanguage: "Spanish"
+		InstanceInterface: "Written"
+	)
+	targetScheme
+	(
+		SchemeGroup: "Parameter"
+		SchemeUnit: "Date"
+		SchemeLabel: "MinMaxSpecial1"
+		SchemeDialogueContext: { }
+		SchemeDialogueActivity: "NLU:parameter-datetime-.mindate(.base(.current).offset(.T:forward.D:0)).maxdate(.base(.D:25.M:8).offset(.T:forward.D:1))"
+		SchemeFilterPrefix: "NLU"
+	)
+	targetCorpus
+	(
+		desde hoy hasta el día después del 25 de agosto
+	)
+}
+
+ktunitTarget
+{
+	targetTrace
+	(
+		TargetTraceFile: "Traces/Spanish/DateMinMaxSpecial2.trace"
+		TargetTraceFilter:
+		{		
+			EVAL_EQUAL
+			EVAL_HEAD
+			EVAL_INSIDE
+			EVAL_DEVOID
+			EVAL_PARTIAL
+			EVAL_DIFFERENT
+		}
+		TargetStats: "Statistics/Spanish/DateMinMaxSpecial2.stats"
+	)
+	targetDialogue
+	(
+		InstanceOperation: "Fluency"
+		InstanceLanguage: "Spanish"
+		InstanceInterface: "Written"
+	)
+	targetScheme
+	(
+		SchemeGroup: "Parameter"
+		SchemeUnit: "Date"
+		SchemeLabel: "MinMaxSpecial2"
+		SchemeDialogueContext: { }
+		SchemeDialogueActivity: "NLU:parameter-datetime-.mindate(.base(.current).offset(.T:forward.O:1.E:1)).maxdate(.base(.D:25.M:12).offset(.T:backward.D:1))"
+		SchemeFilterPrefix: "NLU"
+	)
+	targetCorpus
+	(
+		desde el próximo lunes hasta el día antes de navidad
+	)
+}
+
+
+

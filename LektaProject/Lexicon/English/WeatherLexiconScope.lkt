@@ -16,6 +16,7 @@
 setupTokenizerBlanks (" !")
 
 ("what", lexWh)
+("which", lexWh)
 ("how", lexWh)
 
 ("'s", lexBe3Sing)

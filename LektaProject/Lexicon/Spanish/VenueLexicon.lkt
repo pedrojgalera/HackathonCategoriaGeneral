@@ -1,0 +1,175 @@
+// ****************************************************************************
+//
+//	Scripting functions for MyApp domain
+//
+// ****************************************************************************
+//
+//	PROJECT	: Fluency/Indices
+// 	DOMAIN  : MyApp
+//	MODULE  : Lexicon
+//	PACKAGE	: -
+// 	FOLDER  : -
+// 	FILE	: VenueLexicon.lkt
+//
+// ****************************************************************************
+
+// Monuments
+
+// Sevilla - monuments
+("catedral de sevilla", Venue, (VenueId: '4b8274eaf964a520b2d330e3'))
+("giralda", Venue, (VenueId: '4b8274eaf964a520b2d330e3'))
+
+("torre del oro", Venue, (VenueId: '4b4c0c15f964a52091ad26e3'))
+("del oro", Venue, (VenueId: '4b4c0c15f964a52091ad26e3'))
+
+("itálica", Venue, (VenueId: '4c69256835d3be9a54791e06'))
+("italica", Venue, (VenueId: '4c69256835d3be9a54791e06'))
+("ruinas de itálica", Venue, (VenueId: '4c69256835d3be9a54791e06'))
+("ruinas de italica", Venue, (VenueId: '4c69256835d3be9a54791e06'))
+
+("casa de pilatos", Venue, (VenueId: '4bc1b745b492d13a4d60a660'))
+("pilatos", Venue, (VenueId: '4bc1b745b492d13a4d60a660'))
+("de pilatos", Venue, (VenueId: '4bc1b745b492d13a4d60a660'))
+
+// Barcelona - monuments
+("sagrada familia", Venue, (VenueId: '4adcda50f964a520544121e3'))
+("catedral de barcelona", Venue, (VenueId: '4adcda50f964a520544121e3'))
+
+("parc guell", Venue, (VenueId: '4b76bca2f964a520975b2ee3'))
+("parc güell", Venue, (VenueId: '4b76bca2f964a520975b2ee3'))
+("güell", Venue, (VenueId: '4b76bca2f964a520975b2ee3'))
+("guell", Venue, (VenueId: '4b76bca2f964a520975b2ee3'))
+
+("casa batlló", Venue, (VenueId: '4adcda51f964a520aa4121e3'))
+("batlló", Venue, (VenueId: '4adcda51f964a520aa4121e3'))
+("casa batllo", Venue, (VenueId: '4adcda51f964a520aa4121e3'))
+("batllo", Venue, (VenueId: '4adcda51f964a520aa4121e3'))
+
+("barrio gótico", Venue, (VenueId: '4c45dcab429a0f479cb94a1e'))
+("gótico", Venue, (VenueId: '4c45dcab429a0f479cb94a1e'))
+("barrio gotico", Venue, (VenueId: '4c45dcab429a0f479cb94a1e'))
+("gotico", Venue, (VenueId: '4c45dcab429a0f479cb94a1e'))
+
+// Ávila - monuments
+("la muralla de ávila", Venue, (VenueId: '4bf924415ec320a1f1be89d3'))
+("muralla de ávila", Venue, (VenueId: '4bf924415ec320a1f1be89d3'))
+("la muralla de avila", Venue, (VenueId: '4bf924415ec320a1f1be89d3'))
+("muralla de avila", Venue, (VenueId: '4bf924415ec320a1f1be89d3'))
+("la muralla", Venue, (VenueId: '4bf924415ec320a1f1be89d3'))
+("muralla", Venue, (VenueId: '4bf924415ec320a1f1be89d3'))
+
+("cuatro postes", Venue, (VenueId: '4dd91e9fd22d38ef4310d772'))
+("los cuatro postes", Venue, (VenueId: '4dd91e9fd22d38ef4310d772'))
+
+// Córdoba - monuments
+("la mezquita de córdoba", Venue, (VenueId: '4b5c63d0f964a520b22d29e3'))
+("la mezquita de cordoba", Venue, (VenueId: '4b5c63d0f964a520b22d29e3'))
+("mezquita", Venue, (VenueId: '4b5c63d0f964a520b22d29e3'))
+
+("alcázar", Venue, (VenueId: '4b714776f964a520273f2de3'))
+("alcazar", Venue, (VenueId: '4b714776f964a520273f2de3'))
+
+("torre de la calahorra", Venue, (VenueId: '4d0debdcbe6d6ea8d6bd07b5'))
+("la calahorra", Venue, (VenueId: '4d0debdcbe6d6ea8d6bd07b5'))
+("calahorra", Venue, (VenueId: '4d0debdcbe6d6ea8d6bd07b5'))
+
+("la calleja de las flores", Venue, (VenueId: '4b5c63d0f964a520b22d29e3'))
+("calleja", Venue, (VenueId: '4b5c63d0f964a520b22d29e3'))
+("de las flores", Venue, (VenueId: '4b5c63d0f964a520b22d29e3'))
+
+// Madrid - monuments
+("el templo de debod", Venue, (VenueId: '4adcda37f964a520113c21e3'))
+("templo de debod", Venue, (VenueId: '4adcda37f964a520113c21e3'))
+("debod", Venue, (VenueId: '4adcda37f964a520113c21e3'))
+
+("el palacio real", Venue, (VenueId: '4adcda37f964a5200e3c21e3'))
+("palacio real", Venue, (VenueId: '4adcda37f964a5200e3c21e3'))
+
+("puerta de alcalá", Venue, (VenueId: '4adcda37f964a5201b3c21e3'))
+("puerta de alcala", Venue, (VenueId: '4adcda37f964a5201b3c21e3'))
+
+("almudena", Venue, (VenueId: '4adcda38f964a520523c21e3'))
+("catedral de la almudena", Venue, (VenueId: '4adcda38f964a520523c21e3'))
+
+
+// Madrid - museos
+("el prado", Venue, (VenueId: '4adcda37f964a520fd3b21e3'))
+("prado", Venue, (VenueId: '4adcda37f964a520fd3b21e3'))
+
+("reina sofía", Venue, (VenueId: '4b4ddd13f964a520b6d926e3'))
+("reina sofia", Venue, (VenueId: '4b4ddd13f964a520b6d926e3'))
+
+("arqueológico nacional", Venue, (VenueId: '4eda06cf775bcc53fa120bd4'))
+("arqueologico nacional", Venue, (VenueId: '4eda06cf775bcc53fa120bd4'))
+("arqueológico", Venue, (VenueId: '4eda06cf775bcc53fa120bd4'))
+("arqueologico", Venue, (VenueId: '4eda06cf775bcc53fa120bd4'))
+
+("thyssen", Venue, (VenueId: '4adcda37f964a5200d3c21e3'))
+("thyssen-bornemisza", Venue, (VenueId: '4adcda37f964a5200d3c21e3'))
+
+// Sevilla - museos
+("bellas artes", Venue, (VenueId: '4bcabe4268f976b0eafe5f83'))
+("museo de bellas artes", Venue, (VenueId: '4bcabe4268f976b0eafe5f83'))
+("de bellas artes", Venue, (VenueId: '4bcabe4268f976b0eafe5f83'))
+
+("museo del baile flamenco", Venue, (VenueId: '4c28d5caed0ac9b67ad460aa'))
+("museo de baile flamenco", Venue, (VenueId: '4c28d5caed0ac9b67ad460aa'))
+("del baile flamenco", Venue, (VenueId: '4c28d5caed0ac9b67ad460aa'))
+("baile flamenco", Venue, (VenueId: '4c28d5caed0ac9b67ad460aa'))
+("de baile flamenco", Venue, (VenueId: '4c28d5caed0ac9b67ad460aa'))
+
+("museo del carruaje", Venue, (VenueId: '4bc1e362920eb713453e1b2c'))
+("museo de carruajes", Venue, (VenueId: '4bc1e362920eb713453e1b2c'))
+("museo de carruaje", Venue, (VenueId: '4bc1e362920eb713453e1b2c'))
+("carruaje", Venue, (VenueId: '4bc1e362920eb713453e1b2c'))
+("carruajes", Venue, (VenueId: '4bc1e362920eb713453e1b2c'))
+
+// Barcelona - museos
+("macba", Venue, (VenueId: 'macbaid'))
+("museo de arte contemporáneo de Barcelona", Venue, (VenueId: '4adcda57f964a520a94321e3'))
+("museo de arte contemporaneo de Barcelona", Venue, (VenueId: '4adcda57f964a520a94321e3'))
+("museo de arte contemporáneo", Venue, (VenueId: '4adcda57f964a520a94321e3'))
+("museo de arte contemporaneo", Venue, (VenueId: '4adcda57f964a520a94321e3'))
+("arte contemporáneo de Barcelona", Venue, (VenueId: '4adcda57f964a520a94321e3'))
+("arte contemporaneo de Barcelona", Venue, (VenueId: '4adcda57f964a520a94321e3'))
+("arte contemporáneo", Venue, (VenueId: '4adcda57f964a520a94321e3'))
+("arte contemporaneo", Venue, (VenueId: '4adcda57f964a520a94321e3'))
+
+("fundación joan miro", Venue, (VenueId: '4bb79a0a98c7ef3bc90a3002'))
+("fundación joan miró", Venue, (VenueId: '4bb79a0a98c7ef3bc90a3002'))
+("fundacion joan miró", Venue, (VenueId: '4bb79a0a98c7ef3bc90a3002'))
+("fundacion joan miro", Venue, (VenueId: '4bb79a0a98c7ef3bc90a3002'))
+("joan miro", Venue, (VenueId: '4bb79a0a98c7ef3bc90a3002'))
+("joan miró", Venue, (VenueId: '4bb79a0a98c7ef3bc90a3002'))
+
+("museo de ciencias naturales de barcelona", Venue, (VenueId: '4d8f4910c1b1721e89b54246'))
+("ciencias naturales de barcelona", Venue, (VenueId: '4d8f4910c1b1721e89b54246'))
+("museo de ciencias naturales", Venue, (VenueId: '4d8f4910c1b1721e89b54246'))
+("ciencias naturales", Venue, (VenueId: '4d8f4910c1b1721e89b54246'))
+("museu blau", Venue, (VenueId: '4d8f4910c1b1721e89b54246'))
+
+// Madrid - Gastronomía
+("casa julio", Venue, (VenueId: '4bd0af4577b29c7416438b82'))
+
+("el pez tortilla", Venue, (VenueId: '552cc0cd498e4bba96669cb2'))
+("pez tortilla", Venue, (VenueId: '552cc0cd498e4bba96669cb2'))
+
+// Barcelona - Gastronomía
+("flax & kale", Venue, (VenueId: '53e5e4e6498e03a758bc9bd4'))
+("flax and kale", Venue, (VenueId: '53e5e4e6498e03a758bc9bd4'))
+("flax", Venue, (VenueId: '53e5e4e6498e03a758bc9bd4'))
+("kale", Venue, (VenueId: '53e5e4e6498e03a758bc9bd4'))
+
+("mosquito", Venue, (VenueId: '4b73066bf964a52088962de3'))
+
+// Sevilla - Gastronomía
+("bar casa ruperto", Venue, (VenueId: '4b69dd0df964a520e6b82be3'))
+("bar ruperto", Venue, (VenueId: '4b69dd0df964a520e6b82be3'))
+("casa ruperto", Venue, (VenueId: '4b69dd0df964a520e6b82be3'))
+("ruperto", Venue, (VenueId: '4b69dd0df964a520e6b82be3'))
+
+("bar juan carlos", Venue, (VenueId: '4e84df2b5503e18a12aaa103'))
+("juan carlos", Venue, (VenueId: '4e84df2b5503e18a12aaa103'))
+
+
+

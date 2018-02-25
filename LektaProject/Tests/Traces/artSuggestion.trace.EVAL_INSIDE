@@ -1,0 +1,29 @@
+$=======================================================
+$     ApplyLktUnitTarget =>
+$   ******************************
+$        Code .......: hacktour
+$        Block ......: NLU
+$        Descriptor .: artSuggestion
+$   ******************************
+$        Operation ..: Fluency
+$        Language ...: Spanish
+$        Interface ..: Written
+$=======================================================
+$=======================================================
+$        Setup
+$            CorpusFormat:Text
+$=======================================================
+$ =======================================================================
+$        Scheme Filter Prefix Init Model .........: [NLU]
+$        Scheme Filter Prefixes Split Model ......: [[NLU]]
+$        Scheme Dialogue Activity Init Model .....: [NLU:parameter-venuecategory-arts&entertainment]
+$        Scheme Dialogue Activity Filtered Model .: [NLU:parameter-venuecategory-arts&entertainment]
+$ =======================================================================
+$        Corpus
+$ =======================================================================
+$
+$ ***********************************************************************
+$   Input Sentence:[Me interesa algun tipo de exposición de arte]
+$
+$        Text Dialogue_Activity .........: [NLU:parameter-signchunk-|NLU:parameter-letter-D|NLU:parameter-signchunk-exposición|NLU:parameter-letter-D|NLU:parameter-venuecategory-arts&entertainment]
+$                Evaluation ........: Inside

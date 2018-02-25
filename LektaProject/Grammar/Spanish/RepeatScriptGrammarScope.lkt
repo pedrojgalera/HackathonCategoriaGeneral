@@ -1,0 +1,38 @@
+// ****************************************************************************
+//
+//	Grammar for repeat script scope
+//
+// ****************************************************************************
+//
+//	PROJECT	: HackTour
+// 	DOMAIN  : -
+//	MODULE  : Grammar
+//	PACKAGE	: -
+// 	FOLDER  : -
+// 	FILE	: RepeatScriptGrammarScope.lkt
+//
+// ****************************************************************************
+
+(RepeatScript01 :
+	[ TaskDialogueAct -> RepeatScriptScope ]
+	{
+		^ <- #1;
+	}
+)
+
+(RepeatScript02 :
+ 	[ RepeatScriptScope -> lexRepeatScript [+$]& ]
+	{
+		^.Scope <- 'repeatscript';
+	}
+)
+
+(RepeatScript03 :
+ 	[ RepeatScriptScope -> lexRepeatScript lexQuestionMark [+$]& ]
+	{
+		^.Scope <- 'repeatscript';
+	}
+)
+
+
+

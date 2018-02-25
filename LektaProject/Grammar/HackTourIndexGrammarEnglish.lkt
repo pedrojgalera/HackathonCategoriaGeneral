@@ -17,5 +17,7 @@
 #Include "English/VenuesGrammarScope.lkt"
 #Include "English/RepeatScriptGrammarScope.lkt"
 #Include "English/VenueCategoryGrammarParameter.lkt"
-#Include "English/DetailsGrammarScope.lkt"
-#Include "English/MoneyGrammarScope.lkt"
+#Include "Spanish/VenueGrammarParameter.lkt"
+#Include "Spanish/TimetableGrammarScope.lkt"
+
+

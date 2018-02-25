@@ -1,0 +1,32 @@
+// Tests for CoreDialogueActs, dimension: social, function: thanking
+
+ktunitTarget {
+    targetTrace (
+        TargetTraceFile: 	    "Traces/English/TraceCoreSocialThanking.trace"
+        TargetTraceFilter:  {
+            EVAL_EQUAL
+            EVAL_HEAD
+            EVAL_INSIDE
+            EVAL_DEVOID
+            EVAL_PARTIAL
+            EVAL_DIFFERENT
+        }
+        TargetStats:            "Statistics/English/StatCoreSocialThanking.stats"
+    )
+    targetDialogue (
+        InstanceOperation:	    "Fluency"
+        InstanceLanguage: 	    "English"
+        InstanceInterface: 	    "Written"
+    )
+    targetScheme (
+        SchemeGroup:		    "Fluency-NLUTests"
+        SchemeUnit:		        "CoreDialogueAct"
+        SchemeLabel:		    "SocialThanking"
+        SchemeDialogueContext:  { }
+        SchemeDialogueActivity:	"NLU:core-social-thanking"
+        SchemeFilterPrefix: 	"NLU"
+    )
+    targetCorpus (
+        #Include "Corpus/SocialThanking.corpus"
+    )
+}

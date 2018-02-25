@@ -1,0 +1,31 @@
+// Tests for CoreDialogueActs, dimension: basic answer, function: uncertain
+ktunitTarget {
+    targetTrace (
+        TargetTraceFile: 	    "Traces/Spanish/TraceCoreBasicAnswerUncertain.trace"
+        TargetTraceFilter:  {
+            EVAL_EQUAL
+            EVAL_HEAD
+            EVAL_INSIDE
+            EVAL_DEVOID
+            EVAL_PARTIAL
+            EVAL_DIFFERENT
+        }
+        TargetStats:            "Statistics/Spanish/StatCoreBasicAnswerUncertain.stats"
+    )
+    targetDialogue (
+        InstanceOperation:	    "Fluency"
+        InstanceLanguage: 	    "Spanish"
+        InstanceInterface: 	    "Written"
+    )
+    targetScheme (
+        SchemeGroup:		    "Fluency-NLUTests"
+        SchemeUnit:		    "CoreDialogueAct"
+        SchemeLabel:		    "BasicAnswerUncertain"
+        SchemeDialogueContext:  { }
+        SchemeDialogueActivity:	"NLU:core-basicanswer-uncertain"
+        SchemeFilterPrefix: 	"NLU"
+    )
+    targetCorpus (
+      #Include "Corpus/BasicAnswerUncertain.corpus"
+    )
+}

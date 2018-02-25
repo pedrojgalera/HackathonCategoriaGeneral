@@ -1,0 +1,74 @@
+// ****************************************************************************
+//
+//	Scripting functions for HackTour
+//
+// ****************************************************************************
+//
+//	PROJECT	: HackTour
+// 	DOMAIN  : -
+//	MODULE  : Scripts
+//	PACKAGE	: -
+// 	FOLDER  : -
+// 	FILE	: WeatherScript
+//
+// ****************************************************************************
+
+DialogueScript createTimetableSearcherScript()
+{
+	// Script Descriptor
+	DialogueScript script;
+	script.ScriptDescriptor <- 'TimetableSearcher';
+	script.ScriptDomain <- 'TIMETABLE';
+
+	// Trigger
+	BatchInsertEnd( script.ScriptTrigger.ParameterTypes , 'venue' );
+
+	// Info
+	ScriptInfoItem scriptInfoItem, emptyScriptInfoItem;
+
+	scriptInfoItem <- emptyScriptInfoItem;
+	scriptInfoItem.InfoItemType  <- 'core';
+	scriptInfoItem.InfoItemState <- 'empty';
+	scriptInfoItem.InfoItemValue.CoreDialogueAct.Dimension <- 'statement';
+	scriptInfoItem.InfoItemValue.CoreDialogueAct.Function  <- 'request';
+	BatchInsertEnd( script.ScriptInfoItems, scriptInfoItem );
+
+	scriptInfoItem <- emptyScriptInfoItem;
+	scriptInfoItem.InfoItemType <- 'action';
+	scriptInfoItem.InfoItemState <- 'empty';
+	scriptInfoItem.InfoItemValue.ActionDomain.ActionRoot <- 'provide';
+	BatchInsertEnd( script.ScriptInfoItems, scriptInfoItem );
+
+	scriptInfoItem <- emptyScriptInfoItem;
+	scriptInfoItem.InfoItemType <- 'scope';
+	scriptInfoItem.InfoItemState <- 'empty';
+	scriptInfoItem.InfoItemValue.Scope <- 'details';
+	BatchInsertEnd( script.ScriptInfoItems, scriptInfoItem );
+
+	scriptInfoItem <- emptyScriptInfoItem;
+	scriptInfoItem.InfoItemType <- 'parameter';
+	scriptInfoItem.InfoItemParameterType <- 'venue';
+	scriptInfoItem.InfoItemState <- 'empty';
+	scriptInfoItem.MemoryCellName <- 'current_venue';
+	BatchInsertEnd( script.ScriptInfoItems, scriptInfoItem );
+
+	// Phases
+
+	// Phase 0
+	script <- defaultNode(script, 0);
+
+	// Phase 1
+	script <- captureCompulsoryParameter(script, 1, 'venue');
+
+	// Phase 2
+	script <- proposeInfoItem1(script, 2, 'venue', 'get_venue_timetable', 'venue');
+
+	// Phase 3
+	script <- informExplicitParameter(script, 3, 'venue');
+
+	// Phase 4
+	script <- endScript(script,4);
+
+	return script;
+}
+

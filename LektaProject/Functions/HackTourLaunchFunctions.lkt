@@ -115,6 +115,32 @@ procedure launchDetailsSearcher()
 	pushScript('DetailsSearcher');
 }
 
+procedure launchTimetableSearcher()
+{
+	Parameter parameter <- getParameterCurrentScript('venue');
+	string id <- parameter.ParameterValue.Venue.VenueId;
+	CustomData cdata <- getCustomData();
+	AllVenues venues <- cdata.AllVenues;
+
+	Parameter found;
+	found.ParameterCategory <- 'terminal';
+	found.ParameterType <- 'venue';
+	for(int i <- 1; i <= BatchSize(venues); i++)
+	{
+		Venue venue;
+		BatchRecoverPosition(venues, i, venue);
+		if(venue.VenueId == id)
+		{
+			found.ParameterValue.Venue <- venue;
+			i <- BatchSize(venues);
+		}
+	}
+
+	setMemoryCell('current_venue', found );
+	
+	pushScript('TimetableSearcher');
+}
+
 bool checkStringCompatibility(string userString, string venueString)
 {
 	bool ret <- False;

@@ -153,7 +153,8 @@ string forecastToStringSingleDay(ForecastList originalList)
 	averageTemperature <- Round(averageTemperature);
 
 	// TODO REMOVE
-	//SpyMessage(filteredList);
+//	SpyMessage("FILTERED:");
+//	SpyMessage(filteredList);
 
 	// 2. Asignar puntos de ruptura entre distintas categorias de predicción de tiempo
 	intBatch breakpoints;
@@ -171,7 +172,8 @@ string forecastToStringSingleDay(ForecastList originalList)
 	}
 
 	// TODO REMOVE
-	//SpyMessage(breakpoints);
+//	SpyMessage("BREAKPOINTS:");
+//	SpyMessage(breakpoints);
 
 	// 3. Calcular moda en cada zona
 	stringBatch modas;
@@ -190,7 +192,8 @@ string forecastToStringSingleDay(ForecastList originalList)
 	}
 
 	// TODO REMOVE
-	//SpyMessage(modas);
+//	SpyMessage("MODAS:");
+//	SpyMessage(modas);
 
 	// 4. Generar para cada zona
 	string ret;
@@ -222,6 +225,11 @@ string forecastToStringSingleDay(ForecastList originalList)
 		}
 		BatchRecoverPosition(modas, i, forecastDescriptor);
 
+		// TODO REMOVE
+//		SpyMessage("");
+//		SpyMessage("forecastDescriptor: ", forecastDescriptor);
+//		SpyMessage("");
+
    		ret <- LiteralConcat(ret, forecastDescriptor, ' ');
    		if(BatchSize(breakpoints) > 1)
    		{
@@ -238,9 +246,14 @@ string generalTimeToStringHackTour(DateTime time)
 {
 	string ret;
 
-	ret <- LiteralConcat(ret, getPropLang('msg-forecast-from'), ' ', ShapeToLiteral(time.GeneralTime.MinTime.BaseTime.Hour));
+	ret <- LiteralConcat(ret, getPropLang('msg-forecast-from'), ' ', getPrettyTime(time.GeneralTime.MinTime.BaseTime.Hour));
 
 	return ret;
+}
+
+string getPrettyTime(int h)
+{
+	return ShapeToLiteral(h);
 }
 
 int getForecastDescriptorCategory(string category)

@@ -15,7 +15,13 @@
 
 classDef:Void
 (
-    lexWeather, lexWh, lexVenue, lexRepeatScript, lexAbout
+    lexWeather,
+    lexWh,
+    lexVenue,
+    lexRepeatScript,
+    lexAbout,
+    lexAdvInt,
+	lexTimetable
 )
 
 classDef:ElementInt

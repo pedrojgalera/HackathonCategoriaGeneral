@@ -1,0 +1,1981 @@
+ktunitTarget
+{
+	targetTrace
+	(
+		TargetTraceFile: "Traces/English/DateBaseDMY.trace"
+		TargetTraceFilter:
+		{		
+			EVAL_EQUAL
+			EVAL_HEAD
+			EVAL_INSIDE
+			EVAL_DEVOID
+			EVAL_PARTIAL
+			EVAL_DIFFERENT
+		}
+		TargetStats: "Statistics/English/DateBaseDMY.stats"
+	)
+	targetDialogue
+	(
+		InstanceOperation: "Fluency"
+		InstanceLanguage: "English"
+		InstanceInterface: "Written"
+	)
+	targetScheme
+	(
+		SchemeGroup: "Parameter"
+		SchemeUnit: "Date"
+		SchemeLabel: "BaseDateDMY"
+		SchemeDialogueContext: { }
+		SchemeDialogueActivity: "NLU:parameter-datetime-.base(.D:1.M:8.Y:1999)"
+		SchemeFilterPrefix: "NLU"
+	)
+	targetCorpus
+	(
+		01/08/1999
+		01-08-1999
+		august the 1st 1999
+		august the 1st, 1999
+		august 1st 1999
+		august 1st, 1999
+		august 1 1999
+		august 1, 1999
+		august the 1 1999
+		aug the 1st, 1999
+		aug the 1st 1999
+		aug the 1, 1999
+		aug the 1 1999
+		aug 1st 1999
+		aug 1st, 1999
+		aug 1 1999
+		aug 1, 1999
+		aug the 1 1999
+		the 1st of august 1999
+		the 1st of aug 1999
+		the 1st august 1999
+		the 1st aug 1999
+		the 1 of august 1999
+		the 1 august 1999
+		1st of august 1999
+		1st august 1999
+		1st of aug 1999
+		1 of august 1999
+		1 august 1999
+		1st aug 1999
+		the 1 of aug 1999
+		the 1 aug 1999
+		1 of aug 1999
+		1 aug 1999
+	)
+}
+
+ktunitTarget
+{
+	targetTrace
+	(
+		TargetTraceFile: "Traces/English/DateBaseDM.trace"
+		TargetTraceFilter:
+		{		
+			EVAL_EQUAL
+			EVAL_HEAD
+			EVAL_INSIDE
+			EVAL_DEVOID
+			EVAL_PARTIAL
+			EVAL_DIFFERENT
+		}
+		TargetStats: "Statistics/English/DateBaseDM.stats"
+	)
+	targetDialogue
+	(
+		InstanceOperation: "Fluency"
+		InstanceLanguage: "English"
+		InstanceInterface: "Written"
+	)
+	targetScheme
+	(
+		SchemeGroup: "Parameter"
+		SchemeUnit: "Date"
+		SchemeLabel: "BaseDateDM"
+		SchemeDialogueContext: { }
+		SchemeDialogueActivity: "NLU:parameter-datetime-.base(.D:1.M:8)"
+		SchemeFilterPrefix: "NLU"
+	)
+	targetCorpus
+	(
+		august the 1st
+		august 1st
+		august the 1
+		august 1
+		the 1st of august 
+		the 1st august 
+		1st of august 
+		1st august
+		the 1 of august 
+		the 1 august 
+		1 of august 
+		1 august
+		aug 1st 
+		aug the 1st 
+		aug 1 
+		aug the 1 
+		the 1st of aug 
+		the 1st aug 
+		1st of aug 
+		1st aug
+		1 aug
+		1 of aug 
+		the 1 aug 
+		the 1 of aug 
+	)
+}
+
+ktunitTarget
+{
+	targetTrace
+	(
+		TargetTraceFile: "Traces/English/DateBaseMY.trace"
+		TargetTraceFilter:
+		{		
+			EVAL_EQUAL
+			EVAL_HEAD
+			EVAL_INSIDE
+			EVAL_DEVOID
+			EVAL_PARTIAL
+			EVAL_DIFFERENT
+		}
+		TargetStats: "Statistics/English/DateBaseMY.stats"
+	)
+	targetDialogue
+	(
+		InstanceOperation: "Fluency"
+		InstanceLanguage: "English"
+		InstanceInterface: "Written"
+	)
+	targetScheme
+	(
+		SchemeGroup: "Parameter"
+		SchemeUnit: "Date"
+		SchemeLabel: "BaseDateMY"
+		SchemeDialogueContext: { }
+		SchemeDialogueActivity: "NLU:parameter-datetime-.base(.M:3.Y:2010)"
+		SchemeFilterPrefix: "NLU"
+	)
+	targetCorpus
+	(
+		in march 2010
+		march 2010
+	)
+}
+
+ktunitTarget
+{
+	targetTrace
+	(
+		TargetTraceFile: "Traces/English/DateBaseM.trace"
+		TargetTraceFilter:
+		{		
+			EVAL_EQUAL
+			EVAL_HEAD
+			EVAL_INSIDE
+			EVAL_DEVOID
+			EVAL_PARTIAL
+			EVAL_DIFFERENT
+		}
+		TargetStats: "Statistics/English/DateBaseM.stats"
+	)
+	targetDialogue
+	(
+		InstanceOperation: "Fluency"
+		InstanceLanguage: "English"
+		InstanceInterface: "Written"
+	)
+	targetScheme
+	(
+		SchemeGroup: "Parameter"
+		SchemeUnit: "Date"
+		SchemeLabel: "BaseDateM"
+		SchemeDialogueContext: { }
+		SchemeDialogueActivity: "NLU:parameter-datetime-.base(.M:3)"
+		SchemeFilterPrefix: "NLU"
+	)
+	targetCorpus
+	(
+		in march
+		march
+	)
+}
+
+ktunitTarget
+{
+	targetTrace
+	(
+		TargetTraceFile: "Traces/English/DateOffsetD0.trace"
+		TargetTraceFilter:
+		{		
+			EVAL_EQUAL
+			EVAL_HEAD
+			EVAL_INSIDE
+			EVAL_DEVOID
+			EVAL_PARTIAL
+			EVAL_DIFFERENT
+		}
+		TargetStats: "Statistics/English/DateOffsetD0.stats"
+	)
+	targetDialogue
+	(
+		InstanceOperation: "Fluency"
+		InstanceLanguage: "English"
+		InstanceInterface: "Written"
+	)
+	targetScheme
+	(
+		SchemeGroup: "Parameter"
+		SchemeUnit: "Date"
+		SchemeLabel: "OffsetDateD0"
+		SchemeDialogueContext: { }
+		SchemeDialogueActivity: "NLU:parameter-datetime-.base(.current).offset(.T:forward.D:0)"
+		SchemeFilterPrefix: "NLU"
+	)
+	targetCorpus
+	(
+		today
+		this day
+	)
+}
+
+ktunitTarget
+{
+	targetTrace
+	(
+		TargetTraceFile: "Traces/English/DateOffsetD+1.trace"
+		TargetTraceFilter:
+		{		
+			EVAL_EQUAL
+			EVAL_HEAD
+			EVAL_INSIDE
+			EVAL_DEVOID
+			EVAL_PARTIAL
+			EVAL_DIFFERENT
+		}
+		TargetStats: "Statistics/English/DateOffsetD+1.stats"
+	)
+	targetDialogue
+	(
+		InstanceOperation: "Fluency"
+		InstanceLanguage: "English"
+		InstanceInterface: "Written"
+	)
+	targetScheme
+	(
+		SchemeGroup: "Parameter"
+		SchemeUnit: "Date"
+		SchemeLabel: "OffsetDateD+1"
+		SchemeDialogueContext: { }
+		SchemeDialogueActivity: "NLU:parameter-datetime-.base(.current).offset(.T:forward.D:1)"
+		SchemeFilterPrefix: "NLU"
+	)
+	targetCorpus
+	(
+		tomorrow
+		in one day
+		in 1 day
+	)
+}
+
+ktunitTarget
+{
+	targetTrace
+	(
+		TargetTraceFile: "Traces/English/DateOffsetD+2.trace"
+		TargetTraceFilter:
+		{		
+			EVAL_EQUAL
+			EVAL_HEAD
+			EVAL_INSIDE
+			EVAL_DEVOID
+			EVAL_PARTIAL
+			EVAL_DIFFERENT
+		}
+		TargetStats: "Statistics/English/DateOffsetD+2.stats"
+	)
+	targetDialogue
+	(
+		InstanceOperation: "Fluency"
+		InstanceLanguage: "English"
+		InstanceInterface: "Written"
+	)
+	targetScheme
+	(
+		SchemeGroup: "Parameter"
+		SchemeUnit: "Date"
+		SchemeLabel: "OffsetDateD+2"
+		SchemeDialogueContext: { }
+		SchemeDialogueActivity: "NLU:parameter-datetime-.base(.current).offset(.T:forward.D:2)"
+		SchemeFilterPrefix: "NLU"
+	)
+	targetCorpus
+	(
+		within two days
+		in a couple of days
+	)
+}
+
+ktunitTarget
+{
+	targetTrace
+	(
+		TargetTraceFile: "Traces/English/DateOffsetD+1+1.trace"
+		TargetTraceFilter:
+		{		
+			EVAL_EQUAL
+			EVAL_HEAD
+			EVAL_INSIDE
+			EVAL_DEVOID
+			EVAL_PARTIAL
+			EVAL_DIFFERENT
+		}
+		TargetStats: "Statistics/English/DateOffsetD+1+1.stats"
+	)
+	targetDialogue
+	(
+		InstanceOperation: "Fluency"
+		InstanceLanguage: "English"
+		InstanceInterface: "Written"
+	)
+	targetScheme
+	(
+		SchemeGroup: "Parameter"
+		SchemeUnit: "Date"
+		SchemeLabel: "OffsetDateD+1+1"
+		SchemeDialogueContext: { }
+		SchemeDialogueActivity: "NLU:parameter-datetime-.base(.current).offset(.T:forward.D:1.offset(.T:forward.D:1))"
+		SchemeFilterPrefix: "NLU"
+	)
+	targetCorpus
+	(
+		the day after tomorrow
+		a day after tomorrow
+		one day after tomorrow
+	)
+}
+
+ktunitTarget
+{
+	targetTrace
+	(
+		TargetTraceFile: "Traces/English/DateOffsetD+3.trace"
+		TargetTraceFilter:
+		{		
+			EVAL_EQUAL
+			EVAL_HEAD
+			EVAL_INSIDE
+			EVAL_DEVOID
+			EVAL_PARTIAL
+			EVAL_DIFFERENT
+		}
+		TargetStats: "Statistics/English/DateOffsetD+3.stats"
+	)
+	targetDialogue
+	(
+		InstanceOperation: "Fluency"
+		InstanceLanguage: "English"
+		InstanceInterface: "Written"
+	)
+	targetScheme
+	(
+		SchemeGroup: "Parameter"
+		SchemeUnit: "Date"
+		SchemeLabel: "OffsetDateD+3"
+		SchemeDialogueContext: { }
+		SchemeDialogueActivity: "NLU:parameter-datetime-.base(.current).offset(.T:forward.D:3)"
+		SchemeFilterPrefix: "NLU"
+	)
+	targetCorpus
+	(
+		in 3 days
+	)
+}
+
+ktunitTarget
+{
+	targetTrace
+	(
+		TargetTraceFile: "Traces/English/DateOffsetD+1+1+1.trace"
+		TargetTraceFilter:
+		{		
+			EVAL_EQUAL
+			EVAL_HEAD
+			EVAL_INSIDE
+			EVAL_DEVOID
+			EVAL_PARTIAL
+			EVAL_DIFFERENT
+		}
+		TargetStats: "Statistics/English/DateOffsetD+1+1+1.stats"
+	)
+	targetDialogue
+	(
+		InstanceOperation: "Fluency"
+		InstanceLanguage: "English"
+		InstanceInterface: "Written"
+	)
+	targetScheme
+	(
+		SchemeGroup: "Parameter"
+		SchemeUnit: "Date"
+		SchemeLabel: "OffsetDateD+1+1+1"
+		SchemeDialogueContext: { }
+		SchemeDialogueActivity: "NLU:parameter-datetime-.base(.current).offset(.T:forward.D:1.offset(.T:forward.D:1.offset(.T:forward.D:1)))"
+		SchemeFilterPrefix: "NLU"
+	)
+	targetCorpus
+	(
+		the day after the day after tomorrow
+	)
+}
+
+ktunitTarget
+{
+	targetTrace
+	(
+		TargetTraceFile: "Traces/English/DateOffsetD-1.trace"
+		TargetTraceFilter:
+		{		
+			EVAL_EQUAL
+			EVAL_HEAD
+			EVAL_INSIDE
+			EVAL_DEVOID
+			EVAL_PARTIAL
+			EVAL_DIFFERENT
+		}
+		TargetStats: "Statistics/English/DateOffsetD-1.stats"
+	)
+	targetDialogue
+	(
+		InstanceOperation: "Fluency"
+		InstanceLanguage: "English"
+		InstanceInterface: "Written"
+	)
+	targetScheme
+	(
+		SchemeGroup: "Parameter"
+		SchemeUnit: "Date"
+		SchemeLabel: "OffsetDateD-1"
+		SchemeDialogueContext: { }	
+		SchemeDialogueActivity: "NLU:parameter-datetime-.base(.current).offset(.T:backward.D:1)"
+		SchemeFilterPrefix: "NLU"
+	)
+	targetCorpus
+	(
+		yesterday
+	)
+}
+
+ktunitTarget
+{
+	targetTrace
+	(
+		TargetTraceFile: "Traces/English/DateOffsetD-2.trace"
+		TargetTraceFilter:
+		{		
+			EVAL_EQUAL
+			EVAL_HEAD
+			EVAL_INSIDE
+			EVAL_DEVOID
+			EVAL_PARTIAL
+			EVAL_DIFFERENT
+		}
+		TargetStats: "Statistics/English/DateOffsetD-2.stats"
+	)
+	targetDialogue
+	(
+		InstanceOperation: "Fluency"
+		InstanceLanguage: "English"
+		InstanceInterface: "Written"
+	)
+	targetScheme
+	(
+		SchemeGroup: "Parameter"
+		SchemeUnit: "Date"
+		SchemeLabel: "OffsetDateD-2"
+		SchemeDialogueContext: { }	
+		SchemeDialogueActivity: "NLU:parameter-datetime-.base(.current).offset(.T:backward.D:2)"
+		SchemeFilterPrefix: "NLU"
+	)
+	targetCorpus
+	(
+		2 days ago
+		a couple of days ago
+		two days ago
+	)
+}
+
+ktunitTarget
+{
+	targetTrace
+	(
+		TargetTraceFile: "Traces/English/DateOffsetD-1-1.trace"
+		TargetTraceFilter:
+		{		
+			EVAL_EQUAL
+			EVAL_HEAD
+			EVAL_INSIDE
+			EVAL_DEVOID
+			EVAL_PARTIAL
+			EVAL_DIFFERENT
+		}
+		TargetStats: "Statistics/English/DateOffsetD-1-1.stats"
+	)
+	targetDialogue
+	(
+		InstanceOperation: "Fluency"
+		InstanceLanguage: "English"
+		InstanceInterface: "Written"
+	)
+	targetScheme
+	(
+		SchemeGroup: "Parameter"
+		SchemeUnit: "Date"
+		SchemeLabel: "OffsetDateD-1-1"
+		SchemeDialogueContext: { }	
+		SchemeDialogueActivity: "NLU:parameter-datetime-.base(.current).offset(.T:backward.D:1.offset(.T:backward.D:1))"
+		SchemeFilterPrefix: "NLU"
+	)
+	targetCorpus
+	(
+		the day before yesterday
+	)
+}
+
+ktunitTarget
+{
+	targetTrace
+	(
+		TargetTraceFile: "Traces/English/DateOffsetD-3.trace"
+		TargetTraceFilter:
+		{		
+			EVAL_EQUAL
+			EVAL_HEAD
+			EVAL_INSIDE
+			EVAL_DEVOID
+			EVAL_PARTIAL
+			EVAL_DIFFERENT
+		}
+		TargetStats: "Statistics/English/DateOffsetD-3.stats"
+	)
+	targetDialogue
+	(
+		InstanceOperation: "Fluency"
+		InstanceLanguage: "English"
+		InstanceInterface: "Written"
+	)
+	targetScheme
+	(
+		SchemeGroup: "Parameter"
+		SchemeUnit: "Date"
+		SchemeLabel: "OffsetDateD-3"
+		SchemeDialogueContext: { }	
+		SchemeDialogueActivity: "NLU:parameter-datetime-.base(.current).offset(.T:backward.D:3)"
+		SchemeFilterPrefix: "NLU"
+	)
+	targetCorpus
+	(
+		3 days ago
+		three days ago
+	)
+}
+
+ktunitTarget
+{
+	targetTrace
+	(
+		TargetTraceFile: "Traces/English/DateOffsetD-1+1.trace"
+		TargetTraceFilter:
+		{		
+			EVAL_EQUAL
+			EVAL_HEAD
+			EVAL_INSIDE
+			EVAL_DEVOID
+			EVAL_PARTIAL
+			EVAL_DIFFERENT
+		}
+		TargetStats: "Statistics/English/DateOffsetD-1+1.stats"
+	)
+	targetDialogue
+	(
+		InstanceOperation: "Fluency"
+		InstanceLanguage: "English"
+		InstanceInterface: "Written"
+	)
+	targetScheme
+	(
+		SchemeGroup: "Parameter"
+		SchemeUnit: "Date"
+		SchemeLabel: "OffsetDateD-1+1"
+		SchemeDialogueContext: { }	
+		SchemeDialogueActivity: "NLU:parameter-datetime-.base(.current).offset(.T:backward.D:1.offset(.T:forward.D:1))"
+		SchemeFilterPrefix: "NLU"
+	)
+	targetCorpus
+	(
+		the day before tomorrow
+
+	)
+}
+
+ktunitTarget
+{
+	targetTrace
+	(
+		TargetTraceFile: "Traces/English/DateOffsetD+1-1.trace"
+		TargetTraceFilter:
+		{		
+			EVAL_EQUAL
+			EVAL_HEAD
+			EVAL_INSIDE
+			EVAL_DEVOID
+			EVAL_PARTIAL
+			EVAL_DIFFERENT
+		}
+		TargetStats: "Statistics/English/DateOffsetD+1-1.stats"
+	)
+	targetDialogue
+	(
+		InstanceOperation: "Fluency"
+		InstanceLanguage: "English"
+		InstanceInterface: "Written"
+	)
+	targetScheme
+	(
+		SchemeGroup: "Parameter"
+		SchemeUnit: "Date"
+		SchemeLabel: "OffsetDateD+1-1"
+		SchemeDialogueContext: { }	
+		SchemeDialogueActivity: "NLU:parameter-datetime-.base(.current).offset(.T:forward.D:1.offset(.T:backward.D:1))"
+		SchemeFilterPrefix: "NLU"
+	)
+	targetCorpus
+	(
+		the day after yesterday
+	)
+}
+
+ktunitTarget
+{
+	targetTrace
+	(
+		TargetTraceFile: "Traces/English/DateOffsetD+2+1.trace"
+		TargetTraceFilter:
+		{		
+			EVAL_EQUAL
+			EVAL_HEAD
+			EVAL_INSIDE
+			EVAL_DEVOID
+			EVAL_PARTIAL
+			EVAL_DIFFERENT
+		}
+		TargetStats: "Statistics/English/DateOffsetD+2+1.stats"
+	)
+	targetDialogue
+	(
+		InstanceOperation: "Fluency"
+		InstanceLanguage: "English"
+		InstanceInterface: "Written"
+	)
+	targetScheme
+	(
+		SchemeGroup: "Parameter"
+		SchemeUnit: "Date"
+		SchemeLabel: "OffsetDateD+2+1"
+		SchemeDialogueContext: { }	
+		SchemeDialogueActivity: "NLU:parameter-datetime-.base(.current).offset(.T:forward.D:2.offset(.T:forward.D:1))"
+		SchemeFilterPrefix: "NLU"
+	)
+	targetCorpus
+	(
+		two days after tomorrow
+	)
+}
+
+ktunitTarget
+{
+	targetTrace
+	(
+		TargetTraceFile: "Traces/English/DateOffsetD-2+1.trace"
+		TargetTraceFilter:
+		{		
+			EVAL_EQUAL
+			EVAL_HEAD
+			EVAL_INSIDE
+			EVAL_DEVOID
+			EVAL_PARTIAL
+			EVAL_DIFFERENT
+		}
+		TargetStats: "Statistics/English/DateOffsetD-2+1.stats"
+	)
+	targetDialogue
+	(
+		InstanceOperation: "Fluency"
+		InstanceLanguage: "English"
+		InstanceInterface: "Written"
+	)
+	targetScheme
+	(
+		SchemeGroup: "Parameter"
+		SchemeUnit: "Date"
+		SchemeLabel: "OffsetDateD-2+1"
+		SchemeDialogueContext: { }	
+		SchemeDialogueActivity: "NLU:parameter-datetime-.base(.current).offset(.T:backward.D:2.offset(.T:forward.D:1))"
+		SchemeFilterPrefix: "NLU"
+	)
+	targetCorpus
+	(
+		two days before tomorrow
+	)
+}
+
+ktunitTarget
+{
+	targetTrace
+	(
+		TargetTraceFile: "Traces/English/DateOffsetW+1.trace"
+		TargetTraceFilter:
+		{		
+			EVAL_EQUAL
+			EVAL_HEAD
+			EVAL_INSIDE
+			EVAL_DEVOID
+			EVAL_PARTIAL
+			EVAL_DIFFERENT
+		}
+		TargetStats: "Statistics/English/DateOffsetW+1.stats"
+	)
+	targetDialogue
+	(
+		InstanceOperation: "Fluency"
+		InstanceLanguage: "English"
+		InstanceInterface: "Written"
+	)
+	targetScheme
+	(
+		SchemeGroup: "Parameter"
+		SchemeUnit: "Date"
+		SchemeLabel: "OffsetDateW+1"
+		SchemeDialogueContext: { }	
+		SchemeDialogueActivity: "NLU:parameter-datetime-.base(.current).offset(.T:forward.W:1)"
+		SchemeFilterPrefix: "NLU"
+	)
+	targetCorpus
+	(
+		next week
+		in one week
+	)
+}
+
+ktunitTarget
+{
+	targetTrace
+	(
+		TargetTraceFile: "Traces/English/DateOffsetW+1D+1.trace"
+		TargetTraceFilter:
+		{		
+			EVAL_EQUAL
+			EVAL_HEAD
+			EVAL_INSIDE
+			EVAL_DEVOID
+			EVAL_PARTIAL
+			EVAL_DIFFERENT
+		}
+		TargetStats: "Statistics/English/DateOffsetW+1D+1.stats"
+	)
+	targetDialogue
+	(
+		InstanceOperation: "Fluency"
+		InstanceLanguage: "English"
+		InstanceInterface: "Written"
+	)
+	targetScheme
+	(
+		SchemeGroup: "Parameter"
+		SchemeUnit: "Date"
+		SchemeLabel: "OffsetDateW+1D+1"
+		SchemeDialogueContext: { }	
+		SchemeDialogueActivity: "NLU:parameter-datetime-.base(.current).offset(.T:forward.W:1.offset(.T:forward.D:1))"
+		SchemeFilterPrefix: "NLU"
+	)
+	targetCorpus
+	(
+		a week after tomorrow
+		the week after tomorrow
+		one week after tomorrow
+	)
+}
+
+ktunitTarget
+{
+	targetTrace
+	(
+		TargetTraceFile: "Traces/English/DateOffsetW-2D+1.trace"
+		TargetTraceFilter:
+		{		
+			EVAL_EQUAL
+			EVAL_HEAD
+			EVAL_INSIDE
+			EVAL_DEVOID
+			EVAL_PARTIAL
+			EVAL_DIFFERENT
+		}
+		TargetStats: "Statistics/English/DateOffsetW-2D+1.stats"
+	)
+	targetDialogue
+	(
+		InstanceOperation: "Fluency"
+		InstanceLanguage: "English"
+		InstanceInterface: "Written"
+	)
+	targetScheme
+	(
+		SchemeGroup: "Parameter"
+		SchemeUnit: "Date"
+		SchemeLabel: "OffsetDateW-2D+1"
+		SchemeDialogueContext: { }	
+		SchemeDialogueActivity: "NLU:parameter-datetime-.base(.current).offset(.T:backward.W:2.offset(.T:forward.D:1))"
+		SchemeFilterPrefix: "NLU"
+	)
+	targetCorpus
+	(
+		two weeks before tomorrow
+	)
+}
+
+ktunitTarget
+{
+	targetTrace
+	(
+		TargetTraceFile: "Traces/English/DateOffsetW+2.trace"
+		TargetTraceFilter:
+		{		
+			EVAL_EQUAL
+			EVAL_HEAD
+			EVAL_INSIDE
+			EVAL_DEVOID
+			EVAL_PARTIAL
+			EVAL_DIFFERENT
+		}
+		TargetStats: "Statistics/English/DateOffsetW+2.stats"
+	)
+	targetDialogue
+	(
+		InstanceOperation: "Fluency"
+		InstanceLanguage: "English"
+		InstanceInterface: "Written"
+	)
+	targetScheme
+	(
+		SchemeGroup: "Parameter"
+		SchemeUnit: "Date"
+		SchemeLabel: "OffsetDateW+2"
+		SchemeDialogueContext: { }	
+		SchemeDialogueActivity: "NLU:parameter-datetime-.base(.current).offset(.T:forward.W:2)"
+		SchemeFilterPrefix: "NLU"
+	)
+	targetCorpus
+	(
+		in 2 weeks
+		in a couple of weeks
+	)
+}
+
+ktunitTarget
+{
+	targetTrace
+	(
+		TargetTraceFile: "Traces/English/DateOffsetW-1.trace"
+		TargetTraceFilter:
+		{		
+			EVAL_EQUAL
+			EVAL_HEAD
+			EVAL_INSIDE
+			EVAL_DEVOID
+			EVAL_PARTIAL
+			EVAL_DIFFERENT
+		}
+		TargetStats: "Statistics/English/DateOffsetW-1.stats"
+	)
+	targetDialogue
+	(
+		InstanceOperation: "Fluency"
+		InstanceLanguage: "English"
+		InstanceInterface: "Written"
+	)
+	targetScheme
+	(
+		SchemeGroup: "Parameter"
+		SchemeUnit: "Date"
+		SchemeLabel: "OffsetDateW-1"
+		SchemeDialogueContext: { }	
+		SchemeDialogueActivity: "NLU:parameter-datetime-.base(.current).offset(.T:backward.W:1)"
+		SchemeFilterPrefix: "NLU"
+	)
+	targetCorpus
+	(
+		last week
+		a week ago
+	)
+}
+
+ktunitTarget
+{
+	targetTrace
+	(
+		TargetTraceFile: "Traces/English/DateOffsetM+1.trace"
+		TargetTraceFilter:
+		{		
+			EVAL_EQUAL
+			EVAL_HEAD
+			EVAL_INSIDE
+			EVAL_DEVOID
+			EVAL_PARTIAL
+			EVAL_DIFFERENT
+		}
+		TargetStats: "Statistics/English/DateOffsetM+1.stats"
+	)
+	targetDialogue
+	(
+		InstanceOperation: "Fluency"
+		InstanceLanguage: "English"
+		InstanceInterface: "Written"
+	)
+	targetScheme
+	(
+		SchemeGroup: "Parameter"
+		SchemeUnit: "Date"
+		SchemeLabel: "OffsetDateM+1"
+		SchemeDialogueContext: { }	
+		SchemeDialogueActivity: "NLU:parameter-datetime-.base(.current).offset(.T:forward.M:1)"
+		SchemeFilterPrefix: "NLU"
+	)
+	targetCorpus
+	(
+		next month
+		in one month
+	)
+}
+
+ktunitTarget
+{
+	targetTrace
+	(
+		TargetTraceFile: "Traces/English/DateOffsetM+2.trace"
+		TargetTraceFilter:
+		{		
+			EVAL_EQUAL
+			EVAL_HEAD
+			EVAL_INSIDE
+			EVAL_DEVOID
+			EVAL_PARTIAL
+			EVAL_DIFFERENT
+		}
+		TargetStats: "Statistics/English/DateOffsetM+2.stats"
+	)
+	targetDialogue
+	(
+		InstanceOperation: "Fluency"
+		InstanceLanguage: "English"
+		InstanceInterface: "Written"
+	)
+	targetScheme
+	(
+		SchemeGroup: "Parameter"
+		SchemeUnit: "Date"
+		SchemeLabel: "OffsetDateM+2"
+		SchemeDialogueContext: { }	
+		SchemeDialogueActivity: "NLU:parameter-datetime-.base(.current).offset(.T:forward.M:2)"
+		SchemeFilterPrefix: "NLU"
+	)
+	targetCorpus
+	(
+		in 2 months
+	)
+}
+
+ktunitTarget
+{
+	targetTrace
+	(
+		TargetTraceFile: "Traces/English/DateOffsetM-2.trace"
+		TargetTraceFilter:
+		{		
+			EVAL_EQUAL
+			EVAL_HEAD
+			EVAL_INSIDE
+			EVAL_DEVOID
+			EVAL_PARTIAL
+			EVAL_DIFFERENT
+		}
+		TargetStats: "Statistics/English/DateOffsetM-2.stats"
+	)
+	targetDialogue
+	(
+		InstanceOperation: "Fluency"
+		InstanceLanguage: "English"
+		InstanceInterface: "Written"
+	)
+	targetScheme
+	(
+		SchemeGroup: "Parameter"
+		SchemeUnit: "Date"
+		SchemeLabel: "OffsetDateM-2"
+		SchemeDialogueContext: { }	
+		SchemeDialogueActivity: "NLU:parameter-datetime-.base(.current).offset(.T:backward.M:2)"
+		SchemeFilterPrefix: "NLU"
+	)
+	targetCorpus
+	(
+		2 months ago
+	)
+}
+
+ktunitTarget
+{
+	targetTrace
+	(
+		TargetTraceFile: "Traces/English/DateOffsetM-1.trace"
+		TargetTraceFilter:
+		{		
+			EVAL_EQUAL
+			EVAL_HEAD
+			EVAL_INSIDE
+			EVAL_DEVOID
+			EVAL_PARTIAL
+			EVAL_DIFFERENT
+		}
+		TargetStats: "Statistics/English/DateOffsetM-1.stats"
+	)
+	targetDialogue
+	(
+		InstanceOperation: "Fluency"
+		InstanceLanguage: "English"
+		InstanceInterface: "Written"
+	)
+	targetScheme
+	(
+		SchemeGroup: "Parameter"
+		SchemeUnit: "Date"
+		SchemeLabel: "OffsetDateM-1"
+		SchemeDialogueContext: { }	
+		SchemeDialogueActivity: "NLU:parameter-datetime-.base(.current).offset(.T:backward.M:1)"
+		SchemeFilterPrefix: "NLU"
+	)
+	targetCorpus
+	(
+		last month
+		one month ago
+	)
+}
+
+ktunitTarget
+{
+	targetTrace
+	(
+		TargetTraceFile: "Traces/English/DateOffsetM+1D+1.trace"
+		TargetTraceFilter:
+		{		
+			EVAL_EQUAL
+			EVAL_HEAD
+			EVAL_INSIDE
+			EVAL_DEVOID
+			EVAL_PARTIAL
+			EVAL_DIFFERENT
+		}
+		TargetStats: "Statistics/English/DateOffsetM+1D+1.stats"
+	)
+	targetDialogue
+	(
+		InstanceOperation: "Fluency"
+		InstanceLanguage: "English"
+		InstanceInterface: "Written"
+	)
+	targetScheme
+	(
+		SchemeGroup: "Parameter"
+		SchemeUnit: "Date"
+		SchemeLabel: "OffsetDateM+1D+1"
+		SchemeDialogueContext: { }	
+		SchemeDialogueActivity: "NLU:parameter-datetime-.base(.current).offset(.T:forward.M:1.offset(.T:forward.D:1))"
+		SchemeFilterPrefix: "NLU"
+	)
+	targetCorpus
+	(
+		a month after tomorrow
+	)
+}
+
+ktunitTarget
+{
+	targetTrace
+	(
+		TargetTraceFile: "Traces/English/DateOffsetM+2D+1.trace"
+		TargetTraceFilter:
+		{		
+			EVAL_EQUAL
+			EVAL_HEAD
+			EVAL_INSIDE
+			EVAL_DEVOID
+			EVAL_PARTIAL
+			EVAL_DIFFERENT
+		}
+		TargetStats: "Statistics/English/DateOffsetM+2D+1.stats"
+	)
+	targetDialogue
+	(
+		InstanceOperation: "Fluency"
+		InstanceLanguage: "English"
+		InstanceInterface: "Written"
+	)
+	targetScheme
+	(
+		SchemeGroup: "Parameter"
+		SchemeUnit: "Date"
+		SchemeLabel: "OffsetDateM+2D+1"
+		SchemeDialogueContext: { }	
+		SchemeDialogueActivity: "NLU:parameter-datetime-.base(.current).offset(.T:forward.M:2.offset(.T:forward.D:1))"
+		SchemeFilterPrefix: "NLU"
+	)
+	targetCorpus
+	(
+		two months after tomorrow
+	)
+}
+
+ktunitTarget
+{
+	targetTrace
+	(
+		TargetTraceFile: "Traces/English/DateOffsetY+1.trace"
+		TargetTraceFilter:
+		{		
+			EVAL_EQUAL
+			EVAL_HEAD
+			EVAL_INSIDE
+			EVAL_DEVOID
+			EVAL_PARTIAL
+			EVAL_DIFFERENT
+		}
+		TargetStats: "Statistics/English/DateOffsetY+1.stats"
+	)
+	targetDialogue
+	(
+		InstanceOperation: "Fluency"
+		InstanceLanguage: "English"
+		InstanceInterface: "Written"
+	)
+	targetScheme
+	(
+		SchemeGroup: "Parameter"
+		SchemeUnit: "Date"
+		SchemeLabel: "OffsetDateY+1"
+		SchemeDialogueContext: { }	
+		SchemeDialogueActivity: "NLU:parameter-datetime-.base(.current).offset(.T:forward.Y:1)"
+		SchemeFilterPrefix: "NLU"
+	)
+	targetCorpus
+	(
+		next year
+		in one year
+		in 1 year
+	)
+}
+
+ktunitTarget
+{
+	targetTrace
+	(
+		TargetTraceFile: "Traces/English/DateOffsetY-1.trace"
+		TargetTraceFilter:
+		{		
+			EVAL_EQUAL
+			EVAL_HEAD
+			EVAL_INSIDE
+			EVAL_DEVOID
+			EVAL_PARTIAL
+			EVAL_DIFFERENT
+		}
+		TargetStats: "Statistics/English/DateOffsetY-1.stats"
+	)
+	targetDialogue
+	(
+		InstanceOperation: "Fluency"
+		InstanceLanguage: "English"
+		InstanceInterface: "Written"
+	)
+	targetScheme
+	(
+		SchemeGroup: "Parameter"
+		SchemeUnit: "Date"
+		SchemeLabel: "OffsetDateY-1"
+		SchemeDialogueContext: { }	
+		SchemeDialogueActivity: "NLU:parameter-datetime-.base(.current).offset(.T:backward.Y:1)"
+		SchemeFilterPrefix: "NLU"
+	)
+	targetCorpus
+	(
+		last year
+		one year ago
+		1 year ago
+	)
+}
+
+ktunitTarget
+{
+	targetTrace
+	(
+		TargetTraceFile: "Traces/English/DateOffsetY-2.trace"
+		TargetTraceFilter:
+		{		
+			EVAL_EQUAL
+			EVAL_HEAD
+			EVAL_INSIDE
+			EVAL_DEVOID
+			EVAL_PARTIAL
+			EVAL_DIFFERENT
+		}
+		TargetStats: "Statistics/English/DateOffsetY-2.stats"
+	)
+	targetDialogue
+	(
+		InstanceOperation: "Fluency"
+		InstanceLanguage: "English"
+		InstanceInterface: "Written"
+	)
+	targetScheme
+	(
+		SchemeGroup: "Parameter"
+		SchemeUnit: "Date"
+		SchemeLabel: "OffsetDateY-2"
+		SchemeDialogueContext: { }	
+		SchemeDialogueActivity: "NLU:parameter-datetime-.base(.current).offset(.T:backward.Y:2)"
+		SchemeFilterPrefix: "NLU"
+	)
+	targetCorpus
+	(
+		two years ago
+		2 years ago
+	)
+}
+
+ktunitTarget
+{
+	targetTrace
+	(
+		TargetTraceFile: "Traces/English/DateOffsetY+2.trace"
+		TargetTraceFilter:
+		{		
+			EVAL_EQUAL
+			EVAL_HEAD
+			EVAL_INSIDE
+			EVAL_DEVOID
+			EVAL_PARTIAL
+			EVAL_DIFFERENT
+		}
+		TargetStats: "Statistics/English/DateOffsetY+2.stats"
+	)
+	targetDialogue
+	(
+		InstanceOperation: "Fluency"
+		InstanceLanguage: "English"
+		InstanceInterface: "Written"
+	)
+	targetScheme
+	(
+		SchemeGroup: "Parameter"
+		SchemeUnit: "Date"
+		SchemeLabel: "OffsetDateY+2"
+		SchemeDialogueContext: { }	
+		SchemeDialogueActivity: "NLU:parameter-datetime-.base(.current).offset(.T:forward.Y:2)"
+		SchemeFilterPrefix: "NLU"
+	)
+	targetCorpus
+	(
+		in 2 years
+	)
+}
+
+ktunitTarget
+{
+	targetTrace
+	(
+		TargetTraceFile: "Traces/English/DateOffset+1E1.trace"
+		TargetTraceFilter:
+		{		
+			EVAL_EQUAL
+			EVAL_HEAD
+			EVAL_INSIDE
+			EVAL_DEVOID
+			EVAL_PARTIAL
+			EVAL_DIFFERENT
+		}
+		TargetStats: "Statistics/English/DateOffset+1E1.stats"
+	)
+	targetDialogue
+	(
+		InstanceOperation: "Fluency"
+		InstanceLanguage: "English"
+		InstanceInterface: "Written"
+	)
+	targetScheme
+	(
+		SchemeGroup: "Parameter"
+		SchemeUnit: "Date"
+		SchemeLabel: "OffsetDate+1E1"
+		SchemeDialogueContext: { }	
+		SchemeDialogueActivity: "NLU:parameter-datetime-.base(.current).offset(.T:forward.O:1.E:1)"
+		SchemeFilterPrefix: "NLU"
+	)
+	targetCorpus
+	(
+		on monday
+		monday
+		this monday
+		next monday 
+	)
+}
+
+ktunitTarget
+{
+	targetTrace
+	(
+		TargetTraceFile: "Traces/English/DateOffset+1E1D+1.trace"
+		TargetTraceFilter:
+		{		
+			EVAL_EQUAL
+			EVAL_HEAD
+			EVAL_INSIDE
+			EVAL_DEVOID
+			EVAL_PARTIAL
+			EVAL_DIFFERENT
+		}
+		TargetStats: "Statistics/English/DateOffset+1E1D+1.stats"
+	)
+	targetDialogue
+	(
+		InstanceOperation: "Fluency"
+		InstanceLanguage: "English"
+		InstanceInterface: "Written"
+	)
+	targetScheme
+	(
+		SchemeGroup: "Parameter"
+		SchemeUnit: "Date"
+		SchemeLabel: "OffsetDate+1E1D+1"
+		SchemeDialogueContext: { }	
+		SchemeDialogueActivity: "NLU:parameter-datetime-.base(.current).offset(.T:forward.O:1.E:1.offset(.T:forward.D:1))"
+		SchemeFilterPrefix: "NLU"
+	)
+	targetCorpus
+	(
+		the monday after tomorrow
+		a monday after tomorrow
+		monday after tomorrow
+	)
+}
+
+ktunitTarget
+{
+	targetTrace
+	(
+		TargetTraceFile: "Traces/English/DateOffset+2E1D+1.trace"
+		TargetTraceFilter:
+		{		
+			EVAL_EQUAL
+			EVAL_HEAD
+			EVAL_INSIDE
+			EVAL_DEVOID
+			EVAL_PARTIAL
+			EVAL_DIFFERENT
+		}
+		TargetStats: "Statistics/English/DateOffset+2E1D+1.stats"
+	)
+	targetDialogue
+	(
+		InstanceOperation: "Fluency"
+		InstanceLanguage: "English"
+		InstanceInterface: "Written"
+	)
+	targetScheme
+	(
+		SchemeGroup: "Parameter"
+		SchemeUnit: "Date"
+		SchemeLabel: "OffsetDate+2E1D+1"
+		SchemeDialogueContext: { }	
+		SchemeDialogueActivity: "NLU:parameter-datetime-.base(.current).offset(.T:forward.O:2.E:1.offset(.T:forward.D:1))"
+		SchemeFilterPrefix: "NLU"
+	)
+	targetCorpus
+	(
+		two mondays after tomorrow
+	)
+}
+
+ktunitTarget
+{
+	targetTrace
+	(
+		TargetTraceFile: "Traces/English/DateOffset+2E1.trace"
+		TargetTraceFilter:
+		{		
+			EVAL_EQUAL
+			EVAL_HEAD
+			EVAL_INSIDE
+			EVAL_DEVOID
+			EVAL_PARTIAL
+			EVAL_DIFFERENT
+		}
+		TargetStats: "Statistics/English/DateOffset+2E1.stats"
+	)
+	targetDialogue
+	(
+		InstanceOperation: "Fluency"
+		InstanceLanguage: "English"
+		InstanceInterface: "Written"
+	)
+	targetScheme
+	(
+		SchemeGroup: "Parameter"
+		SchemeUnit: "Date"
+		SchemeLabel: "OffsetDate+2E1"
+		SchemeDialogueContext: { }	
+		SchemeDialogueActivity: "NLU:parameter-datetime-.base(.current).offset(.T:forward.O:2.E:1)"
+		SchemeFilterPrefix: "NLU"
+	)
+	targetCorpus
+	(
+		in 2 mondays
+	)
+}
+
+ktunitTarget
+{
+	targetTrace
+	(
+		TargetTraceFile: "Traces/English/DateOffset-2E1.trace"
+		TargetTraceFilter:
+		{		
+			EVAL_EQUAL
+			EVAL_HEAD
+			EVAL_INSIDE
+			EVAL_DEVOID
+			EVAL_PARTIAL
+			EVAL_DIFFERENT
+		}
+		TargetStats: "Statistics/English/DateOffset-2E1.stats"
+	)
+	targetDialogue
+	(
+		InstanceOperation: "Fluency"
+		InstanceLanguage: "English"
+		InstanceInterface: "Written"
+	)
+	targetScheme
+	(
+		SchemeGroup: "Parameter"
+		SchemeUnit: "Date"
+		SchemeLabel: "OffsetDate-2E1"
+		SchemeDialogueContext: { }	
+		SchemeDialogueActivity: "NLU:parameter-datetime-.base(.current).offset(.T:backward.O:2.E:1)"
+		SchemeFilterPrefix: "NLU"
+	)
+	targetCorpus
+	(
+		2 mondays ago
+	)
+}
+
+ktunitTarget
+{
+	targetTrace
+	(
+		TargetTraceFile: "Traces/English/DateOffset-3E2.trace"
+		TargetTraceFilter:
+		{		
+			EVAL_EQUAL
+			EVAL_HEAD
+			EVAL_INSIDE
+			EVAL_DEVOID
+			EVAL_PARTIAL
+			EVAL_DIFFERENT
+		}
+		TargetStats: "Statistics/English/DateOffset-3E2.stats"
+	)
+	targetDialogue
+	(
+		InstanceOperation: "Fluency"
+		InstanceLanguage: "English"
+		InstanceInterface: "Written"
+	)
+	targetScheme
+	(
+		SchemeGroup: "Parameter"
+		SchemeUnit: "Date"
+		SchemeLabel: "OffsetDate-3E2"
+		SchemeDialogueContext: { }	
+		SchemeDialogueActivity: "NLU:parameter-datetime-.base(.current).offset(.T:backward.O:3.E:2)"
+		SchemeFilterPrefix: "NLU"
+	)
+	targetCorpus
+	(
+		3 tuesdays ago
+	)
+}
+
+ktunitTarget
+{
+	targetTrace
+	(
+		TargetTraceFile: "Traces/English/DateOffset-1E1.trace"
+		TargetTraceFilter:
+		{		
+			EVAL_EQUAL
+			EVAL_HEAD
+			EVAL_INSIDE
+			EVAL_DEVOID
+			EVAL_PARTIAL
+			EVAL_DIFFERENT
+		}
+		TargetStats: "Statistics/English/DateOffset-1E1.stats"
+	)
+	targetDialogue
+	(
+		InstanceOperation: "Fluency"
+		InstanceLanguage: "English"
+		InstanceInterface: "Written"
+	)
+	targetScheme
+	(
+		SchemeGroup: "Parameter"
+		SchemeUnit: "Date"
+		SchemeLabel: "OffsetDate-1E2"
+		SchemeDialogueContext: { }	
+		SchemeDialogueActivity: "NLU:parameter-datetime-.base(.current).offset(.T:backward.O:1.E:1)"
+		SchemeFilterPrefix: "NLU"
+	)
+	targetCorpus
+	(
+		last monday
+	)
+}
+
+ktunitTarget
+{
+	targetTrace
+	(
+		TargetTraceFile: "Traces/English/DateOffsetY+1M+2.trace"
+		TargetTraceFilter:
+		{		
+			EVAL_EQUAL
+			EVAL_HEAD
+			EVAL_INSIDE
+			EVAL_DEVOID
+			EVAL_PARTIAL
+			EVAL_DIFFERENT
+		}
+		TargetStats: "Statistics/English/DateOffsetY+1M+2.stats"
+	)
+	targetDialogue
+	(
+		InstanceOperation: "Fluency"
+		InstanceLanguage: "English"
+		InstanceInterface: "Written"
+	)
+	targetScheme
+	(
+		SchemeGroup: "Parameter"
+		SchemeUnit: "Date"
+		SchemeLabel: "OffsetDateY+1M+2"
+		SchemeDialogueContext: { }	
+		SchemeDialogueActivity: "NLU:parameter-datetime-.base(.current).offset(.T:forward.M:2.offset(.Y:1))"
+		SchemeFilterPrefix: "NLU"
+	)
+	targetCorpus
+	(
+		in 1 year and 2 months
+		in a year and two months
+	)
+}
+
+ktunitTarget
+{
+	targetTrace
+	(
+		TargetTraceFile: "Traces/English/DateOffsetY+1M+2D+3.trace"
+		TargetTraceFilter:
+		{		
+			EVAL_EQUAL
+			EVAL_HEAD
+			EVAL_INSIDE
+			EVAL_DEVOID
+			EVAL_PARTIAL
+			EVAL_DIFFERENT
+		}
+		TargetStats: "Statistics/English/DateOffsetY+1M+2D+3.stats"
+	)
+	targetDialogue
+	(
+		InstanceOperation: "Fluency"
+		InstanceLanguage: "English"
+		InstanceInterface: "Written"
+	)
+	targetScheme
+	(
+		SchemeGroup: "Parameter"
+		SchemeUnit: "Date"
+		SchemeLabel: "OffsetDateY+1M+2D+3"
+		SchemeDialogueContext: { }	
+		SchemeDialogueActivity: "NLU:parameter-datetime-.base(.current).offset(.T:forward.D:3.offset(.M:2.offset(.Y:1)))"
+		SchemeFilterPrefix: "NLU"
+	)
+	targetCorpus
+	(
+		in 1 year, 2 months and 3 days
+		in one year, two months and three days
+	)
+}
+
+ktunitTarget
+{
+	targetTrace
+	(
+		TargetTraceFile: "Traces/English/DateOffsetY-1M-2D-3.trace"
+		TargetTraceFilter:
+		{		
+			EVAL_EQUAL
+			EVAL_HEAD
+			EVAL_INSIDE
+			EVAL_DEVOID
+			EVAL_PARTIAL
+			EVAL_DIFFERENT
+		}
+		TargetStats: "Statistics/English/DateOffsetY-1M-2D-3.stats"
+	)
+	targetDialogue
+	(
+		InstanceOperation: "Fluency"
+		InstanceLanguage: "English"
+		InstanceInterface: "Written"
+	)
+	targetScheme
+	(
+		SchemeGroup: "Parameter"
+		SchemeUnit: "Date"
+		SchemeLabel: "OffsetDateY-1M-2D-3"
+		SchemeDialogueContext: { }	
+		SchemeDialogueActivity: "NLU:parameter-datetime-.base(.current).offset(.T:backward.D:3.offset(.M:2.offset(.Y:1)))"
+		SchemeFilterPrefix: "NLU"
+	)
+	targetCorpus
+	(
+		1 year, 2 months and 3 days ago
+	)
+}
+
+ktunitTarget
+{
+	targetTrace
+	(
+		TargetTraceFile: "Traces/English/DateBaseOffsetD+1.trace"
+		TargetTraceFilter:
+		{		
+			EVAL_EQUAL
+			EVAL_HEAD
+			EVAL_INSIDE
+			EVAL_DEVOID
+			EVAL_PARTIAL
+			EVAL_DIFFERENT
+		}
+		TargetStats: "Statistics/English/DateBaseOffsetD+1.stats"
+	)
+	targetDialogue
+	(
+		InstanceOperation: "Fluency"
+		InstanceLanguage: "English"
+		InstanceInterface: "Written"
+	)
+	targetScheme
+	(
+		SchemeGroup: "Parameter"
+		SchemeUnit: "Date"
+		SchemeLabel: "BaseOffsetDateD+1"
+		SchemeDialogueContext: { }	
+		SchemeDialogueActivity: "NLU:parameter-datetime-.base(.D:25.M:8).offset(.T:forward.D:1)"
+		SchemeFilterPrefix: "NLU"
+	)
+	targetCorpus
+	(
+		the day after 25 of august
+	)
+}
+
+ktunitTarget
+{
+	targetTrace
+	(
+		TargetTraceFile: "Traces/English/DateBaseOffsetD-1.trace"
+		TargetTraceFilter:
+		{		
+			EVAL_EQUAL
+			EVAL_HEAD
+			EVAL_INSIDE
+			EVAL_DEVOID
+			EVAL_PARTIAL
+			EVAL_DIFFERENT
+		}
+		TargetStats: "Statistics/English/DateBaseOffsetD-1.stats"
+	)
+	targetDialogue
+	(
+		InstanceOperation: "Fluency"
+		InstanceLanguage: "English"
+		InstanceInterface: "Written"
+	)
+	targetScheme
+	(
+		SchemeGroup: "Parameter"
+		SchemeUnit: "Date"
+		SchemeLabel: "BaseOffsetDateD-1"
+		SchemeDialogueContext: { }	
+		SchemeDialogueActivity: "NLU:parameter-datetime-.base(.D:25.M:8).offset(.T:backward.D:1)"
+		SchemeFilterPrefix: "NLU"
+	)
+	targetCorpus
+	(
+		the day before 25 of august
+	)
+}
+
+ktunitTarget
+{
+	targetTrace
+	(
+		TargetTraceFile: "Traces/English/DateOffsetM+1Beginning.trace"
+		TargetTraceFilter:
+		{		
+			EVAL_EQUAL
+			EVAL_HEAD
+			EVAL_INSIDE
+			EVAL_DEVOID
+			EVAL_PARTIAL
+			EVAL_DIFFERENT
+		}
+		TargetStats: "Statistics/English/DateOffsetM+1Beginning.stats"
+	)
+	targetDialogue
+	(
+		InstanceOperation: "Fluency"
+		InstanceLanguage: "English"
+		InstanceInterface: "Written"
+	)
+	targetScheme
+	(
+		SchemeGroup: "Parameter"
+		SchemeUnit: "Date"
+		SchemeLabel: "OffsetM+1Beginning"
+		SchemeDialogueContext: { }	
+		SchemeDialogueActivity: "NLU:parameter-datetime-.base(.current).offset(.T:forward.M:1.part(.start))"
+		SchemeFilterPrefix: "NLU"
+	)
+	targetCorpus
+	(
+		at the beginning of next month
+	)
+}
+
+ktunitTarget
+{
+	targetTrace
+	(
+		TargetTraceFile: "Traces/English/DateOffsetM+0End.trace"
+		TargetTraceFilter:
+		{		
+			EVAL_EQUAL
+			EVAL_HEAD
+			EVAL_INSIDE
+			EVAL_DEVOID
+			EVAL_PARTIAL
+			EVAL_DIFFERENT
+		}
+		TargetStats: "Statistics/English/DateOffsetM+0End.stats"
+	)
+	targetDialogue
+	(
+		InstanceOperation: "Fluency"
+		InstanceLanguage: "English"
+		InstanceInterface: "Written"
+	)
+	targetScheme
+	(
+		SchemeGroup: "Parameter"
+		SchemeUnit: "Date"
+		SchemeLabel: "OffsetM+0End"
+		SchemeDialogueContext: { }	
+		SchemeDialogueActivity: "NLU:parameter-datetime-.base(.current).offset(.M:0.part(.end))"
+		SchemeFilterPrefix: "NLU"
+	)
+	targetCorpus
+	(
+		at the end of the month
+	)
+}
+
+ktunitTarget
+{
+	targetTrace
+	(
+		TargetTraceFile: "Traces/English/DateOffsetW+0End.trace"
+		TargetTraceFilter:
+		{		
+			EVAL_EQUAL
+			EVAL_HEAD
+			EVAL_INSIDE
+			EVAL_DEVOID
+			EVAL_PARTIAL
+			EVAL_DIFFERENT
+		}
+		TargetStats: "Statistics/English/DateOffsetW+0End.stats"
+	)
+	targetDialogue
+	(
+		InstanceOperation: "Fluency"
+		InstanceLanguage: "English"
+		InstanceInterface: "Written"
+	)
+	targetScheme
+	(
+		SchemeGroup: "Parameter"
+		SchemeUnit: "Date"
+		SchemeLabel: "OffsetW+0End"
+		SchemeDialogueContext: { }	
+		SchemeDialogueActivity: "NLU:parameter-datetime-.base(.current).offset(.W:0.part(.end))"
+		SchemeFilterPrefix: "NLU"
+	)
+	targetCorpus
+	(
+		at the end of the week
+	)
+}
+
+ktunitTarget
+{
+	targetTrace
+	(
+		TargetTraceFile: "Traces/English/DateBaseChristmas.trace"
+		TargetTraceFilter:
+		{		
+			EVAL_EQUAL
+			EVAL_HEAD
+			EVAL_INSIDE
+			EVAL_DEVOID
+			EVAL_PARTIAL
+			EVAL_DIFFERENT
+		}
+		TargetStats: "Statistics/English/DateBaseChristmas.stats"
+	)
+	targetDialogue
+	(
+		InstanceOperation: "Fluency"
+		InstanceLanguage: "English"
+		InstanceInterface: "Written"
+	)
+	targetScheme
+	(
+		SchemeGroup: "Parameter"
+		SchemeUnit: "Date"
+		SchemeLabel: "BaseChristmas"
+		SchemeDialogueContext: { }	
+		SchemeDialogueActivity: "NLU:parameter-datetime-.base(.D:25.M:12)"
+		SchemeFilterPrefix: "NLU"
+	)
+	targetCorpus
+	(
+		christmas day
+		christmas
+	)
+}
+
+ktunitTarget
+{
+	targetTrace
+	(
+		TargetTraceFile: "Traces/English/DateThanksgivingDay.trace"
+		TargetTraceFilter:
+		{		
+			EVAL_EQUAL
+			EVAL_HEAD
+			EVAL_INSIDE
+			EVAL_DEVOID
+			EVAL_PARTIAL
+			EVAL_DIFFERENT
+		}
+		TargetStats: "Statistics/English/DateThanksgivingDay.stats"
+	)
+	targetDialogue
+	(
+		InstanceOperation: "Fluency"
+		InstanceLanguage: "English"
+		InstanceInterface: "Written"
+	)
+	targetScheme
+	(
+		SchemeGroup: "Parameter"
+		SchemeUnit: "Date"
+		SchemeLabel: "ThanksgivingDay"
+		SchemeDialogueContext: { }	
+		SchemeDialogueActivity: "NLU:parameter-datetime-.base(.D:31.M:10).offset(.T:forward.O:4.E:4)"
+		SchemeFilterPrefix: "NLU"
+	)
+	targetCorpus
+	(
+		thanksgiving day
+	)
+}
+
+ktunitTarget
+{
+	targetTrace
+	(
+		TargetTraceFile: "Traces/English/DateWeekend.trace"
+		TargetTraceFilter:
+		{		
+			EVAL_EQUAL
+			EVAL_HEAD
+			EVAL_INSIDE
+			EVAL_DEVOID
+			EVAL_PARTIAL
+			EVAL_DIFFERENT
+		}
+		TargetStats: "Statistics/English/DateWeekend.stats"
+	)
+	targetDialogue
+	(
+		InstanceOperation: "Fluency"
+		InstanceLanguage: "English"
+		InstanceInterface: "Written"
+	)
+	targetScheme
+	(
+		SchemeGroup: "Parameter"
+		SchemeUnit: "Date"
+		SchemeLabel: "Weekend"
+		SchemeDialogueContext: { }	
+		SchemeDialogueActivity: "NLU:parameter-datetime-.base(.current).offset(.T:forward.O:1.E:6)"
+		SchemeFilterPrefix: "NLU"
+	)
+	targetCorpus
+	(
+		this weekend
+	)
+}
+
+
+
+
+
+
+

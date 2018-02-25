@@ -42,7 +42,8 @@ classDef:StructureComplex
 		CampaignNumber,
 		CampaignName,
 		CampaignTriggerMoney,
-		CampaignTriggerCity
+		CampaignTriggerCity,
+		CampaignTriggerVenueId
 	)
 )
 
@@ -79,7 +80,7 @@ classDef:ElementInt
 
 classDef:ElementLiteral
 (
-	CampaignTriggerCity, CampaignName, CampaignTriggerMoney
+	CampaignTriggerCity, CampaignName, CampaignTriggerMoney, CampaignTriggerVenueId
 )
 
 classDef:Synonym

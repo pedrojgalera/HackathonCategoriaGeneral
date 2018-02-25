@@ -1,0 +1,32 @@
+// Tests for CoreDialogueActs, dimension: basic answer, function: disagreement
+
+ktunitTarget {
+    targetTrace (
+        TargetTraceFile: 	    "Traces/English/TraceCoreBasicAnswerDisagreement.trace"
+        TargetTraceFilter:  {
+            EVAL_EQUAL
+            EVAL_HEAD
+            EVAL_INSIDE
+            EVAL_DEVOID
+            EVAL_PARTIAL
+            EVAL_DIFFERENT
+        }
+        TargetStats:            "Statistics/English/StatCoreBasicAnswerDisagreement.stats"
+    )
+    targetDialogue (
+        InstanceOperation:	    "Fluency"
+        InstanceLanguage: 	    "English"
+        InstanceInterface: 	    "Written"
+    )
+    targetScheme (
+        SchemeGroup:		"Fluency-NLUTests"
+        SchemeUnit:		"CoreDialogueAct"
+        SchemeLabel:            "BasicAnswerDisagreement"
+        SchemeDialogueContext:  { }
+        SchemeDialogueActivity:	"NLU:core-basicanswer-disagreement"
+        SchemeFilterPrefix: 	"NLU"
+    )
+    targetCorpus (
+       #Include "Corpus/BasicAnswerDisagreement.corpus"
+    )
+}

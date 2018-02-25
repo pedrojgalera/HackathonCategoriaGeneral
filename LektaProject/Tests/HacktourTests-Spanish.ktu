@@ -1,0 +1,17 @@
+#Include "NLUTests/Spanish/SocialApology.ktu"
+#Include "NLUTests/Spanish/SocialGreetings.ktu"
+#Include "NLUTests/Spanish/SocialGoodbye.ktu"
+#Include "NLUTests/Spanish/SocialThanking.ktu"
+#Include "NLUTests/Spanish/SocialDownplaying.ktu"
+#Include "NLUTests/Spanish/BasicAnswerAgreement.ktu"
+#Include "NLUTests/Spanish/BasicAnswerDisagreement.ktu"
+#Include "NLUTests/Spanish/BasicAnswerDontKnow.ktu"
+#Include "NLUTests/Spanish/BasicAnswerUncertain.ktu"
+#Include "NLUTests/Spanish/StatementRequest.ktu"
+
+#Include "NLUTests/Spanish/DateRange.ktu"
+#Include "NLUTests/Spanish/DateBaseOffset.ktu"
+#Include "NLUTests/Spanish/VenuesCategories.ktu"
+#Include "NLUTests/Spanish/Venues.ktu"
+#Include "NLUTests/Spanish/WeatherScope.ktu"
+

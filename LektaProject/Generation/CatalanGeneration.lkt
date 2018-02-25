@@ -1,0 +1,51 @@
+// ****************************************************************************
+//
+//	HackTour parameters generation
+//
+// ****************************************************************************
+//
+//	PROJECT	: HackTour
+// 	DOMAIN  : -
+//	MODULE  : Generation
+//	PACKAGE	: -
+// 	FOLDER  : -
+// 	FILE	: ParamGeneration.lkt
+//
+// ****************************************************************************
+
+(ScriboScheme GenerateCatalanApology: [ DialogueAct ]
+	ScriboCapture 
+	{
+		#OBJLOCUTIO-1.CoreDialogueAct.Dimension == 'social' &&
+        #OBJLOCUTIO-1.CoreDialogueAct.Function == 'apology' &&
+		containsActionDomainRoot( #OBJLOCUTIO-1.TaskDialogueAct.Action, 'not') &&
+		#OBJLOCUTIO-1.TaskDialogueAct.Scope == 'catalan'  
+	}
+	ScriboAction 
+	{
+		incMemCounter('cat-counter');
+		int i <- getMemCounter('cat-counter');
+		if(i > 3)
+		{
+			i <- 3;
+		}
+		string n <- ShapeToLiteral(i);
+		GenerateMainAnswer(LiteralConcat('msg-apology-catalan-', n));
+	}
+)
+
+(ScriboScheme GenerateNews: [ DialogueAct ]
+	ScriboCapture
+	{
+		#OBJLOCUTIO-1.CoreDialogueAct.Dimension == 'statement' &&
+        #OBJLOCUTIO-1.CoreDialogueAct.Function == 'inform' &&
+		containsActionDomainRoot( #OBJLOCUTIO-1.TaskDialogueAct.Action, 'hack') &&
+		#OBJLOCUTIO-1.TaskDialogueAct.Scope == 'news'
+	}
+	ScriboAction
+	{
+		CustomData cdata <- getCustomData();
+
+		SetMainAnswer(getRefreshNews(cdata.VenueNews));
+	}
+)

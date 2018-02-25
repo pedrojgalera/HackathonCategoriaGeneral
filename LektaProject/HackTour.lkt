@@ -16,7 +16,7 @@
 lektaProject
     projectHead
         projectDescriptor	: "HackTour"
-        projectLanguageScope	: [ English, Polish, Spanish ]
+        projectLanguageScope	: [ English, Polish, Spanish, Catalan ]
         projectOperationScope	: [ Fluency ]
         projectInterfaceScope   : [ Written, Spoken ]
         projectCompileOutput 	: "Deployment/HackTour.olk"
@@ -26,14 +26,27 @@ lektaProject
         setupTokenizerNormalizeSpecActivate
         setupTokenizerNormalizeInputActivate
         setupRuntimeSpyMessageOn
-        setupTokenizerSpellingChecker 
+        setupTokenizerSpellingChecker
         setupParserTokenNotFounds = lexSignChunk
         ParlanceSensor:On
 
-	// TODO
-    //#Include "Kernel/Tools/Polyglot/ParlanceSensorCorpora.lkt"
-
+    /* Mandatory */
     #Include "Config/Config.lkt"
+    #Include "Polyglot/ParlanceSensorCorpora.lkt"
+
+
+	conceptualModel
+    	conceptualFramework 
+		{
+        	conceptualFrameworkDescriptor: "HacktourEFE"
+         	conceptualFrameworkFileName: "HacktourEFE.cso"	// ConceptualScheme Object (Binary)
+         	conceptualFrameworkIndexConcept
+         	conceptualFrameworkSpecification: "HacktourEFE/HacktourEFE.lcs"		// Lekta Conceptual Scheme Source Code
+         	conceptualFrameworkProperties: 
+			{
+	            conceptualFrameworkDeactivateDialogueSearch
+	        }
+	    }
 
     classModel
         #Include < FLUINCLUDE "MainTypes.lkt" >
@@ -51,6 +64,7 @@ lektaProject
         #Include < FLUINCLUDE "MainPolishLexicon.lkt" >
 
     lexicalModel forLanguage Spanish
+        #Include "Lexicon/HackTourIndexLexiconSpanish.lkt"
         #Include < FLUINCLUDE "MainSpanishLexicon.lkt" >
 
     grammaticalModel forLanguage English
@@ -61,8 +75,9 @@ lektaProject
         #Include < FLUINCLUDE "MainPolishGrammar.lkt" >
 
     grammaticalModel forLanguage Spanish
+		#Include "Grammar/HackTourIndexGrammarSpanish.lkt"
         #Include < FLUINCLUDE "MainSpanishGrammar.lkt" >
-
+		
     conversationalModel
         #Include < FLUBRAINDIALOGUEMANAGER "MindBoardStructure.lkt" >
 
@@ -107,5 +122,9 @@ lektaProject
     	ScriboSchemata
       		#Include "HackTourIndexGeneration.lkt"
       		#Include < FLUINCLUDE "MainGeneration.lkt" >
+
+	scriboModel forLanguage Catalan
+    	ScriboSchemata
+			#Include "Generation/CatalanGeneration.lkt"
 
 

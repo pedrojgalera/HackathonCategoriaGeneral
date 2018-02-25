@@ -1,0 +1,44 @@
+ktunitTarget 
+{
+    targetTrace 
+    (
+        TargetTraceFile:        "Traces/Spanish/weatherscope.trace"
+        TargetTraceFilter: 
+        {
+            EVAL_EQUAL
+            EVAL_HEAD
+            EVAL_INSIDE
+            EVAL_DEVOID
+            EVAL_PARTIAL
+            EVAL_DIFFERENT
+        }
+        TargetStats:            "Statistics/Spanish/weatherscope.stats"
+    )
+    targetDialogue 
+    (
+        InstanceOperation:      "Fluency"
+        InstanceLanguage:       "Spanish"
+        InstanceInterface:      "Written"
+    )
+    targetScheme 
+    (
+        SchemeGroup:            "hacktour"
+        SchemeUnit:             "NLU"
+        SchemeLabel:            "weatherscope"
+        SchemeDialogueContext:  {}
+        SchemeDialogueActivity: "NLU:scope-weather"
+        SchemeFilterPrefix:     "NLU"
+    )
+    targetCorpus 
+    (
+		¿Cómo está el tiempo?
+		¿Cómo está el día?
+		¿Qué día hace?
+		¿Qué tiempo hace?
+		¿Cómo está el clima?
+		¿Qué clima hace?
+		¿Qué tal el tiempo?
+		¿Cómo está por afuera?
+    )
+}
+

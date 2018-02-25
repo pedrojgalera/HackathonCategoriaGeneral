@@ -22,11 +22,4 @@
 	}
 )
 
-(VenueCategory_Rule02 :
- 	[ Parameter -> VenueSubcategory ]
-	{
-		^.ParameterCategory <- 'terminal';
-		^.ParameterType <- 'venuesubcategory';
-		^.ParameterValue.VenueSubcategory <- #1;
-	}
-)
+

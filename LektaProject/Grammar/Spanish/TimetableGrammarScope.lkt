@@ -1,0 +1,32 @@
+// ****************************************************************************
+//
+//	Grammar for repeat script scope
+//
+// ****************************************************************************
+//
+//	PROJECT	: HackTour
+// 	DOMAIN  : -
+//	MODULE  : Grammar
+//	PACKAGE	: -
+// 	FOLDER  : -
+// 	FILE	: RepeatScriptGrammarScope.lkt
+//
+// ****************************************************************************
+
+(DetailsScope_01 :
+	[ TaskDialogueAct -> TimetableScope ]
+	{
+		^ <- #1;
+	}
+)
+
+(DetailsScope_02 :
+ 	[ TimetableScope -> lexTimetable ]
+	{
+		^.Scope <- 'timetable';
+	}
+)
+
+
+
+

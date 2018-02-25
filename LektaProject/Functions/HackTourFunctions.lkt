@@ -43,9 +43,33 @@ bool executeBackOfficeBooleanFunctionDomainSpecific(string backOfficeFunctionNam
 	{
 	   b <- !! campaignTriggering();
 	}
+	else if( backOfficeFunctionName == 'campaignTriggeringVenue' )
+	{
+	   b <- campaignTriggeringVenue();
+	}
+	else if( backOfficeFunctionName == 'notCampaignTriggeringVenue' )
+	{
+	   b <- !! campaignTriggeringVenue();
+	}
 	else if( backOfficeFunctionName == 'noLastScript' )
 	{
 	   b <- noLastScript();
+	}
+	else if( backOfficeFunctionName == 'not_negotiating_in_the_past' )
+	{
+		return !! negotiatingInThePast();
+	}
+	else if( backOfficeFunctionName == 'negotiating_in_the_past' )
+	{
+		return negotiatingInThePast();
+	}
+	else if( backOfficeFunctionName == 'changedCountryPlace')
+	{
+		return changedCountryPlace();
+	}
+	else if( backOfficeFunctionName == 'notChangedCountryPlace')
+	{
+		return !! changedCountryPlace();
 	}
 
     return b;
@@ -139,17 +163,56 @@ ProferenceChunk convertProferenceToExpectationDomainSpecific(ParameterType typeT
     return ret;
 }
 
+Parameter parameterToLabelHackTour(Parameters parameters)
+{
+	Parameter parameter, ret;
+
+	BatchRecoverPosition(parameters, 1, parameter);
+
+	if(parameter.ParameterType == 'datetime')
+	{
+		DateTime dt <- parameter.ParameterValue.DateTime;
+
+		if(Filled(dt.GeneralTime.NegotiateModifier))
+		{
+			ret.ParameterValue.SignChunk.SignChunkLiteral <- LiteralConcat('negotiate-', ShapeToString(dt.GeneralTime.NegotiateModifier));
+		}
+	}
+	if(parameter.ParameterType == 'venuecategory')
+	{	
+		VenueCategory vc <- parameter.ParameterValue.VenueCategory;
+
+		ret.ParameterValue.SignChunk.SignChunkLiteral <- LiteralConvertLower(LiteralGlobalSubstitution(vc.VenueCategoryName, ' ', ''));
+	}
+	else if(parameter.ParameterType == 'venue')
+	{	
+		Venue ve <- parameter.ParameterValue.Venue;
+
+		ret.ParameterValue.SignChunk.SignChunkLiteral <- LiteralConvertLower(LiteralGlobalSubstitution(ve.VenueId, ' ', ''));
+	}
+	
+	return ret;
+}
+
 Parameter executeBackOfficeFunctionDomainSpecific(string backOfficeFunctionName, Parameters parameters)
 {
     Parameter p;
 
-    if( backOfficeFunctionName == 'get_forecast' )
+	if( backOfficeFunctionName == 'parameter_to_label' )
+	{
+		return parameterToLabelHackTour(parameters);
+	}
+	else if( backOfficeFunctionName == 'get_forecast' )
     {
         return getForecast(parameters);
     }
     else if ( backOfficeFunctionName == 'get_venue_details' )
     {
     	return getVenueDetails(parameters);
+    }
+    else if ( backOfficeFunctionName == 'get_venue_timetable' )
+    {
+        return getVenueTimetable(parameters);
     }
     else if ( backOfficeFunctionName == 'get_suggestions' )
     {
@@ -187,6 +250,10 @@ Parameter executeBackOfficeFunctionDomainSpecific(string backOfficeFunctionName,
         {
         	launchDetailsSearcher();
         }
+		else if(scriptDescriptor == 'TimetableSearcher')
+        {
+        	launchTimetableSearcher();
+        }
         else if(scriptDescriptor == 'CampaignSuggestion')
         {
         	launchCampaignSuggestion();
@@ -212,6 +279,10 @@ Parameter executeBackOfficeFunctionDomainSpecific(string backOfficeFunctionName,
         {
         	updateAfterDetailsSearcher();
         }
+    	else if(scriptDescriptor == 'TimetableSearcher')
+        {
+        	updateAfterTimetableSearcher();
+        }
         else if(scriptDescriptor == 'CampaignSuggestion')
         {
         	updateAfterCampaignSuggestion();
@@ -226,14 +297,43 @@ Parameter executeBackOfficeFunctionDomainSpecific(string backOfficeFunctionName,
     	int r <- Random(1,4);
 
     	// TODO REMOVE
-    	//r <- 4;
+    	r <- 4;
 
     	setMemCounter('random', r);
     }
-	else if(backOfficeFunctionName == 'removeSubcategory')
+	else if(backOfficeFunctionName == 'initialize_category')
     {
-     	setParameterCurrentScript('subcategory', p);
+		p.ParameterValue.VenueCategory <- ( VenueCategoryId : '4deefb944765f83613cdba6e', VenueCategoryName : 'Historic Site', VenueAvailableSubcategories: True );
+		p.ParameterCategory <- 'terminal';
+		p.ParameterType <- 'venuecategory';
+
+     	setParameterCurrentScript('venuecategory', p);
+		setInfoState('6', 'grounded');
     }
+	else if( backOfficeFunctionName == 'negotiate_datetime' )
+	{
+		negotiateDateTime(parameters);
+	}
+	else if( backOfficeFunctionName == 'add_rejected_datetime' )
+	{
+		addRejectedDateTime(parameters);
+	}
+	else if( backOfficeFunctionName == 'add_negotiate_datetime' )
+	{
+		addNegotiateDateTime(parameters);
+	}
+	else if( backOfficeFunctionName == 'clear_datetime' )
+	{
+		clearDateTime();
+	}
+	else if( backOfficeFunctionName == 'test' )
+	{
+		test();
+	}
+	else if( backOfficeFunctionName == 'setDefaultCategoryVenue' )
+	{
+		setDefaultCategoryVenue();
+	}
 
     return p;
 }
@@ -306,17 +406,10 @@ bool canMergeWithSequentialDomainSpecific (Parameter parameter1, Parameter param
     bool ret;
     switch (parameter1.ParameterType)
     {
-
-        /*
-         * //Domain-specific process (default must be True)
-         *
-         * case 'peselnumber'
-         * {
-         * 	ret <- canMergeWithSequentialPeselNumber(parameter1, parameter2);
-         * }
-         *
-         * */
-
+		case 'venue'
+        {
+     		ret <- False;
+        }
         default
         {
             ret <- True;
@@ -412,7 +505,18 @@ ProferenceChunk preprocessParamDetailsDomainSpecific(ParameterDetails details, P
 }
 
 
-bool excludeSensoElement (ProferenceChunk sensoElement) {
+bool excludeSensoElement (ProferenceChunk sensoElement) 
+{
+	if(sensoElement.Parameter.ParameterType == 'countryplace')
+	{
+		string town <- mostConcretePlace(sensoElement.Parameter.ParameterValue.CountryPlace);
+
+		if(town != 'madrid' && town != 'barcelona' && town != 'sevilla' && town != 'ávila' && town != 'córdoba')
+		{
+			return True;
+		}
+	}
+
     return False;
 }
 
@@ -431,6 +535,11 @@ ProferenceChunk processSensoElement (ProferenceChunk sensoElement)
 		cdata.HackTourProfiling.MoneyStatus <- ShapeToInt(lastCharacter);
 		setCustomData(cdata);
 	}
+	if(Filled(p.Parameter.ParameterValue.DateTime.GeneralTime.NegotiateModifier))
+	{
+		p.Parameter.ParameterType <- 'negotiatemodifier';
+	}
+	checkCatalan();
 
     return p;
 }
@@ -450,6 +559,8 @@ procedure settleLights (){
 
 CustomData initializeCustomData()
 {
+	resetMemCounter('cat-counter');
+
     CustomData cdata;
     Dict propFiles;
     cdata.DomainPropFiles <- propFiles;
@@ -466,11 +577,15 @@ CustomData initializeCustomData()
 			string v2 <- ShapeToString(StaticTableRecoverValue(CAMPAIGNPROPPATH, p2));			
 			string p3 <- LiteralConcat('campaign', ShapeToLiteral(i), '-trigger-city');
 			string v3 <- ShapeToString(StaticTableRecoverValue(CAMPAIGNPROPPATH, p3));			
+			string p4 <- LiteralConcat('campaign', ShapeToLiteral(i), '-trigger-venue');
+			string v4 <- ShapeToString(StaticTableRecoverValue(CAMPAIGNPROPPATH, p4));			
 
 			Campaign c;
 			c.CampaignName <- v1;
+			c.CampaignNumber <- i;
 			c.CampaignTriggerMoney <- v2;
 			c.CampaignTriggerCity <- v3;
+			c.CampaignTriggerVenueId <- v4;
 
 			BatchInsertEnd(cdata.HackTourProfiling.Campaigns, c);
 		}
@@ -480,9 +595,12 @@ CustomData initializeCustomData()
 		}
 		i++;
 	}
+	cdata.AllVenues <- getAllVenues();
 	
-    return cdata;
+	return cdata;
 }
+
+
 
 ProferenceChunk preprocessProferenceForPolarQuestionDomainSpecific(ProferenceChunk proference) {
     ProferenceChunk ret <- proference;
@@ -495,3 +613,4 @@ ProferenceChunk preprocessActionDomainDomainSpecific(ProferenceChunk proference,
 
     return ret;
 }
+

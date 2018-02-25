@@ -94,3 +94,20 @@ procedure updateAfterDetailsSearcher()
     SpyMessage("");
     */
 }
+
+procedure updateAfterTimetableSearcher()
+{
+	CustomData cdata <- getCustomData();
+
+	ScriptDescriptor descriptor <- 'TimetableSearcher';
+	BatchInsertEnd(cdata.HackTourProfiling.LastLaunchedScripts, descriptor);
+	$MINDBOARD@CustomData <- cdata;
+
+	// TODO REMOVE
+	/*
+	SpyMessage("");
+	SpyMessage("Updating custom data just after finishing venue timetable script:");
+    SpyMessage(cdata.HackTourProfiling.LastLaunchedScripts);
+    SpyMessage("");
+	*/
+}

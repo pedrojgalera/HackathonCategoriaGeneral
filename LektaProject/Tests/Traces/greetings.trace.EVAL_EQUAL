@@ -1,0 +1,35 @@
+$=======================================================
+$     ApplyLktUnitTarget =>
+$   ******************************
+$        Code .......: hacktour
+$        Block ......: NLU
+$        Descriptor .: greetings
+$   ******************************
+$        Operation ..: Fluency
+$        Language ...: Spanish
+$        Interface ..: Written
+$=======================================================
+$=======================================================
+$        Setup
+$            CorpusFormat:Text
+$=======================================================
+$ =======================================================================
+$        Scheme Filter Prefix Init Model .........: [NLU]
+$        Scheme Filter Prefixes Split Model ......: [[NLU]]
+$        Scheme Dialogue Activity Init Model .....: [NLU:core-social-greeting]
+$        Scheme Dialogue Activity Filtered Model .: [NLU:core-social-greeting]
+$ =======================================================================
+$        Corpus
+$ =======================================================================
+$
+$ ***********************************************************************
+$   Input Sentence:[Hola]
+$
+$        Text Dialogue_Activity .........: [NLU:core-social-greeting]
+$                Evaluation ........: Equal
+$
+$ ***********************************************************************
+$   Input Sentence:[Hola buenos días]
+$
+$        Text Dialogue_Activity .........: [NLU:core-social-greeting|NLU:core-social-greeting]
+$                Evaluation ........: Equal

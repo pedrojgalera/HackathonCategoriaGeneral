@@ -13,6 +13,28 @@
 //
 // ****************************************************************************
 
+procedure setDefaultCategoryVenue()
+{
+	Parameter p;
+	p.ParameterValue.VenueCategory <- ( VenueCategoryId : '4deefb944765f83613cdba6e', VenueCategoryName : 'Historic Site', VenueAvailableSubcategories: True );
+	p.ParameterCategory <- 'terminal';
+	p.ParameterType <- 'venuecategory';
+
+   	setParameterCurrentScript('venuecategory', p);
+	setInfoState('6', 'grounded');
+}
+
+bool changedCountryPlace()
+{
+	DialogueScript script <- getCurrentScript();
+
+	int argumentNumber <- LookForInfoItemParameterType( script, 'countryplace' );
+	ScriptInfoItem scriptInfoItem;
+	BatchRecoverPosition( script.ScriptInfoItems, argumentNumber, scriptInfoItem );
+
+	return scriptInfoItem.InfoItemState == 'captured';	
+}
+
 bool notShownVenue(Venue venue)
 {
 	bool ret <- True;
@@ -60,25 +82,41 @@ procedure GenerateHours(OpeningHours hours)
 {
 	// 1: Monday - 7: Sunday
 	OpeningDays opdas <- hours.OpeningDays;
-	for(int i <- 1; i <= BatchSize(opdas); i++)
+	if(consecutiveDays(opdas) && BatchSize(opdas) > 2)
 	{
-		OpeningDay opda;
-		BatchRecoverPosition(opdas, i, opda);
+		OpeningDay opda1, opda2;
+		BatchRecoverPosition(opdas, 1, opda1);
+		BatchRecoverPosition(opdas, BatchSize(opdas), opda2);
 
-		SetMainAnswer(dayInWeekName(opda));
-		if(i < BatchSize(opdas) - 1)
-		{
-			SetMainAnswer(", ");
+   		GenerateMainAnswer('msg-dow-from');
+		SetMainAnswer(dayInWeekName(opda1));
+		SetMainAnswer(" ");	
+   		GenerateMainAnswer('msg-dow-to');
+		SetMainAnswer(dayInWeekName(opda2));			
+		SetMainAnswer(" ");
+	}
+	else
+	{
+		for(int i <- 1; i <= BatchSize(opdas); i++)
+		{	
+			OpeningDay opda;
+			BatchRecoverPosition(opdas, i, opda);
+
+			SetMainAnswer(dayInWeekName(opda));
+			if(i < BatchSize(opdas) - 1)
+			{
+				SetMainAnswer(", ");
+			}
+			else if(i < BatchSize(opdas))
+        	{
+        		SetMainAnswer(" ");
+        		GenerateMainAnswer('msg-hacktour-and');
+        	}
+        	else
+        	{
+        		SetMainAnswer(" ");
+        	}
 		}
-		else if(i < BatchSize(opdas))
-        {
-        	SetMainAnswer(" ");
-        	GenerateMainAnswer('msg-hacktour-and');
-        }
-        else
-        {
-        	SetMainAnswer(" ");
-        }
 	}
 
 	OpeningFrames opfrs <- hours.OpeningFrames;
@@ -100,13 +138,55 @@ procedure GenerateHours(OpeningHours hours)
 	}
 }
 
+bool consecutiveDays(OpeningDays opdas)
+{
+	bool ret <- True;
+
+	OpeningDay currentOpda;
+	BatchRecoverPosition(opdas, 1, currentOpda);
+
+	for(int i <- 2; i <= BatchSize(opdas); i++)
+	{
+		OpeningDay opda;
+		BatchRecoverPosition(opdas, i, opda);
+
+		if(currentOpda + 1 != opda)
+		{
+			ret <- False;
+		}
+		currentOpda <- opda;
+	}
+
+	return ret;
+}
+
 procedure GenerateOpeningFrame(OpeningFrame opfr)
 {
-	GenerateMainAnswer('msg-forecast-from');
+	GenerateMainAnswer('msg-hours-from');
 	OpeningStart os <- opfr.OpeningStart;
-	SetMainAnswer(SubLiteral(os, 1, 2));
+	SetMainAnswer(GenerateHour(SubLiteral(os, 1, 2)));
 	SetMainAnswer(" ");
-	GenerateMainAnswer('msg-forecast-to');
+	GenerateMainAnswer('msg-hours-to');
 	OpeningEnd oe <- opfr.OpeningEnd;
-	SetMainAnswer(SubLiteral(oe, 1, 2));
+	SetMainAnswer(GenerateHour(SubLiteral(oe, 1, 2)));
 }
+
+string GenerateHour(string hh)
+{
+	int h <- ShapeToInt(hh);
+	string ret <- ShapeToLiteral(h);
+
+	if(h < 12)
+	{
+		ret <- LiteralConcat(ret, ' ', getPropLang('msg-morning-hour'));
+	}
+	else if(h > 12)
+	{
+		h <- h - 12;
+		ret <- ShapeToLiteral(h);
+		ret <- LiteralConcat(ret, ' ', getPropLang('msg-afternoon-hour'));
+	}
+
+	return ret;
+}
+

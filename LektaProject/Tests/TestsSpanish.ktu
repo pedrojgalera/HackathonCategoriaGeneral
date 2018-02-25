@@ -1,0 +1,32 @@
+LaunchLektaKernel() // Mandatory
+
+
+// Telling ktunit the what to work with
+
+    UseProject 
+    (
+        ProjectCompile    : "../Deployment/HackTour.olk"
+        TemporalFolder    : "../.tmp"
+    )
+
+#Include "HacktourTests-Spanish.ktu"
+
+// Ranking and Summary configutation
+
+    ktunitSummary 
+    {
+        summaryRaking 
+        (
+            RankingSchemeGroup
+            //RankingImpactFactor
+            //RankingCorpusSize
+            //RankingPrecisionLevel
+        )
+
+        summaryStats 
+        (
+            EvalGlobalResult:   "Summary/testing.result"
+            EvalGlobalAbstract: "Summary/testing.abstract"
+        )
+    }
+

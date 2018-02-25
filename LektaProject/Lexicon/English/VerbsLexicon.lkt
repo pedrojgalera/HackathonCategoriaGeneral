@@ -15,3 +15,8 @@
 
 &VERB_REGULAR_TYPE_1(visit)
 
+
+("seville", lexCountryPlace, ( CountryName : 'spain', CountryZone : 'sur', CountryRegion : 'andalucía', CountryProvince : 'sevilla', CountryTown : 'sevilla' ))
+("cordoba",	 	lexCountryPlace, ( CountryName : 'spain', CountryZone : 'sur', CountryRegion : 'andalucía', CountryProvince : 'córdoba', CountryTown : 'córdoba' ))
+("avila",	 	lexCountryPlace, ( CountryName : 'spain', CountryZone : 'centro (es)', CountryRegion : 'castilla y león', CountryProvince : 'ávila', CountryTown : 'ávila' ))
+("Ávila",	 	lexCountryPlace, ( CountryName : 'spain', CountryZone : 'centro (es)', CountryRegion : 'castilla y león', CountryProvince : 'ávila', CountryTown : 'ávila' ))
